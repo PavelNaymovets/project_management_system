@@ -14,8 +14,8 @@
 
 ## Решение задачи
 
-Создан docker-compose файл в папке _./docker-compose_ в корне проекта. Ссылка _[тут]()_.
-Также создан dockerfile в папке _./docker-compose/app_ для создания образа проекта. Ссылка _[тут]()_.
+Создан _docker-compose_ файл в папке _./docker-compose_ в корне проекта. Ссылка _[тут](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/docker-compose.yml)_.
+Также создан _dockerfile_ в папке _./docker-compose/app_ для создания образа проекта. Ссылка _[тут](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/app/Dockerfile)_.
 
 ## Слествие
 
