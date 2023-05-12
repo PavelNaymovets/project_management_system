@@ -33,7 +33,7 @@
 И 3 папок:
 * _./dock/adr_ - содержит файлы с краткими записями решениий задач, а также архитектурных решений, принятых в проекте. 
 Файлы имеют последовательную нумерацию и определенную структуру. Ссылка _[тут](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/adr)_.
-* _./doc/arch_ - содержит скрины диаграмм общей архитектуры проекта. Ссылка _[тут]()_.
+* _./doc/arch_ - содержит скрины диаграмм общей архитектуры проекта. Ссылка _[тут](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/arch)_.
 * _./docker-compose_ - содержит файл, чтобы создать окружение для разработки, демонстрации и тестирования. Ссылка _[тут](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/docker-compose.yml)_.
 * _./docker-compose/app_ - содержит файл, для создания образа программы. Ссылка _[тут](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/app/Dockerfile)_.
 * _./flyway_ - содержит файлы инициализации структуры базы данных. Ссылка _[тут](https://github.com/PavelNaymovets/project_management_system/blob/develop/flyway/V1__init.sql)_. 
