@@ -40,3 +40,4 @@
 
 Каждый модуль содержит папку `!**/doc/arch` с 1 диаграммой, поясняющей принцип работы конкретного модуля (микросервиса).
 ### Архитектура:
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/use-case/use%20case%20diagram.png)
