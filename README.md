@@ -65,6 +65,6 @@
 #### Deployment diagram
 
 Отображено развертывание основных элементов программы на сервере. В качестве сервера выступает мой рабочий компьютер.
-Пояснение по диаграмме: _х5_ значит 5 контейнеров. Количество контейнеров = количество модулей в _[программе](https://github.com/PavelNaymovets/project_management_system/tree/develop#%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0)_.
+Пояснение по диаграмме: `х5` значит 5 контейнеров. Количество контейнеров = количество модулей в _[программе](https://github.com/PavelNaymovets/project_management_system/tree/develop#%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0)_.
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/deployment/deployment%20diagram.png)
