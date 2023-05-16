@@ -58,12 +58,12 @@
 
 #### Container diagram
 
-Отображены основные элементы программы и их взаимодействие между собой
+Отображены основные элементы программы и их взаимодействие между собой.
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/container/container%20diagram.png)
 
 #### Deployment diagram
 
-Отображено развертывание основных элементов программы на сервере
+Отображено развертывание основных элементов программы на сервере.
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/deployment/deployment%20diagram.png)
