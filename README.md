@@ -61,7 +61,7 @@
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/container/container%20diagram.png)
 
-Отображены контроллеры, которые поясняют основную функциональность программы более детально.
+Дополнительно отображены контроллеры, которые поясняют основную функциональность программы более детально.
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/container/controllers%20diagram.png)
 

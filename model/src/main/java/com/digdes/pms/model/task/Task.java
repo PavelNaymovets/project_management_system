@@ -1,9 +1,11 @@
 package com.digdes.pms.model.task;
 
 import com.digdes.pms.model.employee.Employee;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
 public class Task {
     private Long id;
     private String name;
