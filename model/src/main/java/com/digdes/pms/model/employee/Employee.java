@@ -1,11 +1,14 @@
 package com.digdes.pms.model.employee;
 
+import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-public class Employee {
+@Builder
+public class Employee implements Serializable {
     private Long id;
     private String name;
     private String lastName;
