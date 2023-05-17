@@ -31,8 +31,8 @@ public class DemoApp {
         System.out.println(employeeService.findAll());
 
         //Удаление сотрудника
-        System.out.println(employeeService.deleteById(1L));
-        System.out.println(employeeService.findAll());
+//        System.out.println(employeeService.deleteById(1L));
+//        System.out.println(employeeService.findAll());
 
     }
 }
