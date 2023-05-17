@@ -1,0 +1,31 @@
+<mxfile host="app.diagrams.net" modified="2023-05-17T11:16:10.999Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="kvK2Sls2TkZfln1g2ceN" version="21.3.2" type="device">
+  <diagram name="Страница 1" id="dSRZzsoqX2EbGWk2I_mc">
+    <mxGraphModel dx="107" dy="515" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="doJESSLGYoo1eNuSiyiQ-1" value="" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="896" y="30" width="690" height="350" as="geometry" />
+        </mxCell>
+        <mxCell id="doJESSLGYoo1eNuSiyiQ-2" value="&lt;font style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Controllers&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1117" y="30" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="doJESSLGYoo1eNuSiyiQ-3" value="&lt;b&gt;auth&lt;/b&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;font color=&quot;#b3b3b3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;br&gt;Checking the expiration token. Generation token.&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="925" y="60" width="185" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="doJESSLGYoo1eNuSiyiQ-4" value="&lt;b&gt;employee&lt;/b&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;font color=&quot;#b3b3b3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;br&gt;Registration user.&amp;nbsp;&lt;/font&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Create, update, delete, find user by first name, last name, midle name, email, active status, find an activity profile by id.&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1149" y="60" width="185" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="doJESSLGYoo1eNuSiyiQ-5" value="&lt;b&gt;project&lt;/b&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;font color=&quot;#b3b3b3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;br&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Create, update, delete, find a project&lt;br&gt;&amp;nbsp;by name, code and project`s filter (status). Change project status (draft, in developing, in testing, done).&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1375" y="60" width="185" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="doJESSLGYoo1eNuSiyiQ-6" value="&lt;b&gt;team&lt;/b&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;font color=&quot;#b3b3b3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;br&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Add, delete a project member. Find all project members.&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="925" y="225" width="185" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="doJESSLGYoo1eNuSiyiQ-7" value="&lt;b&gt;task&lt;/b&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;font color=&quot;#b3b3b3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;br&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Create, update, delete, find a task/tasks by name and any task`s filter (status, executor, author, expiration date, creation date). Change task status (new, in progress, done, closed).&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1149.5" y="225" width="185" height="130" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

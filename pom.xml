@@ -10,12 +10,11 @@
     <version>${revision}${changelist}</version>
 
     <modules>
-        <module>auth-service</module>
-        <module>employee-service</module>
-        <module>project-service</module>
-        <module>task-service</module>
-        <module>team-service</module>
         <module>api</module>
+        <module>model</module>
+        <module>service</module>
+        <module>controller</module>
+        <module>repository</module>
     </modules>
 
     <properties>
