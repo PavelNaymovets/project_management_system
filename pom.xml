@@ -15,6 +15,7 @@
         <module>project-service</module>
         <module>task-service</module>
         <module>team-service</module>
+        <module>api</module>
     </modules>
 
     <properties>
