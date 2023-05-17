@@ -36,7 +36,7 @@
 * _[./doc/arch](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/arch)_ - содержит скрины диаграмм общей архитектуры проекта
 * _[./docker-compose](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/docker-compose.yml)_ - содержит файл, чтобы создать окружение для разработки, демонстрации и тестирования
 * _[./docker-compose/app](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/app/Dockerfile)_ - содержит файл, для создания образа программы
-* _[./flyway](https://github.com/PavelNaymovets/project_management_system/blob/develop/flyway/V1__init.sql)_ - содержит файлы инициализации структуры базы данных
+* _[./liquibase](https://github.com/PavelNaymovets/project_management_system/tree/develop/liquibase)_ - содержит файлы инициализации структуры базы данных
 
 ### Архитектура:
 Для описания архитектуры программы применены 4 диаграммы (2 UML, 2 C4).
@@ -61,12 +61,15 @@
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/container/container%20diagram.png)
 
-Отображены контроллеры, которые поясняют основную функциональность программы более детально:
-* _./auth_ - аутентификация пользователя в системе
-* _./employee_ - управление сотрудниками компании
-* _./project_ - управление проектами и их жизненным циклом
-* _./task_ - управление задачами внутри проекта и их жизненным циклом
-* _./team_ - управление командами внутри проекта
+Отображены контроллеры, которые поясняют основную функциональность программы более детально.
+
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/container/controllers%20diagram.png)
+
+* _auth_ - аутентификация пользователя в системе
+* _employee_ - управление сотрудниками компании
+* _project_ - управление проектами и их жизненным циклом
+* _task_ - управление задачами внутри проекта и их жизненным циклом
+* _team_ - управление командами внутри проекта
 
 #### Deployment diagram
 
