@@ -4,7 +4,7 @@ import com.digdes.pms.api.dto.employee.EmployeeDto;
 import com.digdes.pms.service.employee.sevice.EmployeeService;
 import com.digdes.pms.service.employee.sevice.EmployeeServiceImpl;
 
-public class DemoApp {
+public class DemoAppHomeWork3 {
     public static void main(String[] args) {
         EmployeeService employeeService = new EmployeeServiceImpl();
 

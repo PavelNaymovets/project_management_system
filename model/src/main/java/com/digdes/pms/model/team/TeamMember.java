@@ -10,6 +10,7 @@ public class TeamMember {
     private Long id;
     private Employee member;
     private String role;
+    private Team team;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

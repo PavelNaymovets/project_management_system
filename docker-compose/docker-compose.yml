@@ -2,31 +2,12 @@ version: '3'
 
 services:
 
-  postgres:
+  database:
     image: postgres
-    domainname: postgres
     ports:
       - "5433:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=project-db
-      - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - ./imports/db/:/docker-entrypoint-initdb.d/
-    healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
-      interval: 5s
-      timeout: 1s
-      retries: 2
-
-  flyway:
-    image: boxfuse/flyway
-    command: -url=jdbc:postgresql://postgres:5432/postgres -schemas=public -user=postgres -password=postgres -connectRetries=30 migrate
-    volumes:
-      - ./flyway:/flyway/sql
-    depends_on:
-      - postgres
-
-  pg-system:
-    build: ./app

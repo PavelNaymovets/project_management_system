@@ -1,6 +1,7 @@
 package com.digdes.pms.model.task;
 
 import com.digdes.pms.model.employee.Employee;
+import com.digdes.pms.model.project.Project;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ public class Task {
     private Long id;
     private String name;
     private String description;
+    private Project project;
     private Employee employee;
     private Long laborCosts;
     private LocalDateTime deadline;
