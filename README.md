@@ -83,6 +83,6 @@
 #### Physical model
 
 Отображена структура основных таблицы в которых хранятся данные из программы и связи между этими таблицами.
-Посмотреть краткое описание таблиц и их атрибутов можно _[тут]()_.
+Посмотреть краткое описание таблиц и их атрибутов можно _[тут](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/SCHEME.md)_.
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/physical%20diagram.png)
