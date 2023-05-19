@@ -1,7 +1,7 @@
 create table employee
 (
     id              bigserial primary key,
-    personal_number bigint    not null unique,
+    personal_number text    not null unique,
     last_name       text      not null,
     first_name      text      not null,
     middle_name     text,
@@ -32,7 +32,7 @@ create table task
     project_id  bigint    not null references project (id),
     employee_id bigint    references employee (id),
     labor_cost  bigint    not null,
-    dead_line   timestamp not null,
+    dead_line   date      not null,
     status      text      not null,
     author_id   bigint    not null references employee (id),
     created_at  timestamp default current_timestamp,
