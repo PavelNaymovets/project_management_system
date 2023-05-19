@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 public class Employee implements Serializable {
     private Long id;
     private String personalNumber;
-    private String name;
     private String lastName;
+    private String firstName;
     private String middleName;
     private String position;
     private String login;
