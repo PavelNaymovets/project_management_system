@@ -13,29 +13,30 @@ public class DemoApp {
                 .code(85947321L)
                 .name("тестовый проект")
                 .description("тестовое описание")
+                .status("в работе")
                 .build();
 
         //Создание проекта
-        projectService.create(projectDto);
+//        projectService.create(projectDto);
 
         //Обновление проекта
-        projectDto.setId(10L);
-        projectDto.setName("Новое");
-        projectService.update(projectDto);
+//        projectDto.setId(14L);
+//        projectDto.setName("Новое");
+//        projectService.update(projectDto);
 
         //Поиск по id
-        System.out.println(projectService.findById(1L));
+//        System.out.println(projectService.findById(1L));
 
         //Поиск всех записей
-        System.out.println(projectService.findAll());
+//        System.out.println(projectService.findAll());
 
         //Удаление записи по id
-        projectService.deleteById(10L);
+//        projectService.deleteById(14L);
 
         //Поиск по фильтру
-        ProjectFilter projectFilter = new ProjectFilter();
-        projectFilter.setLastName("Прохорова");
-        projectFilter.setRole("аналитик");
-        System.out.println(projectService.searchByFilter(projectFilter));
+//        ProjectFilter projectFilter = new ProjectFilter();
+//        projectFilter.setLastName("Прохорова");
+//        projectFilter.setRole("аналитик");
+//        System.out.println(projectService.searchByFilter(projectFilter));
     }
 }
