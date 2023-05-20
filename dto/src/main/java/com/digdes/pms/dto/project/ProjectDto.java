@@ -1,4 +1,4 @@
-package com.digdes.pms.api.dto.project;
+package com.digdes.pms.dto.project;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.digdes.pms.api.dto.team;
+package com.digdes.pms.dto.team;
 
-import com.digdes.pms.api.dto.project.ProjectDto;
+import com.digdes.pms.dto.project.ProjectDto;
 import lombok.Data;
 
 import java.util.List;

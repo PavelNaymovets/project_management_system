@@ -1,9 +1,10 @@
 package com.digdes.pms.service.project.service;
 
-import com.digdes.pms.api.dto.project.ProjectDto;
+import com.digdes.pms.dto.project.ProjectDto;
 import com.digdes.pms.model.project.Project;
 import com.digdes.pms.repository.project.ProjectDao;
 import com.digdes.pms.repository.project.ProjectRepository;
+import com.digdes.pms.repository.project.util.filter.ProjectFilter;
 import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.project.converter.ProjectConverterImpl;
 
@@ -27,21 +28,34 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public boolean update(ProjectDto projectDto) {
-        return false;
+        Project project = projectConverter.convertToEntity(projectDto);
+
+        return projectRepository.update(project);
     }
 
     @Override
     public ProjectDto findById(Long id) {
-        return null;
+        Project project = projectRepository.findById(id);
+
+        return projectConverter.convertToDto(project);
     }
 
     @Override
     public List<ProjectDto> findAll() {
-        return null;
+        return projectRepository.findAll().stream()
+                .map(projectConverter::convertToDto)
+                .toList();
     }
 
     @Override
     public boolean deleteById(Long id) {
-        return false;
+        return projectRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ProjectDto> searchByFilter(ProjectFilter filter) {
+        return projectRepository.searchByFilter(filter).stream()
+                .map(projectConverter::convertToDto)
+                .toList();
     }
 }

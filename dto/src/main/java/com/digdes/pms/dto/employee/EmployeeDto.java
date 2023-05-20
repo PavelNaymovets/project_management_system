@@ -1,4 +1,4 @@
-package com.digdes.pms.api.dto.employee;
+package com.digdes.pms.dto.employee;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,8 +7,9 @@ import lombok.Data;
 @Builder
 public class EmployeeDto {
     private Long id;
-    private String name;
+    private String personalNumber;
     private String lastName;
+    private String firstName;
     private String middleName;
     private String position;
     private String email;

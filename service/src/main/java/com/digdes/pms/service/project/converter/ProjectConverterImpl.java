@@ -1,28 +1,28 @@
 package com.digdes.pms.service.project.converter;
 
-import com.digdes.pms.api.dto.project.ProjectDto;
+import com.digdes.pms.dto.project.ProjectDto;
 import com.digdes.pms.model.project.Project;
 
 public class ProjectConverterImpl implements ProjectConverter{
     @Override
-    public Project convertToEntity(ProjectDto employeeDto) {
+    public Project convertToEntity(ProjectDto projectDto) {
         return Project.builder()
-                .id(employeeDto.getId())
-                .code(employeeDto.getCode())
-                .name(employeeDto.getName())
-                .description(employeeDto.getDescription())
-                .status(employeeDto.getStatus())
+                .id(projectDto.getId())
+                .code(projectDto.getCode())
+                .name(projectDto.getName())
+                .description(projectDto.getDescription())
+                .status(projectDto.getStatus())
                 .build();
     }
 
     @Override
-    public ProjectDto convertToDto(Project employee) {
+    public ProjectDto convertToDto(Project project) {
         return ProjectDto.builder()
-                .id(employee.getId())
-                .code(employee.getCode())
-                .name(employee.getName())
-                .description(employee.getDescription())
-                .status(employee.getStatus())
+                .id(project.getId())
+                .code(project.getCode())
+                .name(project.getName())
+                .description(project.getDescription())
+                .status(project.getStatus())
                 .build();
     }
 }

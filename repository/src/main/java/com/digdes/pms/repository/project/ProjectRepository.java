@@ -16,5 +16,5 @@ public interface ProjectRepository {
 
     boolean deleteById(Long id);
 
-    Project searchByFilter(ProjectFilter filter);
+    List<Project> searchByFilter(ProjectFilter filter);
 }
