@@ -25,7 +25,7 @@ public class DemoApp {
 //        projectService.update(projectDto);
 
         //Поиск по id
-//        System.out.println(projectService.findById(1L));
+        System.out.println(projectService.findById(1L));
 
         //Поиск всех записей
 //        System.out.println(projectService.findAll());

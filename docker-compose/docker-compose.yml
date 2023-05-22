@@ -2,9 +2,8 @@ version: '3'
 
 services:
 
-  postgres:
+  database:
     image: postgres
-    domainname: postgres
     ports:
       - "5433:5432"
     environment:
@@ -12,12 +11,3 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - ./imports/db/:/docker-entrypoint-initdb.d/
-
-  liquibase:
-    image: liquibase/liquibase
-    command: --url=jdbc:postgresql://lobo-db:5432/postgres?user=postgres&password=postgres --changeLogFile=changelog-master.xml update
-    volumes:
-        - ./liquibase/config/changelog-master.xml:/liquibase/changelog-master.xml
-        - ./liquibase/scripts:/liquibase/scripts
-    depends_on:
-      - postgres
