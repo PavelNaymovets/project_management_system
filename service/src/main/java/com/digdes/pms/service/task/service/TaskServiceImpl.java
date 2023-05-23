@@ -1,36 +1,134 @@
 package com.digdes.pms.service.task.service;
 
-import com.digdes.pms.dto.project.ProjectDto;
+import com.digdes.pms.dto.task.TaskDto;
+import com.digdes.pms.model.employee.Employee;
+import com.digdes.pms.model.task.Task;
+import com.digdes.pms.repository.employee.EmployeeRepository;
+import com.digdes.pms.repository.task.TaskRepository;
+import com.digdes.pms.repository.task.specification.TaskSpecification;
+import com.digdes.pms.service.employee.converter.EmployeeConverter;
+import com.digdes.pms.service.project.converter.ProjectConverter;
+import com.digdes.pms.service.task.converter.TaskConverter;
+import com.digdes.pms.service.task.filter.TaskFilter;
+import com.digdes.pms.service.validator.TaskValidator;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
-
+    private final EmployeeRepository employeeRepository;
+    private final EmployeeConverter employeeConverter;
+    private final ProjectConverter projectConverter;
+    private final TaskRepository taskRepository;
+    private final TaskConverter taskConverter;
+    private final TaskValidator taskValidator;
 
     @Override
-    public boolean create(ProjectDto projectDto) {
-        return false;
+    public TaskDto create(TaskDto taskDto) {
+        //TODO добавить функционал автоматического добавления автора задачи(дз_5)
+        taskValidator.validate(taskDto);
+        taskDto.setStatus("новая");
+        Task task = taskConverter.convertToEntity(taskDto);
+        Task createdTask = taskRepository.save(task);
+
+        return taskConverter.convertToDto(createdTask);
     }
 
     @Override
-    public boolean update(ProjectDto projectDto) {
-        return false;
+    public TaskDto update(TaskDto taskDto) {
+        //TODO добавить функционал автоматического изменения автора задачи(дз_5)
+        Task task = taskRepository.findById(taskDto.getId()).get();
+        checkUpdatableFields(taskDto, task);
+        Task updatedTask = taskRepository.save(task);
+
+        return taskConverter.convertToDto(updatedTask);
     }
 
     @Override
-    public ProjectDto findById(Long id) {
-        return null;
+    public TaskDto findById(Long id) {
+        Task task = taskRepository.findById(id).get();
+
+        return taskConverter.convertToDto(task);
     }
 
     @Override
-    public List<ProjectDto> findAll() {
-        return null;
+    public List<TaskDto> findAll() {
+        List<Task> list = taskRepository.findAll();
+
+        return list.stream()
+                .map(taskConverter::convertToDto)
+                .toList();
     }
 
     @Override
-    public boolean deleteById(Long id) {
-        return false;
+    public TaskDto deleteById(Long id) {
+        Task deletedTask = taskRepository.findById(id).get();
+        taskRepository.deleteById(id);
+
+        return taskConverter.convertToDto(deletedTask);
+    }
+
+    @Transactional
+    @Override
+    public void updateStatus(Long id, String status) {
+        Task task = taskRepository.findById(id).get();
+        task.setStatus(status);
+    }
+
+    @Override
+    public List<Task> findAllByFilter(TaskFilter filter) {
+        Specification<Task> spec = Specification.where(null);
+
+        if(!ObjectUtils.isEmpty(filter.getName())) {
+            spec = spec.and(TaskSpecification.nameLike(filter.getName()));
+        }
+
+        if(!ObjectUtils.isEmpty(filter.getStatus())) {
+            spec = spec.and(TaskSpecification.statusLike(filter.getStatus()));
+        }
+
+        if(!ObjectUtils.isEmpty(filter.getEmployee())) {
+            Long id = filter.getEmployee().getId();
+            spec = spec.and(TaskSpecification.employeeIdEqual(id));
+        }
+
+        if(!ObjectUtils.isEmpty(filter.getAuthor())) {
+            Long id = filter.getAuthor().getId();
+            spec = spec.and(TaskSpecification.authorIdEqual(id));
+        }
+
+        if(!ObjectUtils.isEmpty(filter.getDeadline())) {
+            spec = spec.and(TaskSpecification.deadlineLessThan(filter.getDeadline()));
+        }
+
+        return taskRepository.findAll(spec, Sort.by("createdAt").descending());
+    }
+
+    private void checkUpdatableFields(TaskDto taskDto, Task task) {
+        if (taskDto.getName() != null)
+            task.setName(taskDto.getName());
+
+        if (taskDto.getDescription() != null)
+            task.setDescription(taskDto.getDescription());
+
+        if (taskDto.getProject() != null)
+            task.setProject(projectConverter.convertToEntity(taskDto.getProject()));
+
+        if (taskDto.getEmployee() != null)
+            task.setEmployee(employeeConverter.convertToEntity(taskDto.getEmployee()));
+
+        if (taskDto.getLaborCosts() != null)
+            task.setLaborCosts(taskDto.getLaborCosts());
+
+        if (taskDto.getDeadline() != null)
+            task.setDeadline(taskDto.getDeadline());
     }
 }

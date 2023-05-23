@@ -1,17 +1,21 @@
 package com.digdes.pms.service.task.service;
 
-import com.digdes.pms.dto.project.ProjectDto;
+import com.digdes.pms.dto.task.TaskDto;
+import com.digdes.pms.model.task.Task;
+import com.digdes.pms.service.task.filter.TaskFilter;
 
 import java.util.List;
 
 public interface TaskService {
-    boolean create(ProjectDto projectDto);
+    TaskDto create(TaskDto taskDto);
 
-    boolean update(ProjectDto projectDto);
+    TaskDto update(TaskDto taskDto);
 
-    ProjectDto findById(Long id);
+    TaskDto findById(Long id);
 
-    List<ProjectDto> findAll();
+    List<TaskDto> findAll();
 
-    boolean deleteById(Long id);
+    TaskDto deleteById(Long id);
+    void updateStatus(Long id, String status);
+    List<Task> findAllByFilter(TaskFilter filter);
 }

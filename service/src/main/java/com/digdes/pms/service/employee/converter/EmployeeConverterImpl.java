@@ -2,7 +2,9 @@ package com.digdes.pms.service.employee.converter;
 
 import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.model.employee.Employee;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmployeeConverterImpl implements EmployeeConverter {
     @Override
     public Employee convertToEntity(EmployeeDto employeeDto) {
