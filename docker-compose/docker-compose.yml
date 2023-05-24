@@ -1,32 +1,32 @@
-version: '3'
+version: '3.9'
 
 services:
 
-  postgres:
+  psvm-postgres:
+    container_name: postgres
     image: postgres
-    domainname: postgres
     ports:
       - "5433:5432"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=project-db
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    volumes:
-      - ./imports/db/:/docker-entrypoint-initdb.d/
-    healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
-      interval: 5s
-      timeout: 1s
-      retries: 2
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - psvm-net
 
-  flyway:
-    image: boxfuse/flyway
-    command: -url=jdbc:postgresql://postgres:5432/postgres -schemas=public -user=postgres -password=postgres -connectRetries=30 migrate
+  psvm-liquibase:
+    container_name: liquibase
+    image: liquibase/liquibase
+    command:
+      - update
+      - --url=jdbc:postgresql://psvm-postgres:5432/postgres?user=postgres&password=postgres
+      - --changeLogFile=changelog.xml
     volumes:
-      - ./flyway:/flyway/sql
+      - ./liquibase/config/changelog.xml:/liquibase/changelog.xml
+      - ./liquibase/scripts:/liquibase/scripts
+    networks:
+      - psvm-net
     depends_on:
-      - postgres
+      - psvm-postgres
 
-  pg-system:
-    build: ./app
+networks:
+  psvm-net:

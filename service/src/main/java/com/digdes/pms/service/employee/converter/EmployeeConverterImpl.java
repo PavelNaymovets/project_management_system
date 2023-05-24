@@ -1,15 +1,18 @@
 package com.digdes.pms.service.employee.converter;
 
-import com.digdes.pms.api.dto.employee.EmployeeDto;
+import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.model.employee.Employee;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmployeeConverterImpl implements EmployeeConverter {
     @Override
     public Employee convertToEntity(EmployeeDto employeeDto) {
         return Employee.builder()
                 .id(employeeDto.getId())
-                .name(employeeDto.getName())
+                .personalNumber(employeeDto.getPersonalNumber())
                 .lastName(employeeDto.getLastName())
+                .firstName(employeeDto.getFirstName())
                 .middleName(employeeDto.getMiddleName())
                 .position(employeeDto.getPosition())
                 .email(employeeDto.getEmail())
@@ -20,8 +23,9 @@ public class EmployeeConverterImpl implements EmployeeConverter {
     public EmployeeDto convertToDto(Employee employee) {
         return EmployeeDto.builder()
                 .id(employee.getId())
-                .name(employee.getName())
+                .personalNumber(employee.getPersonalNumber())
                 .lastName(employee.getLastName())
+                .firstName(employee.getFirstName())
                 .middleName(employee.getMiddleName())
                 .position(employee.getPosition())
                 .email(employee.getEmail())
