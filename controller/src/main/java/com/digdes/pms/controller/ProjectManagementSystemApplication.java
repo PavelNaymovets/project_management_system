@@ -38,7 +38,7 @@ public class ProjectManagementSystemApplication implements CommandLineRunner {
                 .build();
 
         EmployeeDto employeeDto = EmployeeDto.builder()
-                .id(1L)
+                .id(3L)
                 .personalNumber("384f508c-3016-3bf1-9334-6ccc1ca21c36")
                 .lastName("Прохорова")
                 .firstName("Инна")
@@ -79,9 +79,12 @@ public class ProjectManagementSystemApplication implements CommandLineRunner {
         TaskFilter filter = new TaskFilter();
 //        filter.setName("New task");
 //        filter.setStatus("несуществующий");
-//        filter.setDeadline(LocalDateTime.now());
-        filter.setEmployee(employeeDto);
-        filter.setAuthor(employeeDto);
+//        filter.setDeadlineMin(LocalDateTime.now());
+//        filter.setDeadlineMax(LocalDateTime.now());
+//        filter.setCreatedAtMin(LocalDateTime.now());
+//        filter.setCreatedAtMax(LocalDateTime.now());
+//        filter.setEmployee(employeeDto);
+//        filter.setAuthor(employeeDto);
         System.out.println(taskService.findAllByFilter(filter));
 
         //update status task

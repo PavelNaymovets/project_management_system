@@ -11,5 +11,8 @@ public class TaskFilter {
     String status;
     EmployeeDto employee;
     EmployeeDto author;
-    LocalDateTime deadline;
+    LocalDateTime deadlineMin;
+    LocalDateTime deadlineMax;
+    LocalDateTime createdAtMin;
+    LocalDateTime createdAtMax;
 }

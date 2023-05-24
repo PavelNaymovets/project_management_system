@@ -1,7 +1,6 @@
 package com.digdes.pms.service.task.service;
 
 import com.digdes.pms.dto.task.TaskDto;
-import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.task.Task;
 import com.digdes.pms.repository.employee.EmployeeRepository;
 import com.digdes.pms.repository.task.TaskRepository;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -100,35 +98,53 @@ public class TaskServiceImpl implements TaskService {
             spec = spec.and(TaskSpecification.employeeIdEqual(id));
         }
 
-        if(!ObjectUtils.isEmpty(filter.getAuthor())) {
+        if (!ObjectUtils.isEmpty(filter.getAuthor())) {
             Long id = filter.getAuthor().getId();
             spec = spec.and(TaskSpecification.authorIdEqual(id));
         }
 
-        if(!ObjectUtils.isEmpty(filter.getDeadline())) {
-            spec = spec.and(TaskSpecification.deadlineLessThan(filter.getDeadline()));
+        if (!ObjectUtils.isEmpty(filter.getDeadlineMin())) {
+            spec = spec.and(TaskSpecification.deadlineMin(filter.getDeadlineMin()));
+        }
+
+        if (!ObjectUtils.isEmpty(filter.getDeadlineMax())) {
+            spec = spec.and(TaskSpecification.deadlineMax(filter.getDeadlineMax()));
+        }
+
+        if (!ObjectUtils.isEmpty(filter.getCreatedAtMin())) {
+            spec = spec.and(TaskSpecification.createdAtMin(filter.getCreatedAtMin()));
+        }
+
+        if (!ObjectUtils.isEmpty(filter.getCreatedAtMax())) {
+            spec = spec.and(TaskSpecification.createdAtMax(filter.getCreatedAtMax()));
         }
 
         return taskRepository.findAll(spec, Sort.by("createdAt").descending());
     }
 
     private void checkUpdatableFields(TaskDto taskDto, Task task) {
-        if (taskDto.getName() != null)
+        if (taskDto.getName() != null) {
             task.setName(taskDto.getName());
+        }
 
-        if (taskDto.getDescription() != null)
+        if (taskDto.getDescription() != null) {
             task.setDescription(taskDto.getDescription());
+        }
 
-        if (taskDto.getProject() != null)
+        if (taskDto.getProject() != null) {
             task.setProject(projectConverter.convertToEntity(taskDto.getProject()));
+        }
 
-        if (taskDto.getEmployee() != null)
+        if (taskDto.getEmployee() != null) {
             task.setEmployee(employeeConverter.convertToEntity(taskDto.getEmployee()));
+        }
 
-        if (taskDto.getLaborCosts() != null)
+        if (taskDto.getLaborCosts() != null) {
             task.setLaborCosts(taskDto.getLaborCosts());
+        }
 
-        if (taskDto.getDeadline() != null)
+        if (taskDto.getDeadline() != null) {
             task.setDeadline(taskDto.getDeadline());
+        }
     }
 }
