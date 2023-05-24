@@ -5,7 +5,7 @@ import com.digdes.pms.dto.project.ProjectDto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -16,7 +16,7 @@ public class TaskDto {
     private ProjectDto project;
     private EmployeeDto employee;
     private Long laborCosts;
-    private LocalDateTime deadline;
+    private LocalDate deadline;
     private String status;
     private EmployeeDto author;
 }

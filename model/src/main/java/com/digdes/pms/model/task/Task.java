@@ -2,14 +2,20 @@ package com.digdes.pms.model.task;
 
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.project.Project;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -43,7 +49,7 @@ public class Task {
     private Long laborCosts;
 
     @Column(name = "dead_line")
-    private LocalDateTime deadline;
+    private LocalDate deadline;
 
     @Column(name = "status")
     private String status;

@@ -123,11 +123,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     private void checkUpdatableFields(TaskDto taskDto, Task task) {
-        if (taskDto.getName() != null) {
+        if (taskDto.getName() != null && !taskDto.getName().isEmpty()) {
             task.setName(taskDto.getName());
         }
 
-        if (taskDto.getDescription() != null) {
+        if (taskDto.getDescription() != null && !taskDto.getDescription().isEmpty()) {
             task.setDescription(taskDto.getDescription());
         }
 
