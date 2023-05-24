@@ -1,23 +1,22 @@
-package com.digdes.pms.controller;
+package com.digdes.pms.app;
 
+import com.digdes.pms.app.config.AppConfig;
 import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.project.ProjectDto;
 import com.digdes.pms.dto.task.TaskDto;
-import com.digdes.pms.repository.task.TaskRepository;
+import com.digdes.pms.repository.config.RepositoryConfig;
 import com.digdes.pms.service.task.filter.TaskFilter;
 import com.digdes.pms.service.task.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.context.annotation.Import;
 
 import java.time.LocalDateTime;
 
-@SpringBootApplication(scanBasePackages = {"com.digdes.pms.service"})
-@EnableJpaRepositories(basePackages = "com.digdes.pms.repository")
-@EntityScan(basePackages = "com.digdes.pms.model")
+@SpringBootApplication
+@Import({RepositoryConfig.class, AppConfig.class})
 public class ProjectManagementSystemApplication implements CommandLineRunner {
 
     @Autowired
@@ -77,7 +76,7 @@ public class ProjectManagementSystemApplication implements CommandLineRunner {
 
         //find by filter task
         TaskFilter filter = new TaskFilter();
-//        filter.setName("New task");
+        filter.setName("New task");
 //        filter.setStatus("несуществующий");
 //        filter.setDeadlineMin(LocalDateTime.now());
 //        filter.setDeadlineMax(LocalDateTime.now());
