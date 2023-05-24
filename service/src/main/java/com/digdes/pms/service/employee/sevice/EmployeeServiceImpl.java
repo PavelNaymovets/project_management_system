@@ -1,6 +1,6 @@
 package com.digdes.pms.service.employee.sevice;
 
-import com.digdes.pms.api.dto.employee.EmployeeDto;
+import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.repository.employee.DataStorage;
 import com.digdes.pms.repository.employee.EmployeeRepository;

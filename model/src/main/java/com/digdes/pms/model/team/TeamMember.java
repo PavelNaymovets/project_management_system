@@ -8,8 +8,9 @@ import java.time.LocalDateTime;
 @Data
 public class TeamMember {
     private Long id;
-    private Employee member;
+    private Employee employee;
     private String role;
+    private Team team;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

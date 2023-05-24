@@ -1,6 +1,6 @@
 package com.digdes.pms.service.employee.sevice;
 
-import com.digdes.pms.api.dto.employee.EmployeeDto;
+import com.digdes.pms.dto.employee.EmployeeDto;
 
 import java.util.List;
 

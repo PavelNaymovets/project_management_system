@@ -10,23 +10,14 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=project-db
-      - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - ./imports/db/:/docker-entrypoint-initdb.d/
-    healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
-      interval: 5s
-      timeout: 1s
-      retries: 2
 
-  flyway:
-    image: boxfuse/flyway
-    command: -url=jdbc:postgresql://postgres:5432/postgres -schemas=public -user=postgres -password=postgres -connectRetries=30 migrate
+  liquibase:
+    image: liquibase/liquibase
+    command: --url=jdbc:postgresql://lobo-db:5432/postgres?user=postgres&password=postgres --changeLogFile=changelog-master.xml update
     volumes:
-      - ./flyway:/flyway/sql
+        - ./liquibase/config/changelog-master.xml:/liquibase/changelog-master.xml
+        - ./liquibase/scripts:/liquibase/scripts
     depends_on:
       - postgres
-
-  pg-system:
-    build: ./app

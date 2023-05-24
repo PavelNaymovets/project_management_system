@@ -10,8 +10,9 @@ import java.time.LocalDateTime;
 @Builder
 public class Employee implements Serializable {
     private Long id;
-    private String name;
+    private String personalNumber;
     private String lastName;
+    private String firstName;
     private String middleName;
     private String position;
     private String login;

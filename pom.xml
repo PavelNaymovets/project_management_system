@@ -10,11 +10,11 @@
     <version>${revision}${changelist}</version>
 
     <modules>
-        <module>api</module>
         <module>model</module>
         <module>service</module>
         <module>controller</module>
         <module>repository</module>
+        <module>dto</module>
     </modules>
 
     <properties>

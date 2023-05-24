@@ -1,38 +1,42 @@
 package com.digdes.pms.service;
 
-import com.digdes.pms.api.dto.employee.EmployeeDto;
-import com.digdes.pms.service.employee.sevice.EmployeeService;
-import com.digdes.pms.service.employee.sevice.EmployeeServiceImpl;
+import com.digdes.pms.dto.project.ProjectDto;
+import com.digdes.pms.repository.project.util.filter.ProjectFilter;
+import com.digdes.pms.service.project.service.ProjectService;
+import com.digdes.pms.service.project.service.ProjectServiceImpl;
 
 public class DemoApp {
     public static void main(String[] args) {
-        EmployeeService employeeService = new EmployeeServiceImpl();
+        ProjectService projectService = new ProjectServiceImpl();
 
-        EmployeeDto employeeDto = EmployeeDto.builder()
-                .name("Ivan")
-                .lastName("Ivanov")
-                .middleName("Ivanovich")
-                .position("computer programmer")
-                .email("ivanov@mail.ru")
+        ProjectDto projectDto = ProjectDto.builder()
+                .code(85947321L)
+                .name("тестовый проект")
+                .description("тестовое описание")
+                .status("в работе")
                 .build();
 
-        //Создание сотрудника
-        employeeService.create(employeeDto);
+        //Создание проекта
+//        projectService.create(projectDto);
 
-        //Поиск сотрудника по id
-        employeeDto = employeeService.findById(1L);
-        employeeDto.setName("Roman");
+        //Обновление проекта
+//        projectDto.setId(14L);
+//        projectDto.setName("Новое");
+//        projectService.update(projectDto);
 
-        //Обновление сотрудника
-        employeeService.update(employeeDto);
-        System.out.println(employeeService.findById(1L));
+        //Поиск по id
+//        System.out.println(projectService.findById(1L));
 
-        //Поиск всех сотрудников
-        System.out.println(employeeService.findAll());
+        //Поиск всех записей
+//        System.out.println(projectService.findAll());
 
-        //Удаление сотрудника
-//        System.out.println(employeeService.deleteById(1L));
-//        System.out.println(employeeService.findAll());
+        //Удаление записи по id
+//        projectService.deleteById(14L);
 
+        //Поиск по фильтру
+//        ProjectFilter projectFilter = new ProjectFilter();
+//        projectFilter.setLastName("Прохорова");
+//        projectFilter.setRole("аналитик");
+//        System.out.println(projectService.searchByFilter(projectFilter));
     }
 }
