@@ -1,23 +1,32 @@
-version: '3'
+version: '3.9'
 
 services:
 
-  postgres:
+  psvm-postgres:
+    container_name: postgres
     image: postgres
-    domainname: postgres
     ports:
       - "5433:5432"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - ./imports/db/:/docker-entrypoint-initdb.d/
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - psvm-net
 
-  liquibase:
+  psvm-liquibase:
+    container_name: liquibase
     image: liquibase/liquibase
-    command: --url=jdbc:postgresql://lobo-db:5432/postgres?user=postgres&password=postgres --changeLogFile=changelog-master.xml update
+    command:
+      - update
+      - --url=jdbc:postgresql://psvm-postgres:5432/postgres?user=postgres&password=postgres
+      - --changeLogFile=changelog.xml
     volumes:
-        - ./liquibase/config/changelog-master.xml:/liquibase/changelog-master.xml
-        - ./liquibase/scripts:/liquibase/scripts
+      - ./liquibase/config/changelog.xml:/liquibase/changelog.xml
+      - ./liquibase/scripts:/liquibase/scripts
+    networks:
+      - psvm-net
     depends_on:
-      - postgres
+      - psvm-postgres
+
+networks:
+  psvm-net:

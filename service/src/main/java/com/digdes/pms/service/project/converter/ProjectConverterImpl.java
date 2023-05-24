@@ -2,7 +2,9 @@ package com.digdes.pms.service.project.converter;
 
 import com.digdes.pms.dto.project.ProjectDto;
 import com.digdes.pms.model.project.Project;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProjectConverterImpl implements ProjectConverter{
     @Override
     public Project convertToEntity(ProjectDto projectDto) {
