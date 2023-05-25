@@ -8,7 +8,7 @@ import com.digdes.pms.repository.task.specification.TaskSpecification;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
 import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.task.converter.TaskConverter;
-import com.digdes.pms.service.task.filter.TaskFilter;
+import com.digdes.pms.dto.task.TaskFilterDto;
 import com.digdes.pms.service.validator.TaskValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -82,7 +82,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDto> findAllByFilter(TaskFilter filter) {
+    public List<TaskDto> findAllByFilter(TaskFilterDto filter) {
         Specification<Task> spec = Specification.where(null);
 
         if(!ObjectUtils.isEmpty(filter.getName())) {

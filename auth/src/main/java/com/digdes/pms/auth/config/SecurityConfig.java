@@ -29,7 +29,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/auth").permitAll()
+                .antMatchers("/api/v1/auth", "/swagger-ui/**").permitAll()
                 .antMatchers("/api/v1/**").authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

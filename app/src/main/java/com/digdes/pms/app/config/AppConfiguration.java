@@ -9,5 +9,5 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @ComponentScan(basePackages = {"com.digdes.pms.auth", "com.digdes.pms.controller", "com.digdes.pms.service"})
 @Import({RepositoryConfig.class, SecurityConfig.class})
-public class AppConfig {
+public class AppConfiguration {
 }
