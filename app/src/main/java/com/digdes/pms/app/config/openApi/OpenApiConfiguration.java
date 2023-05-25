@@ -1,4 +1,4 @@
-package com.digdes.pms.app.config;
+package com.digdes.pms.app.config.openApi;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

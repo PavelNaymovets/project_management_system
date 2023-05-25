@@ -1,4 +1,4 @@
-package com.digdes.pms.app.config;
+package com.digdes.pms.app.config.jackson;
 
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;

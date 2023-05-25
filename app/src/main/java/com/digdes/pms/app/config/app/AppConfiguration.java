@@ -1,4 +1,4 @@
-package com.digdes.pms.app.config;
+package com.digdes.pms.app.config.app;
 
 import com.digdes.pms.auth.config.SecurityConfig;
 import com.digdes.pms.repository.config.RepositoryConfig;

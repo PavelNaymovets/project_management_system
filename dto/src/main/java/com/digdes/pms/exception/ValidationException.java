@@ -1,12 +1,14 @@
 package com.digdes.pms.exception;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
-public class ValidationException extends RuntimeException{
+@Getter
+@Setter
+public class ValidationException extends RuntimeException {
     private List<String> errorMessage;
 
     public ValidationException(List<String> errorMessage) {

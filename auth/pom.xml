@@ -40,6 +40,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.digdes.pms</groupId>
+            <artifactId>dto</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
             <version>9.0.71</version>

@@ -1,5 +1,6 @@
 package com.digdes.pms.auth.util;
 
+import com.digdes.pms.exception.EmployeeHasDeletedStatusException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.employee.Role;
 import com.digdes.pms.repository.employee.EmployeeRepository;
@@ -25,6 +26,10 @@ public class AuthEmployeeService implements UserDetailsService {
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         Employee employee = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("Работник с логином '%s' не найден", login)));
+
+        if (employee.isStatus() == false) {
+            throw new EmployeeHasDeletedStatusException("Нельзя аутентифицировать работника со статусом - удаленный");
+        }
 
         return new org.springframework.security.core.userdetails.User(employee.getLogin(),
                 employee.getPassword(),
