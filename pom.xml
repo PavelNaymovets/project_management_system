@@ -23,6 +23,7 @@
         <module>repository</module>
         <module>dto</module>
         <module>app</module>
+        <module>auth</module>
     </modules>
 
     <properties>

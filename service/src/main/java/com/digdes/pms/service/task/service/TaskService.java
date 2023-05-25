@@ -1,7 +1,6 @@
 package com.digdes.pms.service.task.service;
 
 import com.digdes.pms.dto.task.TaskDto;
-import com.digdes.pms.model.task.Task;
 import com.digdes.pms.service.task.filter.TaskFilter;
 
 import java.util.List;
@@ -17,5 +16,5 @@ public interface TaskService {
 
     TaskDto deleteById(Long id);
     void updateStatus(Long id, String status);
-    List<Task> findAllByFilter(TaskFilter filter);
+    List<TaskDto> findAllByFilter(TaskFilter filter);
 }

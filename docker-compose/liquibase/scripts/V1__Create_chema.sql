@@ -1,7 +1,7 @@
 create table employee
 (
     id              bigserial primary key,
-    personal_number text    not null unique,
+    personal_number text      not null unique,
     last_name       text      not null,
     first_name      text      not null,
     middle_name     text,
@@ -9,8 +9,20 @@ create table employee
     login           text      unique,
     email           text,
     status          boolean   not null,
+    password        text      not null unique,
     created_at      timestamp default current_timestamp,
     updated_at      timestamp default current_timestamp
+);
+
+create table role (
+  id                bigserial   primary key,
+  name              varchar(50) not null unique
+);
+
+CREATE TABLE employee_role (
+  employee_id           bigint not null references employee (id),
+  role_id               bigint not null references role (id),
+  primary key (employee_id, role_id)
 );
 
 create table project

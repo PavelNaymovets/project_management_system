@@ -1,9 +1,9 @@
-insert into employee (personal_number, last_name, first_name, middle_name, "position", login, email, status)
-values ('384f508c-3016-3bf1-9334-6ccc1ca21c36', 'Прохорова', 'Инна', 'Андреевна', 'инженер ui тестирования', 'vil53', 'vil534@example.com', '1'),
-       ('5190a23e-98ac-3e82-88af-9c5cdd7ca811', 'Селезнёва', 'Ярослава', 'Борисовна', 'бизнес аналитик', 'zlata.rybakov', 'zlata.rybakov69@example.net', '1'),
-       ('22a7edc2-d9a3-3bc5-9241-c6922a7a45c1', 'Ермаков', 'Назар', 'Максимович', 'java разработчик', 'popova.oleg', 'popova.oleg31@example.net', '1'),
-       ('d4a5e6ff-8df2-377a-bd45-a7a698f76afb', 'Виноградова', 'Маргарита', 'Сергеевна', 'тим лид', 'romanova.dina', 'romanova.dina56@example.com', '1'),
-       ('b62a18bf-53a0-3f30-9f28-30c7bf10f96d', 'Алексеев', 'Аркадий', 'Иванович', 'java разработчик', 'akov.efremov', 'akov.efremov25@example.org', '1');
+insert into employee (personal_number, last_name, first_name, middle_name, "position", login, email, status, password)
+values ('384f508c-3016-3bf1-9334-6ccc1ca21c36', 'Прохорова', 'Инна', 'Андреевна', 'инженер ui тестирования', 'vil53', 'vil534@example.com', '1', '$2a$12$Pq7p4UGq08oKp.xCBGddd.CLE41cvfFgFjdWrW0hvr5ZFex4.LkoW'),
+       ('5190a23e-98ac-3e82-88af-9c5cdd7ca811', 'Селезнёва', 'Ярослава', 'Борисовна', 'бизнес аналитик', 'zlata.rybakov', 'zlata.rybakov69@example.net', '1', '$2a$12$R41MrhAZFaGQCXaK4PFPqOp.vkpISDQTTy..sOIm5sAAlmC.Lkaj6'),
+       ('22a7edc2-d9a3-3bc5-9241-c6922a7a45c1', 'Ермаков', 'Назар', 'Максимович', 'java разработчик', 'popova.oleg', 'popova.oleg31@example.net', '1', '$2a$12$nC0mOhkf.VBNeoNL4icswOfQ0GFrKGqWAOizfKudunvPd/aOUe.cG'),
+       ('d4a5e6ff-8df2-377a-bd45-a7a698f76afb', 'Виноградова', 'Маргарита', 'Сергеевна', 'тим лид', 'romanova.dina', 'romanova.dina56@example.com', '1', '$2a$12$qbKPpKlxZ8L0J0cOr3PpG.qQ/0wAEZRQqWBGXYtsWxszhfjB3ar46'),
+       ('b62a18bf-53a0-3f30-9f28-30c7bf10f96d', 'Алексеев', 'Аркадий', 'Иванович', 'java разработчик', 'akov.efremov', 'akov.efremov25@example.org', '1', '$2a$12$37aLWLHgzu1dt2Pa.Z8zLO4MrKpig4kMRrXlJyrI5pVydqMZTbiaG');
 
 insert into project (code, name, description, status)
 values ('1220680', 'система управления проектами', 'Взаимодействие корпорации и клиента традиционно специфицирует ролевой анализ зарубежного опыта Баинг и селлинг, безусловно, экономит продвигаемый повторный контакт', 'в разработке'),
@@ -33,3 +33,15 @@ values (1, 1, 'тестировщик'),
        (3, 2, 'тестировщик'),
        (3, 3, 'руководитель проекта'),
        (3, 4, 'разработчик');
+
+insert into role (name)
+values ('ROLE_USER'),
+       ('ROLE_ADMIN'),
+       ('ROLE_MANAGER');
+
+insert into employee_role (employee_id, role_id)
+values (1, 1),
+       (2, 1),
+       (3, 1),
+       (4, 1),
+       (5, 1);

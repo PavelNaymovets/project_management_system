@@ -82,7 +82,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> findAllByFilter(TaskFilter filter) {
+    public List<TaskDto> findAllByFilter(TaskFilter filter) {
         Specification<Task> spec = Specification.where(null);
 
         if(!ObjectUtils.isEmpty(filter.getName())) {
@@ -119,7 +119,9 @@ public class TaskServiceImpl implements TaskService {
             spec = spec.and(TaskSpecification.createdAtMax(filter.getCreatedAtMax()));
         }
 
-        return taskRepository.findAll(spec, Sort.by("createdAt").descending());
+        return taskRepository.findAll(spec, Sort.by("createdAt").descending()).stream()
+                .map(taskConverter::convertToDto)
+                .toList();
     }
 
     private void checkUpdatableFields(TaskDto taskDto, Task task) {

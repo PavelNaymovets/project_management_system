@@ -32,7 +32,7 @@ public class TaskController {
     }
 
     @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Task> getAll(@RequestBody TaskFilter filter) {
+    public List<TaskDto> getAll(@RequestBody TaskFilter filter) {
         return taskService.findAllByFilter(filter);
     }
 

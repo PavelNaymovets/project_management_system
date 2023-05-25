@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Data
 @Builder
@@ -48,6 +49,15 @@ public class Employee {
 
     @Column(name = "status")
     private boolean status; //1 - активный, 0 - удаленный.
+
+    @Column(name = "password")
+    private String password;
+
+    @ManyToMany
+    @JoinTable(name = "employee_role",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 
     @CreationTimestamp
     @Column(name = "created_at")

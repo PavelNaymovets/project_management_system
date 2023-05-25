@@ -36,6 +36,12 @@
         </dependency>
         <dependency>
             <groupId>com.digdes.pms</groupId>
+            <artifactId>auth</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.digdes.pms</groupId>
             <artifactId>service</artifactId>
             <version>0.1-SNAPSHOT</version>
             <scope>compile</scope>
