@@ -25,11 +25,11 @@ public class Team {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     private Project project;
 
-    @OneToMany(mappedBy="team", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy="team", cascade = CascadeType.REMOVE)
     private List<TeamMember> members;
 
     @CreationTimestamp

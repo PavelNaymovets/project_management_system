@@ -1,12 +1,9 @@
-package com.digdes.pms.service.validator;
+package com.digdes.pms.service.task.validator;
 
-import com.digdes.pms.dto.employee.EmployeeDto;
-import com.digdes.pms.dto.project.ProjectDto;
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.exception.ValidationException;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -10,6 +10,8 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./imports/db/:/docker-entrypoint-initdb.d/
     networks:
       - psvm-net
 
@@ -18,7 +20,7 @@ services:
     image: liquibase/liquibase
     command:
       - update
-      - --url=jdbc:postgresql://psvm-postgres:5432/postgres?user=postgres&password=postgres
+      - --url=jdbc:postgresql://psvm-postgres:5432/project?user=postgres&password=postgres
       - --changeLogFile=changelog.xml
     volumes:
       - ./liquibase/config/changelog.xml:/liquibase/changelog.xml

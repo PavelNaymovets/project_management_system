@@ -1,6 +1,8 @@
 package com.digdes.pms.service.task.service;
 
 import com.digdes.pms.dto.task.TaskDto;
+import com.digdes.pms.dto.task.TaskFilterDto;
+import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.task.Task;
 import com.digdes.pms.repository.employee.EmployeeRepository;
 import com.digdes.pms.repository.task.TaskRepository;
@@ -8,8 +10,7 @@ import com.digdes.pms.repository.task.specification.TaskSpecification;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
 import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.task.converter.TaskConverter;
-import com.digdes.pms.service.task.filter.TaskFilter;
-import com.digdes.pms.service.validator.TaskValidator;
+import com.digdes.pms.service.task.validator.TaskValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -30,21 +31,23 @@ public class TaskServiceImpl implements TaskService {
     private final TaskValidator taskValidator;
 
     @Override
-    public TaskDto create(TaskDto taskDto) {
-        //TODO добавить функционал автоматического добавления автора задачи(дз_5)
+    public TaskDto create(TaskDto taskDto, String login) {
         taskValidator.validate(taskDto);
-        taskDto.setStatus("новая");
+        Employee employee = employeeRepository.findByLogin(login).get();
+        taskDto.setAuthor(employeeConverter.convertToDto(employee));
         Task task = taskConverter.convertToEntity(taskDto);
+        task.setStatus("новая");
         Task createdTask = taskRepository.save(task);
 
         return taskConverter.convertToDto(createdTask);
     }
 
     @Override
-    public TaskDto update(TaskDto taskDto) {
-        //TODO добавить функционал автоматического изменения автора задачи(дз_5)
+    public TaskDto update(TaskDto taskDto, String login) {
         Task task = taskRepository.findById(taskDto.getId()).get();
         checkUpdatableFields(taskDto, task);
+        Employee employee = employeeRepository.findByLogin(login).get();
+        task.setAuthor(employee);
         Task updatedTask = taskRepository.save(task);
 
         return taskConverter.convertToDto(updatedTask);
@@ -76,13 +79,15 @@ public class TaskServiceImpl implements TaskService {
 
     @Transactional
     @Override
-    public void updateStatus(Long id, String status) {
+    public void updateStatus(Long id, String status, String login) {
         Task task = taskRepository.findById(id).get();
+        Employee employee = employeeRepository.findByLogin(login).get();
+        task.setAuthor(employee);
         task.setStatus(status);
     }
 
     @Override
-    public List<Task> findAllByFilter(TaskFilter filter) {
+    public List<TaskDto> findAllByFilter(TaskFilterDto filter) {
         Specification<Task> spec = Specification.where(null);
 
         if(!ObjectUtils.isEmpty(filter.getName())) {
@@ -119,15 +124,17 @@ public class TaskServiceImpl implements TaskService {
             spec = spec.and(TaskSpecification.createdAtMax(filter.getCreatedAtMax()));
         }
 
-        return taskRepository.findAll(spec, Sort.by("createdAt").descending());
+        return taskRepository.findAll(spec, Sort.by("createdAt").descending()).stream()
+                .map(taskConverter::convertToDto)
+                .toList();
     }
 
     private void checkUpdatableFields(TaskDto taskDto, Task task) {
-        if (taskDto.getName() != null) {
+        if (taskDto.getName() != null && !taskDto.getName().isEmpty()) {
             task.setName(taskDto.getName());
         }
 
-        if (taskDto.getDescription() != null) {
+        if (taskDto.getDescription() != null && !taskDto.getDescription().isEmpty()) {
             task.setDescription(taskDto.getDescription());
         }
 

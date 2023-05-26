@@ -3,6 +3,8 @@ package com.digdes.pms.repository.task.specification;
 import com.digdes.pms.model.task.Task;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TaskSpecification {
@@ -22,11 +24,11 @@ public class TaskSpecification {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("author"), id);
     }
 
-    public static Specification<Task> deadlineMin(LocalDateTime deadline) {
+    public static Specification<Task> deadlineMin(LocalDate deadline) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("deadline"), deadline);
     }
 
-    public static Specification<Task> deadlineMax(LocalDateTime deadline) {
+    public static Specification<Task> deadlineMax(LocalDate deadline) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("deadline"), deadline);
     }
 
