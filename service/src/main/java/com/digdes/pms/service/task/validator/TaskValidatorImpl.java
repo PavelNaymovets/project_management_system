@@ -1,4 +1,4 @@
-package com.digdes.pms.service.validator;
+package com.digdes.pms.service.task.validator;
 
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.exception.ValidationException;
