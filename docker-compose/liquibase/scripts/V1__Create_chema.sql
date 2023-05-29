@@ -54,7 +54,7 @@ create table task
 create table team
 (
     id         bigserial primary key,
-    project_id bigint    not null references project (id),
+    project_id bigint    unique  not null references project (id),
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );
@@ -66,5 +66,6 @@ create table team_member
     employee_id bigint    not null references employee (id),
     role        text      not null,
     created_at  timestamp default current_timestamp,
-    updated_at  timestamp default current_timestamp
+    updated_at  timestamp default current_timestamp,
+    unique (team_id, employee_id, role)
 );
