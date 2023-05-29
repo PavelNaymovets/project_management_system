@@ -28,7 +28,7 @@ public class AuthEmployeeService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("Работник с логином '%s' не найден", login)));
 
         if (employee.isStatus() == false) {
-            throw new EmployeeHasDeletedStatusException("Нельзя аутентифицировать работника со статусом - удаленный");
+            throw new EmployeeHasDeletedStatusException("Нельзя аутентифицировать сотрудника со статусом - удаленный");
         }
 
         return new org.springframework.security.core.userdetails.User(employee.getLogin(),

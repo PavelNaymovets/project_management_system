@@ -5,7 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,11 +17,10 @@ import java.util.Collection;
 @Builder
 @Entity
 @Table(name = "employee")
+@SQLDelete(sql = "UPDATE employee SET status = false WHERE id=?") //1 - активный, 0 - удаленный.
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
-
-    //TODO добавить в Employee поля со списком task, team при необходимости
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +49,7 @@ public class Employee {
     private String email;
 
     @Column(name = "status")
-    private boolean status; //1 - активный, 0 - удаленный.
+    private boolean status; //при создании статус сотрудника - Активный(1)
 
     @Column(name = "password")
     private String password;

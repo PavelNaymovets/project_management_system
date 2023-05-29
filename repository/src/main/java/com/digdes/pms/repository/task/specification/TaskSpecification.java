@@ -3,7 +3,6 @@ package com.digdes.pms.repository.task.specification;
 import com.digdes.pms.model.task.Task;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

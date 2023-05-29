@@ -42,8 +42,18 @@ public class EmployeeDto {
             type = "String")
     private String position;
 
+    @Schema(description = "Учетная запись",
+            example = "vil53",
+            type = "String")
+    private String login;
+
     @Schema(description = "Почта",
             example = "vil534@example.com",
             type = "String")
     private String email;
+
+    @Schema(description = "Пароль",
+            example = "100",
+            type = "String")
+    private String password;
 }

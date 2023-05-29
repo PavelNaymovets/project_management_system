@@ -2,6 +2,7 @@ package com.digdes.pms.controller.exception;
 
 import com.digdes.pms.exception.AppError;
 import com.digdes.pms.exception.EmployeeHasDeletedStatusException;
+import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.exception.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,12 @@ public class GlobalExceptionHandler {
         log.error(e.getMessage(), e);
         return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getErrorMessage()),
                 HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<AppError> catchResourceNotFoundException(ResourceNotFoundException e) {
+        log.error(e.getMessage(), e);
+        return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler

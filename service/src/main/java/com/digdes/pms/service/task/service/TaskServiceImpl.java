@@ -2,6 +2,7 @@ package com.digdes.pms.service.task.service;
 
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.dto.task.TaskFilterDto;
+import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.task.Task;
 import com.digdes.pms.repository.employee.EmployeeRepository;
@@ -33,7 +34,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDto create(TaskDto taskDto, String login) {
         taskValidator.validate(taskDto);
-        Employee employee = employeeRepository.findByLogin(login).get();
+        Employee employee = employeeRepository.findByLogin(login).orElseThrow(() -> new ResourceNotFoundException("Сотрудник не найден. Логин: " + login));
         taskDto.setAuthor(employeeConverter.convertToDto(employee));
         Task task = taskConverter.convertToEntity(taskDto);
         task.setStatus("новая");
@@ -44,9 +45,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto update(TaskDto taskDto, String login) {
-        Task task = taskRepository.findById(taskDto.getId()).get();
+        Task task = taskRepository.findById(taskDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Задача не найдена. Id: " + taskDto.getId()));
         checkUpdatableFields(taskDto, task);
-        Employee employee = employeeRepository.findByLogin(login).get();
+        Employee employee = employeeRepository.findByLogin(login).orElseThrow(() -> new ResourceNotFoundException("Сотрудник не найден. Логин: " + login));
         task.setAuthor(employee);
         Task updatedTask = taskRepository.save(task);
 
@@ -55,7 +56,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto findById(Long id) {
-        Task task = taskRepository.findById(id).get();
+        Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Задача не найдена. Id: " + id));
 
         return taskConverter.convertToDto(task);
     }
@@ -71,7 +72,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto deleteById(Long id) {
-        Task deletedTask = taskRepository.findById(id).get();
+        Task deletedTask = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Задача не найдена. Id: " + id));
         taskRepository.deleteById(id);
 
         return taskConverter.convertToDto(deletedTask);
@@ -80,8 +81,8 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Override
     public void updateStatus(Long id, String status, String login) {
-        Task task = taskRepository.findById(id).get();
-        Employee employee = employeeRepository.findByLogin(login).get();
+        Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Задача не найдена. Id: " + id));
+        Employee employee = employeeRepository.findByLogin(login).orElseThrow(() -> new ResourceNotFoundException("Сотрудник не найден. Логин: " + login));
         task.setAuthor(employee);
         task.setStatus(status);
     }
@@ -130,27 +131,27 @@ public class TaskServiceImpl implements TaskService {
     }
 
     private void checkUpdatableFields(TaskDto taskDto, Task task) {
-        if (taskDto.getName() != null && !taskDto.getName().isEmpty()) {
+        if (!ObjectUtils.isEmpty(taskDto.getName()) && !taskDto.getName().isBlank()) {
             task.setName(taskDto.getName());
         }
 
-        if (taskDto.getDescription() != null && !taskDto.getDescription().isEmpty()) {
+        if (!ObjectUtils.isEmpty(taskDto.getDescription()) && !taskDto.getDescription().isBlank()) {
             task.setDescription(taskDto.getDescription());
         }
 
-        if (taskDto.getProject() != null) {
+        if (!ObjectUtils.isEmpty(taskDto.getProject())) {
             task.setProject(projectConverter.convertToEntity(taskDto.getProject()));
         }
 
-        if (taskDto.getEmployee() != null) {
+        if (!ObjectUtils.isEmpty(taskDto.getEmployee())) {
             task.setEmployee(employeeConverter.convertToEntity(taskDto.getEmployee()));
         }
 
-        if (taskDto.getLaborCosts() != null) {
+        if (!ObjectUtils.isEmpty(taskDto.getLaborCosts())) {
             task.setLaborCosts(taskDto.getLaborCosts());
         }
 
-        if (taskDto.getDeadline() != null) {
+        if (!ObjectUtils.isEmpty(taskDto.getDeadline())) {
             task.setDeadline(taskDto.getDeadline());
         }
     }

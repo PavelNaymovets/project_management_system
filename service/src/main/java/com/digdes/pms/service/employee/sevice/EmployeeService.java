@@ -1,17 +1,22 @@
 package com.digdes.pms.service.employee.sevice;
 
 import com.digdes.pms.dto.employee.EmployeeDto;
+import com.digdes.pms.dto.employee.EmployeeFilterDto;
+import com.digdes.pms.dto.task.TaskDto;
+import com.digdes.pms.dto.task.TaskFilterDto;
 
 import java.util.List;
 
 public interface EmployeeService {
-    boolean create(EmployeeDto employee);
+    EmployeeDto create(EmployeeDto employeeDto);
 
-    boolean update(EmployeeDto employee);
+    EmployeeDto update(EmployeeDto employeeDto);
 
     EmployeeDto findById(Long id);
+    EmployeeDto findByLogin(String login);
 
     List<EmployeeDto> findAll();
 
-    boolean deleteById(Long id);
+    List<EmployeeDto> findAllByFilter(EmployeeFilterDto filter);
+    EmployeeDto deleteById(Long id);
 }
