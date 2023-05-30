@@ -8,7 +8,7 @@ create table employee
     position        text,
     login           text      unique,
     email           text,
-    status          boolean   not null,
+    status          text      not null,
     password        text      not null unique,
     created_at      timestamp default current_timestamp,
     updated_at      timestamp default current_timestamp

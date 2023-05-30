@@ -3,6 +3,7 @@ package com.digdes.pms.service.task.service;
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.dto.task.TaskFilterDto;
 import com.digdes.pms.exception.ResourceNotFoundException;
+import com.digdes.pms.exception.TaskStatusIncorrectException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.task.Task;
 import com.digdes.pms.model.task.TaskStatus;
@@ -24,6 +25,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Locale;
 
+import static com.digdes.pms.model.task.TaskStatus.NEW;
+
 @Service
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
@@ -43,7 +46,7 @@ public class TaskServiceImpl implements TaskService {
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
         taskDto.setAuthor(employeeConverter.convertToDto(employee));
         Task task = taskConverter.convertToEntity(taskDto);
-        task.setStatus(TaskStatus.NEW.getStatus());
+        task.setStatus(NEW.getStatus());
         Task createdTask = taskRepository.save(task);
 
         return taskConverter.convertToDto(createdTask);
@@ -95,6 +98,7 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Override
     public void updateStatus(Long id, String status, String login) {
+        checkStatus(status);
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + id));
@@ -115,6 +119,7 @@ public class TaskServiceImpl implements TaskService {
         }
 
         if(!ObjectUtils.isEmpty(filter.getStatus())) {
+            checkStatus(filter.getStatus());
             spec = spec.and(TaskSpecification.statusLike(filter.getStatus()));
         }
 
@@ -150,6 +155,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     private void checkUpdatableFields(TaskDto taskDto, Task task) {
+        if (!ObjectUtils.isEmpty(taskDto.getStatus())) {
+            throw new TaskStatusIncorrectException(
+                    messageSource.getMessage("task.field.status.not.updatable", null, Locale.ENGLISH));
+        }
+
         if (!ObjectUtils.isEmpty(taskDto.getName()) && !taskDto.getName().isBlank()) {
             task.setName(taskDto.getName());
         }
@@ -172,6 +182,13 @@ public class TaskServiceImpl implements TaskService {
 
         if (!ObjectUtils.isEmpty(taskDto.getDeadline())) {
             task.setDeadline(taskDto.getDeadline());
+        }
+    }
+
+    private void checkStatus(String status) {
+        if (TaskStatus.check(status) == null) {
+            throw new TaskStatusIncorrectException(
+                    messageSource.getMessage("task.field.status.incorrect", null, Locale.ENGLISH));
         }
     }
 }

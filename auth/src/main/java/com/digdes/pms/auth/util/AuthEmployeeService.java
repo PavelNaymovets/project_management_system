@@ -19,6 +19,8 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import static com.digdes.pms.model.employee.EmployeeStatus.REMOTE;
+
 @Service
 @RequiredArgsConstructor
 public class AuthEmployeeService implements UserDetailsService {
@@ -32,7 +34,7 @@ public class AuthEmployeeService implements UserDetailsService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
 
-        if (employee.isStatus() == false) {
+        if (employee.getStatus().equals(REMOTE.getStatus())) {
             throw new EmployeeHasDeletedStatusException(
                     messageSource.getMessage("employee.has.deleted.status", null, Locale.ENGLISH));
         }

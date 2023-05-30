@@ -56,4 +56,9 @@ public class EmployeeDto {
             example = "100",
             type = "String")
     private String password;
+
+    @Schema(description = "Статус",
+            example = "активный",
+            type = "String")
+    private String status;
 }

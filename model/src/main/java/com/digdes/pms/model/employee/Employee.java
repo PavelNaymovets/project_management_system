@@ -16,7 +16,7 @@ import java.util.Collection;
 @Builder
 @Entity
 @Table(name = "employee")
-@SQLDelete(sql = "UPDATE employee SET status = false WHERE id=?") //1 - активный, 0 - удаленный.
+@SQLDelete(sql = "UPDATE employee SET status = удаленный WHERE id=?") //1 - активный, 0 - удаленный.
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
@@ -48,7 +48,7 @@ public class Employee {
     private String email;
 
     @Column(name = "status")
-    private boolean status; //при создании статус сотрудника - Активный(1)
+    private String status; //при создании статус сотрудника - активный
 
     @Column(name = "password")
     private String password;

@@ -3,8 +3,11 @@ package com.digdes.pms.service.employee.sevice;
 import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.employee.EmployeeFilterDto;
 import com.digdes.pms.exception.EmployeeHasDeletedStatusException;
+import com.digdes.pms.exception.EmployeeStatusIncorrectException;
 import com.digdes.pms.exception.ResourceNotFoundException;
+import com.digdes.pms.exception.TaskStatusIncorrectException;
 import com.digdes.pms.model.employee.Employee;
+import com.digdes.pms.model.employee.EmployeeStatus;
 import com.digdes.pms.repository.employee.EmployeeRepository;
 import com.digdes.pms.repository.employee.specification.EmployeeSpecification;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
@@ -19,6 +22,9 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.Locale;
+
+import static com.digdes.pms.model.employee.EmployeeStatus.ACTIVE;
+import static com.digdes.pms.model.employee.EmployeeStatus.REMOTE;
 
 @Slf4j
 @Service
@@ -36,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeConverter.convertToEntity(employeeDto);
         employee.setLogin(employeeDto.getLogin());
         employee.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
-        employee.setStatus(true);
+        employee.setStatus(ACTIVE.getStatus());
         Employee createdEmployee = employeeRepository.save(employee);
 
         return employeeConverter.convertToDto(createdEmployee);
@@ -48,7 +54,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + employeeDto.getId()));
 
-        if (employee.isStatus() == false) {
+        if (employee.getStatus().equals(REMOTE.getStatus())) {
             throw new EmployeeHasDeletedStatusException(
                     messageSource.getMessage("employee.has.deleted.status", null, Locale.ENGLISH));
         }
@@ -110,7 +116,12 @@ public class EmployeeServiceImpl implements EmployeeService {
             spec = spec.and(EmployeeSpecification.emailLike(filter.getEmail()));
         }
 
-        spec = spec.and(EmployeeSpecification.statusEqual(filter.isStatus()));
+        if (!ObjectUtils.isEmpty(filter.getStatus())) {
+            checkStatus(filter.getStatus());
+            spec = spec.and(EmployeeSpecification.statusEqual(filter.getStatus()));
+        } else {
+            spec = spec.and(EmployeeSpecification.statusEqual(ACTIVE.getStatus()));
+        }
 
         return employeeRepository.findAll(spec).stream()
                 .map(employeeConverter::convertToDto)
@@ -119,9 +130,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto deleteById(Long id) {
-        Employee deletedEmployee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Сотрудник не найден. Id: " + id));
+        Employee deletedEmployee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + id));
 
-        if (deletedEmployee.isStatus() == false) {
+        if (deletedEmployee.getStatus().equals(REMOTE.getStatus())) {
             throw new EmployeeHasDeletedStatusException(
                     messageSource.getMessage("employee.has.deleted.status", null, Locale.ENGLISH));
         }
@@ -132,6 +145,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     private void checkUpdatableFields(EmployeeDto employeeDto, Employee employee) {
+        if (!ObjectUtils.isEmpty(employeeDto.getStatus())) {
+            throw new EmployeeStatusIncorrectException(
+                    messageSource.getMessage("employee.field.status.not.updatable", null, Locale.ENGLISH));
+        }
         if (!ObjectUtils.isEmpty(employeeDto.getPersonalNumber()) && !employeeDto.getPersonalNumber().isBlank()) {
             employee.setPersonalNumber(employeeDto.getPersonalNumber());
         }
@@ -157,4 +174,12 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
         }
     }
+
+    private void checkStatus(String status) {
+        if (EmployeeStatus.check(status) == null) {
+            throw new TaskStatusIncorrectException(
+                    messageSource.getMessage("employee.field.status.incorrect", null, Locale.ENGLISH));
+        }
+    }
+
 }

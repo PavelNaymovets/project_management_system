@@ -9,5 +9,5 @@ public class EmployeeFilterDto {
     private String middleName;
     private String login;
     private String email;
-    private boolean status = Boolean.TRUE;
+    private String status;
 }
