@@ -11,12 +11,14 @@ import com.digdes.pms.service.employee.converter.EmployeeConverter;
 import com.digdes.pms.service.employee.validator.EmployeeValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
+import java.util.Locale;
 
 @Slf4j
 @Service
@@ -26,6 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeConverter employeeConverter;
     private final PasswordEncoder passwordEncoder;
+    private final MessageSource messageSource;
 
     @Override
     public EmployeeDto create(EmployeeDto employeeDto) {
@@ -41,10 +44,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto update(EmployeeDto employeeDto) {
-        Employee employee = employeeRepository.findById(employeeDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Сотрудник не найден. Id: " + employeeDto.getId()));
+        Employee employee = employeeRepository.findById(employeeDto.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + employeeDto.getId()));
 
         if (employee.isStatus() == false) {
-            throw new EmployeeHasDeletedStatusException("Сотрудник имеет статус - удаленный.");
+            throw new EmployeeHasDeletedStatusException(
+                    messageSource.getMessage("employee.has.deleted.status", null, Locale.ENGLISH));
         }
 
         checkUpdatableFields(employeeDto, employee);
@@ -55,14 +61,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto findById(Long id) {
-        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Сотрудник не найден. Id: " + id));
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + id));
 
         return employeeConverter.convertToDto(employee);
     }
 
     @Override
     public EmployeeDto findByLogin(String login) {
-        Employee employee = employeeRepository.findByLogin(login).orElseThrow(() -> new ResourceNotFoundException("Сотрудник не найден. Логин: " + login));
+        Employee employee = employeeRepository.findByLogin(login)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
 
         return employeeConverter.convertToDto(employee);
     }
@@ -112,7 +122,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee deletedEmployee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Сотрудник не найден. Id: " + id));
 
         if (deletedEmployee.isStatus() == false) {
-            throw new EmployeeHasDeletedStatusException("Сотрудник имеет статус - удаленный.");
+            throw new EmployeeHasDeletedStatusException(
+                    messageSource.getMessage("employee.has.deleted.status", null, Locale.ENGLISH));
         }
 
         employeeRepository.delete(deletedEmployee);

@@ -13,6 +13,7 @@ import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.task.converter.TaskConverter;
 import com.digdes.pms.service.task.validator.TaskValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
@@ -30,11 +32,14 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final TaskConverter taskConverter;
     private final TaskValidator taskValidator;
+    private final MessageSource messageSource;
 
     @Override
     public TaskDto create(TaskDto taskDto, String login) {
         taskValidator.validate(taskDto);
-        Employee employee = employeeRepository.findByLogin(login).orElseThrow(() -> new ResourceNotFoundException("Сотрудник не найден. Логин: " + login));
+        Employee employee = employeeRepository.findByLogin(login)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
         taskDto.setAuthor(employeeConverter.convertToDto(employee));
         Task task = taskConverter.convertToEntity(taskDto);
         task.setStatus("новая");
@@ -45,9 +50,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto update(TaskDto taskDto, String login) {
-        Task task = taskRepository.findById(taskDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Задача не найдена. Id: " + taskDto.getId()));
+        Task task = taskRepository.findById(taskDto.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + taskDto.getId()));
         checkUpdatableFields(taskDto, task);
-        Employee employee = employeeRepository.findByLogin(login).orElseThrow(() -> new ResourceNotFoundException("Сотрудник не найден. Логин: " + login));
+        Employee employee = employeeRepository.findByLogin(login)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
         task.setAuthor(employee);
         Task updatedTask = taskRepository.save(task);
 
@@ -56,7 +65,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto findById(Long id) {
-        Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Задача не найдена. Id: " + id));
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + id));
 
         return taskConverter.convertToDto(task);
     }
@@ -72,7 +83,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto deleteById(Long id) {
-        Task deletedTask = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Задача не найдена. Id: " + id));
+        Task deletedTask = taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + id));
         taskRepository.deleteById(id);
 
         return taskConverter.convertToDto(deletedTask);
@@ -81,8 +94,12 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Override
     public void updateStatus(Long id, String status, String login) {
-        Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Задача не найдена. Id: " + id));
-        Employee employee = employeeRepository.findByLogin(login).orElseThrow(() -> new ResourceNotFoundException("Сотрудник не найден. Логин: " + login));
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + id));
+        Employee employee = employeeRepository.findByLogin(login)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
         task.setAuthor(employee);
         task.setStatus(status);
     }
@@ -90,6 +107,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDto> findAllByFilter(TaskFilterDto filter) {
         Specification<Task> spec = Specification.where(null);
+        String sortParam = "createdAt";
 
         if(!ObjectUtils.isEmpty(filter.getName())) {
             spec = spec.and(TaskSpecification.nameLike(filter.getName()));
@@ -125,7 +143,7 @@ public class TaskServiceImpl implements TaskService {
             spec = spec.and(TaskSpecification.createdAtMax(filter.getCreatedAtMax()));
         }
 
-        return taskRepository.findAll(spec, Sort.by("createdAt").descending()).stream()
+        return taskRepository.findAll(spec, Sort.by(sortParam).descending()).stream()
                 .map(taskConverter::convertToDto)
                 .toList();
     }
