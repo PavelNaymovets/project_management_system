@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public class TaskSpecification {
     public static Specification<Task> nameLike(String name) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("name"), name);
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("name"), String.format("%%%s%%", name));
     }
 
     public static Specification<Task> statusLike(String status) {

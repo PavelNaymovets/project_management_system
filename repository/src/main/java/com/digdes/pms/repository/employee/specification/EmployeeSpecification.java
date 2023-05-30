@@ -1,21 +1,19 @@
 package com.digdes.pms.repository.employee.specification;
 
 import com.digdes.pms.model.employee.Employee;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 
-@Slf4j
 public class EmployeeSpecification {
     public static Specification<Employee> lastNameLike(String lastName) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("lastName"), lastName);
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("lastName"), String.format("%%%s%%", lastName));
     }
 
     public static Specification<Employee> firstNameLike(String firstName) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("firstName"), firstName);
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("firstName"), String.format("%%%s%%", firstName));
     }
 
     public static Specification<Employee> middleNameLike(String middleName) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("middleName"), middleName);
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("middleName"), String.format("%%%s%%", middleName));
     }
 
     public static Specification<Employee> loginLike(String login) {
@@ -27,7 +25,6 @@ public class EmployeeSpecification {
     }
 
     public static Specification<Employee> statusEqual(Boolean status) {
-        log.info(String.valueOf(status));
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("status"), status);
     }
 }
