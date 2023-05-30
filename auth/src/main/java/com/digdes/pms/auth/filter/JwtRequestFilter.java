@@ -4,6 +4,7 @@ import com.digdes.pms.auth.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
     private final JwtTokenUtil jwtTokenUtil;
+    private final MessageSource messageSource;
 
 
     @Override
@@ -38,7 +41,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 login = jwtTokenUtil.getLoginFromToken(jwt);
             } catch (ExpiredJwtException e) {
-                log.debug("Токен просрочен");
+                log.info(messageSource.getMessage("authentication.token.expired", null, Locale.ENGLISH));
             }
         }
 
