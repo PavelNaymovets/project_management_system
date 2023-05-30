@@ -5,6 +5,7 @@ import com.digdes.pms.dto.task.TaskFilterDto;
 import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.task.Task;
+import com.digdes.pms.model.task.TaskStatus;
 import com.digdes.pms.repository.employee.EmployeeRepository;
 import com.digdes.pms.repository.task.TaskRepository;
 import com.digdes.pms.repository.task.specification.TaskSpecification;
@@ -42,7 +43,7 @@ public class TaskServiceImpl implements TaskService {
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
         taskDto.setAuthor(employeeConverter.convertToDto(employee));
         Task task = taskConverter.convertToEntity(taskDto);
-        task.setStatus("новая");
+        task.setStatus(TaskStatus.NEW.getStatus());
         Task createdTask = taskRepository.save(task);
 
         return taskConverter.convertToDto(createdTask);
