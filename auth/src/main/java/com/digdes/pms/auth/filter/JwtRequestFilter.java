@@ -1,6 +1,7 @@
 package com.digdes.pms.auth.filter;
 
 import com.digdes.pms.auth.util.JwtTokenUtil;
+import com.digdes.pms.exception.TokenExpiredException;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 login = jwtTokenUtil.getLoginFromToken(jwt);
             } catch (ExpiredJwtException e) {
                 log.info(messageSource.getMessage("authentication.token.expired", null, Locale.ENGLISH));
+
+//                throw new TokenExpiredException(
+//                        messageSource.getMessage("authentication.token.expired", null, Locale.ENGLISH));
             }
         }
 
