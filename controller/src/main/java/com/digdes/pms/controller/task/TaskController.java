@@ -84,7 +84,7 @@ public class TaskController {
     )
     @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<TaskDto> getAll(@RequestBody
-                                @Parameter(description = "Объект TaskFilter - содержит параметры для поиска задач.", required = true)
+                                @Parameter(description = "Объект TaskFilterDto - содержит параметры для поиска задач.", required = true)
                                 TaskFilterDto filter) {
         return taskService.findAllByFilter(filter);
     }

@@ -24,7 +24,7 @@ public class EmployeeSpecification {
         return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("email"), email);
     }
 
-    public static Specification<Employee> statusEqual(String status) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("status"), status);
+    public static Specification<Employee> statusLike(String status) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("status"), status);
     }
 }

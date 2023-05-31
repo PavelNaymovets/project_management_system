@@ -5,7 +5,6 @@ import com.digdes.pms.dto.employee.EmployeeFilterDto;
 import com.digdes.pms.exception.EmployeeHasDeletedStatusException;
 import com.digdes.pms.exception.EmployeeStatusIncorrectException;
 import com.digdes.pms.exception.ResourceNotFoundException;
-import com.digdes.pms.exception.TaskStatusIncorrectException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.employee.EmployeeStatus;
 import com.digdes.pms.repository.employee.EmployeeRepository;
@@ -118,9 +117,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         if (!ObjectUtils.isEmpty(filter.getStatus())) {
             checkStatus(filter.getStatus());
-            spec = spec.and(EmployeeSpecification.statusEqual(filter.getStatus()));
+            spec = spec.and(EmployeeSpecification.statusLike(filter.getStatus()));
         } else {
-            spec = spec.and(EmployeeSpecification.statusEqual(ACTIVE.getStatus()));
+            spec = spec.and(EmployeeSpecification.statusLike(ACTIVE.getStatus()));
         }
 
         return employeeRepository.findAll(spec).stream()
@@ -177,7 +176,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private void checkStatus(String status) {
         if (EmployeeStatus.check(status) == null) {
-            throw new TaskStatusIncorrectException(
+            throw new EmployeeStatusIncorrectException(
                     messageSource.getMessage("employee.field.status.incorrect", null, Locale.ENGLISH));
         }
     }

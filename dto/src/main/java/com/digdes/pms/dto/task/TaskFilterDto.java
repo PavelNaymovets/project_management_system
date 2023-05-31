@@ -16,7 +16,7 @@ public class TaskFilterDto {
     String name;
 
     @Schema(description = "Статус задачи",
-            example = "Новая, В работе, Выполнена, Закрыта",
+            example = "новая",
             type = "String")
     String status;
 
