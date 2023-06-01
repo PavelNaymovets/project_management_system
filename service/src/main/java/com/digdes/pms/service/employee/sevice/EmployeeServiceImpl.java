@@ -2,12 +2,14 @@ package com.digdes.pms.service.employee.sevice;
 
 import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.employee.EmployeeFilterDto;
-import com.digdes.pms.exception.HasDeletedStatusException;
 import com.digdes.pms.exception.FieldIncorrectException;
+import com.digdes.pms.exception.HasDeletedStatusException;
 import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.employee.EmployeeStatus;
+import com.digdes.pms.model.employee.Role;
 import com.digdes.pms.repository.employee.EmployeeRepository;
+import com.digdes.pms.repository.employee.RoleRepository;
 import com.digdes.pms.repository.employee.specification.EmployeeSpecification;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
 import com.digdes.pms.service.employee.validator.EmployeeValidator;
@@ -32,6 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeValidator employeeValidator;
     private final EmployeeRepository employeeRepository;
     private final EmployeeConverter employeeConverter;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final MessageSource messageSource;
 
@@ -42,6 +45,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setLogin(employeeDto.getLogin());
         employee.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
         employee.setStatus(ACTIVE.getStatus());
+        Role role = roleRepository.findById(1L).get();
+        employee.setRoles(List.of(role));
         Employee createdEmployee = employeeRepository.save(employee);
 
         return employeeConverter.convertToDto(createdEmployee);

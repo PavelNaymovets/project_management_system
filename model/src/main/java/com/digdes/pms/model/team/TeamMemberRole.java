@@ -1,7 +1,5 @@
 package com.digdes.pms.model.team;
 
-import com.digdes.pms.model.task.TaskStatus;
-
 import java.util.stream.Stream;
 
 public enum TeamMemberRole {
