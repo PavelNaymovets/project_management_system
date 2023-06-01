@@ -7,8 +7,6 @@ import com.digdes.pms.service.project.converter.ProjectConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
-
 @Component
 @RequiredArgsConstructor
 public class TaskConverterImpl implements TaskConverter {

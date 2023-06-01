@@ -3,7 +3,6 @@ package com.digdes.pms.model.project;
 import java.util.stream.Stream;
 
 public enum ProjectStatus {
-
     DRAFT("черновик"),
     IN_DEVELOPMENT("в разработке"),
     IN_TESTING("в тестировании"),

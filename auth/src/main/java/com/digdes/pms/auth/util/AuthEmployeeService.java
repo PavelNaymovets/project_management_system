@@ -1,6 +1,6 @@
 package com.digdes.pms.auth.util;
 
-import com.digdes.pms.exception.EmployeeHasDeletedStatusException;
+import com.digdes.pms.exception.HasDeletedStatusException;
 import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.employee.Role;
@@ -35,7 +35,7 @@ public class AuthEmployeeService implements UserDetailsService {
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
 
         if (employee.getStatus().equals(REMOTE.getStatus())) {
-            throw new EmployeeHasDeletedStatusException(
+            throw new HasDeletedStatusException(
                     messageSource.getMessage("employee.has.deleted.status", null, Locale.ENGLISH));
         }
 

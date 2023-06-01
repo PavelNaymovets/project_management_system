@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
+@Schema(description = "Модель фильтра поиска проекта")
 public class ProjectFilterDto {
     @Schema(description = "Название проекта",
             required = true,
@@ -22,4 +23,9 @@ public class ProjectFilterDto {
             example = "черновик",
             type = "Long")
     private String status;
+
+    @Schema(description = "Описание проекта",
+            example = "Взаимодействие корпорации и клиента традиционно специфицирует ролевой анализ зарубежного опыта Баинг и селлинг, безусловно, экономит продвигаемый повторный контакт",
+            type = "String")
+    private String description;
 }

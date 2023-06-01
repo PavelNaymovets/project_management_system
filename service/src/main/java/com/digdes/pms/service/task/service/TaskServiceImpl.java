@@ -3,7 +3,7 @@ package com.digdes.pms.service.task.service;
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.dto.task.TaskFilterDto;
 import com.digdes.pms.exception.ResourceNotFoundException;
-import com.digdes.pms.exception.TaskStatusIncorrectException;
+import com.digdes.pms.exception.FieldIncorrectException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.task.Task;
 import com.digdes.pms.model.task.TaskStatus;
@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -39,12 +40,13 @@ public class TaskServiceImpl implements TaskService {
     private final MessageSource messageSource;
 
     @Override
-    public TaskDto create(TaskDto taskDto, String login) {
+    public TaskDto create(TaskDto taskDto) {
         taskValidator.validate(taskDto);
-        Employee employee = employeeRepository.findByLogin(login)
+        String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Employee author = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
-        taskDto.setAuthor(employeeConverter.convertToDto(employee));
+        taskDto.setAuthor(employeeConverter.convertToDto(author));
         Task task = taskConverter.convertToEntity(taskDto);
         task.setStatus(NEW.getStatus());
         Task createdTask = taskRepository.save(task);
@@ -53,11 +55,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDto update(TaskDto taskDto, String login) {
+    public TaskDto update(TaskDto taskDto) {
         Task task = taskRepository.findById(taskDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + taskDto.getId()));
         checkUpdatableFields(taskDto, task);
+        String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Employee employee = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
@@ -77,31 +80,23 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDto> findAll() {
-        List<Task> list = taskRepository.findAll();
-
-        return list.stream()
-                .map(taskConverter::convertToDto)
-                .toList();
-    }
-
-    @Override
     public TaskDto deleteById(Long id) {
         Task deletedTask = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + id));
-        taskRepository.deleteById(id);
+        taskRepository.delete(deletedTask);
 
         return taskConverter.convertToDto(deletedTask);
     }
 
     @Transactional
     @Override
-    public void updateStatus(Long id, String status, String login) {
+    public void updateStatus(Long id, String status) {
         checkStatus(status);
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + id));
+        String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Employee employee = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
@@ -156,7 +151,7 @@ public class TaskServiceImpl implements TaskService {
 
     private void checkUpdatableFields(TaskDto taskDto, Task task) {
         if (!ObjectUtils.isEmpty(taskDto.getStatus())) {
-            throw new TaskStatusIncorrectException(
+            throw new FieldIncorrectException(
                     messageSource.getMessage("task.field.status.not.updatable", null, Locale.ENGLISH));
         }
 
@@ -187,7 +182,7 @@ public class TaskServiceImpl implements TaskService {
 
     private void checkStatus(String status) {
         if (TaskStatus.check(status) == null) {
-            throw new TaskStatusIncorrectException(
+            throw new FieldIncorrectException(
                     messageSource.getMessage("task.field.status.incorrect", null, Locale.ENGLISH));
         }
     }

@@ -37,9 +37,7 @@ public class TaskController {
     public TaskDto create(@RequestBody
                           @Parameter(description = "Объект TaskDto - содержит параметры для создания задачи.", required = true)
                           TaskDto taskDto) {
-        String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        return taskService.create(taskDto, login);
+        return taskService.create(taskDto);
     }
 
     @Operation(summary = "Обновление задачи",
@@ -54,9 +52,7 @@ public class TaskController {
     public TaskDto update(@RequestBody
                           @Parameter(description = "Объект TaskDto - содержит параметры для обновления задачи.", required = true)
                           TaskDto taskDto) {
-        String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        return taskService.update(taskDto, login);
+        return taskService.update(taskDto);
     }
 
     @Operation(summary = "Получение задачи по id",
@@ -112,7 +108,6 @@ public class TaskController {
                              @RequestParam(name = "status", required = true)
                              @Parameter(description = "Статус задачи.", required = true)
                              String status) {
-        String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        taskService.updateStatus(id, status, login);
+        taskService.updateStatus(id, status);
     }
 }

@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EmployeeHasDeletedStatusException extends RuntimeException {
+public class HasDeletedStatusException extends RuntimeException {
     private String errorMessage;
 
-    public EmployeeHasDeletedStatusException(String errorMessage) {
+    public HasDeletedStatusException(String errorMessage) {
         super(errorMessage);
         this.errorMessage = errorMessage;
     }

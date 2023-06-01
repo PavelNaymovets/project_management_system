@@ -15,4 +15,8 @@ public class ProjectSpecification {
     public static Specification<Project> statusLike(String status) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("status"), status);
     }
+
+    public static Specification<Project> descriptionLike(String description) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("description"), String.format("%%%s%%", description));
+    }
 }

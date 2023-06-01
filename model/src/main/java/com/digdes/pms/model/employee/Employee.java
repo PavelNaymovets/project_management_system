@@ -16,7 +16,7 @@ import java.util.Collection;
 @Builder
 @Entity
 @Table(name = "employee")
-@SQLDelete(sql = "UPDATE employee SET status = удаленный WHERE id=?") //1 - активный, 0 - удаленный.
+@SQLDelete(sql = "UPDATE employee SET status = 'удаленный' WHERE id=?") //1 - активный, 0 - удаленный.
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {

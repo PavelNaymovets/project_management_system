@@ -2,19 +2,16 @@ package com.digdes.pms.service.project.service;
 
 import com.digdes.pms.dto.project.ProjectDto;
 import com.digdes.pms.dto.project.ProjectFilterDto;
-import com.digdes.pms.exception.ProjectStatusIncorrectException;
+import com.digdes.pms.exception.FieldIncorrectException;
 import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.project.Project;
 import com.digdes.pms.model.project.ProjectStatus;
-import com.digdes.pms.model.task.Task;
 import com.digdes.pms.repository.project.ProjectRepository;
 import com.digdes.pms.repository.project.specification.ProjectSpecification;
-import com.digdes.pms.repository.task.specification.TaskSpecification;
 import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.project.validator.ProjectValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -63,15 +60,6 @@ public class ProjectServiceImpl implements ProjectService {
         return projectConverter.convertToDto(project);
     }
 
-    @Override
-    public List<ProjectDto> findAll() {
-        List<Project> list = projectRepository.findAll();
-
-        return list.stream()
-                .map(projectConverter::convertToDto)
-                .toList();
-    }
-
     @Transactional
     @Override
     public void updateStatus(Long id, String status) {
@@ -99,6 +87,10 @@ public class ProjectServiceImpl implements ProjectService {
             spec = spec.and(ProjectSpecification.codeEqual(filter.getCode()));
         }
 
+        if(!ObjectUtils.isEmpty(filter.getDescription())) {
+            spec = spec.and(ProjectSpecification.descriptionLike(filter.getDescription()));
+        }
+
         return projectRepository.findAll(spec).stream()
                 .map(projectConverter::convertToDto)
                 .toList();
@@ -109,14 +101,14 @@ public class ProjectServiceImpl implements ProjectService {
         Project deletedProject = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + id));
-        projectRepository.deleteById(id);
+        projectRepository.delete(deletedProject);
 
         return projectConverter.convertToDto(deletedProject);
     }
 
     private void checkUpdatableFields(ProjectDto projectDto, Project project) {
         if (!ObjectUtils.isEmpty(projectDto.getStatus())) {
-            throw new ProjectStatusIncorrectException(
+            throw new FieldIncorrectException(
                     messageSource.getMessage("project.field.status.not.updatable", null, Locale.ENGLISH));
         }
         if (!ObjectUtils.isEmpty(projectDto.getName()) && !projectDto.getName().isBlank()) {
@@ -132,7 +124,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     private void checkStatus(String status) {
         if (ProjectStatus.check(status) == null) {
-            throw new ProjectStatusIncorrectException(
+            throw new FieldIncorrectException(
                     messageSource.getMessage("project.field.status.incorrect", null, Locale.ENGLISH));
         }
     }

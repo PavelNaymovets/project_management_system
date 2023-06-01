@@ -17,7 +17,7 @@ public class AppConfiguration {
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasenames("classpath:/message/exception/authentication",
-                "classpath:/message/exception/employee_has_deleted",
+                "classpath:/message/exception/has_deleted_status",
                 "classpath:/message/exception/resource_not_found",
                 "classpath:/message/exception/validation");
         messageSource.setDefaultEncoding("UTF-8");

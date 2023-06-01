@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
+@Schema(description = "Модель фильтра поиска работника")
 public class EmployeeFilterDto {
     @Schema(description = "Фамилия работника",
             required = true,

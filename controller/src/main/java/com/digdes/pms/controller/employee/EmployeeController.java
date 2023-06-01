@@ -2,8 +2,6 @@ package com.digdes.pms.controller.employee;
 
 import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.employee.EmployeeFilterDto;
-import com.digdes.pms.dto.task.TaskDto;
-import com.digdes.pms.dto.task.TaskFilterDto;
 import com.digdes.pms.service.employee.sevice.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -13,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

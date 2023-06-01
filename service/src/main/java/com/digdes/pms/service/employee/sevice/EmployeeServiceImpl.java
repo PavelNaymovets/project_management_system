@@ -2,8 +2,8 @@ package com.digdes.pms.service.employee.sevice;
 
 import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.employee.EmployeeFilterDto;
-import com.digdes.pms.exception.EmployeeHasDeletedStatusException;
-import com.digdes.pms.exception.EmployeeStatusIncorrectException;
+import com.digdes.pms.exception.HasDeletedStatusException;
+import com.digdes.pms.exception.FieldIncorrectException;
 import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.employee.EmployeeStatus;
@@ -54,7 +54,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                         messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + employeeDto.getId()));
 
         if (employee.getStatus().equals(REMOTE.getStatus())) {
-            throw new EmployeeHasDeletedStatusException(
+            throw new HasDeletedStatusException(
                     messageSource.getMessage("employee.has.deleted.status", null, Locale.ENGLISH));
         }
 
@@ -80,15 +80,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
 
         return employeeConverter.convertToDto(employee);
-    }
-
-    @Override
-    public List<EmployeeDto> findAll() {
-        List<Employee> list = employeeRepository.findAll();
-
-        return list.stream()
-                .map(employeeConverter::convertToDto)
-                .toList();
     }
 
     @Override
@@ -134,18 +125,19 @@ public class EmployeeServiceImpl implements EmployeeService {
                         messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + id));
 
         if (deletedEmployee.getStatus().equals(REMOTE.getStatus())) {
-            throw new EmployeeHasDeletedStatusException(
+            throw new HasDeletedStatusException(
                     messageSource.getMessage("employee.has.deleted.status", null, Locale.ENGLISH));
         }
 
         employeeRepository.delete(deletedEmployee);
+        deletedEmployee.setStatus(REMOTE.getStatus());
 
         return employeeConverter.convertToDto(deletedEmployee);
     }
 
     private void checkUpdatableFields(EmployeeDto employeeDto, Employee employee) {
         if (!ObjectUtils.isEmpty(employeeDto.getStatus())) {
-            throw new EmployeeStatusIncorrectException(
+            throw new FieldIncorrectException(
                     messageSource.getMessage("employee.field.status.not.updatable", null, Locale.ENGLISH));
         }
         if (!ObjectUtils.isEmpty(employeeDto.getPersonalNumber()) && !employeeDto.getPersonalNumber().isBlank()) {
@@ -176,7 +168,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private void checkStatus(String status) {
         if (EmployeeStatus.check(status) == null) {
-            throw new EmployeeStatusIncorrectException(
+            throw new FieldIncorrectException(
                     messageSource.getMessage("employee.field.status.incorrect", null, Locale.ENGLISH));
         }
     }
