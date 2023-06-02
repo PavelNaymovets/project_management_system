@@ -1,9 +1,9 @@
 insert into employee (personal_number, last_name, first_name, middle_name, "position", login, email, status, password)
 values ('384f508c-3016-3bf1-9334-6ccc1ca21c36', 'Прохорова', 'Инна', 'Андреевна', 'инженер ui тестирования', 'vil53', 'vil534@example.com', 'активный', '$2a$12$Pq7p4UGq08oKp.xCBGddd.CLE41cvfFgFjdWrW0hvr5ZFex4.LkoW'),
-       ('5190a23e-98ac-3e82-88af-9c5cdd7ca811', 'Селезнёва', 'Ярослава', 'Борисовна', 'бизнес аналитик', 'zlata.rybakov', 'zlata.rybakov69@example.net', 'активный', '$2a$12$R41MrhAZFaGQCXaK4PFPqOp.vkpISDQTTy..sOIm5sAAlmC.Lkaj6'),
-       ('22a7edc2-d9a3-3bc5-9241-c6922a7a45c1', 'Ермаков', 'Назар', 'Максимович', 'java разработчик', 'popova.oleg', 'popova.oleg31@example.net', 'активный', '$2a$12$nC0mOhkf.VBNeoNL4icswOfQ0GFrKGqWAOizfKudunvPd/aOUe.cG'),
+       ('5190a23e-98ac-3e82-88af-9c5cdd7ca811', 'Селезнёва', 'Ярослава', 'Борисовна', 'бизнес аналитик', 'zlata.rybakov', 'zlata.rybakov69@example.com', 'активный', '$2a$12$R41MrhAZFaGQCXaK4PFPqOp.vkpISDQTTy..sOIm5sAAlmC.Lkaj6'),
+       ('22a7edc2-d9a3-3bc5-9241-c6922a7a45c1', 'Ермаков', 'Назар', 'Максимович', 'java разработчик', 'popova.oleg', 'popova.oleg31@example.com', 'активный', '$2a$12$nC0mOhkf.VBNeoNL4icswOfQ0GFrKGqWAOizfKudunvPd/aOUe.cG'),
        ('d4a5e6ff-8df2-377a-bd45-a7a698f76afb', 'Виноградова', 'Маргарита', 'Сергеевна', 'тим лид', 'romanova.dina', 'romanova.dina56@example.com', 'активный', '$2a$12$qbKPpKlxZ8L0J0cOr3PpG.qQ/0wAEZRQqWBGXYtsWxszhfjB3ar46'),
-       ('b62a18bf-53a0-3f30-9f28-30c7bf10f96d', 'Алексеев', 'Аркадий', 'Иванович', 'java разработчик', 'akov.efremov', 'akov.efremov25@example.org', 'активный', '$2a$12$37aLWLHgzu1dt2Pa.Z8zLO4MrKpig4kMRrXlJyrI5pVydqMZTbiaG'),
+       ('b62a18bf-53a0-3f30-9f28-30c7bf10f96d', 'Алексеев', 'Аркадий', 'Иванович', 'java разработчик', 'akov.efremov', 'akov.efremov25@example.com', 'активный', '$2a$12$37aLWLHgzu1dt2Pa.Z8zLO4MrKpig4kMRrXlJyrI5pVydqMZTbiaG'),
        ('b2sd18bf-5fa0-3430-9218-30cios5sf96d', 'Иванов', 'Иван', 'Иванович', 'java разработчик', 'Ivanov.ivan', 'ivan.ivanov41@example.org', 'удаленный', '$2a$12$9.0ouDrO6AdbVHF7NYZS0.1Kf/J34OMOSOAW71Iqc9FwC5MiavDx6');
 
 insert into project (code, name, description, status)

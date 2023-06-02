@@ -41,7 +41,7 @@ create table task
     id          bigserial primary key,
     name        text      not null,
     description text,
-    project_id  bigint    not null references project (id),
+    project_id  bigint    references project (id),
     employee_id bigint    references employee (id),
     labor_cost  bigint    not null,
     dead_line   date      not null,

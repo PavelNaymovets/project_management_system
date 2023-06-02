@@ -2,6 +2,7 @@ package com.digdes.pms.app.config.app;
 
 import com.digdes.pms.auth.config.SecurityConfig;
 import com.digdes.pms.repository.config.RepositoryConfig;
+import com.digdes.pms.service.config.EmailConfig;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,8 +12,8 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 
 @Configuration
 @ComponentScan(basePackages = {"com.digdes.pms.auth", "com.digdes.pms.controller", "com.digdes.pms.service"})
-@Import({RepositoryConfig.class, SecurityConfig.class})
-public class AppConfiguration {
+@Import({RepositoryConfig.class, SecurityConfig.class, EmailConfig.class})
+public class AppConfig {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
