@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserNotFoundException extends RuntimeException {
+public class HasDeletedStatusException extends RuntimeException {
     private String errorMessage;
 
-    public UserNotFoundException(String errorMessage) {
+    public HasDeletedStatusException(String errorMessage) {
         super(errorMessage);
         this.errorMessage = errorMessage;
     }

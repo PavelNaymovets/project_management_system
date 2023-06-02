@@ -3,13 +3,12 @@ package com.digdes.pms.repository.task.specification;
 import com.digdes.pms.model.task.Task;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TaskSpecification {
     public static Specification<Task> nameLike(String name) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("name"), name);
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("name"), String.format("%%%s%%", name));
     }
 
     public static Specification<Task> statusLike(String status) {

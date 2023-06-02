@@ -52,7 +52,7 @@ public class TaskDto {
 
     @Schema(description = "Статус задачи",
             required = true,
-            example = "Новая, В работе, Выполнена, Закрыта",
+            example = "новая",
             type = "String")
     private String status;
 

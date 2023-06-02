@@ -33,7 +33,7 @@ public class ProjectDto {
 
     @Schema(description = "Статус проекта ()",
             required = true,
-            example = "Черновик, В разработке, В тестировании, Завершен",
+            example = "черновик",
             type = "Long")
     private String status;
 }

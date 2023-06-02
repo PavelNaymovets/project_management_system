@@ -2,7 +2,6 @@ package com.digdes.pms.controller.task;
 
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.dto.task.TaskFilterDto;
-import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.service.task.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -38,9 +37,7 @@ public class TaskController {
     public TaskDto create(@RequestBody
                           @Parameter(description = "Объект TaskDto - содержит параметры для создания задачи.", required = true)
                           TaskDto taskDto) {
-        String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        return taskService.create(taskDto, login);
+        return taskService.create(taskDto);
     }
 
     @Operation(summary = "Обновление задачи",
@@ -55,9 +52,7 @@ public class TaskController {
     public TaskDto update(@RequestBody
                           @Parameter(description = "Объект TaskDto - содержит параметры для обновления задачи.", required = true)
                           TaskDto taskDto) {
-        String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        return taskService.update(taskDto, login);
+        return taskService.update(taskDto);
     }
 
     @Operation(summary = "Получение задачи по id",
@@ -85,7 +80,7 @@ public class TaskController {
     )
     @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<TaskDto> getAll(@RequestBody
-                                @Parameter(description = "Объект TaskFilter - содержит параметры для поиска задач.", required = true)
+                                @Parameter(description = "Объект TaskFilterDto - содержит параметры для поиска задач.", required = true)
                                 TaskFilterDto filter) {
         return taskService.findAllByFilter(filter);
     }
@@ -113,7 +108,6 @@ public class TaskController {
                              @RequestParam(name = "status", required = true)
                              @Parameter(description = "Статус задачи.", required = true)
                              String status) {
-        String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        taskService.updateStatus(id, status, login);
+        taskService.updateStatus(id, status);
     }
 }

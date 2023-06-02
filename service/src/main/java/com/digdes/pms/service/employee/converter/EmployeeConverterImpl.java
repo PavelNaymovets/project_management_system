@@ -16,6 +16,7 @@ public class EmployeeConverterImpl implements EmployeeConverter {
                 .middleName(employeeDto.getMiddleName())
                 .position(employeeDto.getPosition())
                 .email(employeeDto.getEmail())
+                .status(employeeDto.getStatus())
                 .build();
     }
 
@@ -29,6 +30,7 @@ public class EmployeeConverterImpl implements EmployeeConverter {
                 .middleName(employee.getMiddleName())
                 .position(employee.getPosition())
                 .email(employee.getEmail())
+                .status(employee.getStatus())
                 .build();
     }
 }
