@@ -1,8 +1,8 @@
 package com.digdes.pms.service.email;
 
-import com.digdes.pms.model.employee.Employee;
-import com.digdes.pms.model.task.Task;
+import com.digdes.pms.dto.employee.EmployeeDto;
+import com.digdes.pms.dto.task.TaskDto;
 
 public interface EmailService {
-    void sendHtmlMessage(Employee employee, Task task);
+    boolean sendHtmlMessage(EmployeeDto employee, TaskDto task);
 }

@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class GlobalExceptionHandler {
     @ExceptionHandler
+    public ResponseEntity<AppError> catchEmailSendException(EmailSendException e) {
+        log.error(e.getMessage(), e);
+        return new ResponseEntity<>(new AppError(HttpStatus.EXPECTATION_FAILED.value(), e.getMessage()), HttpStatus.EXPECTATION_FAILED);
+    }
+
+    @ExceptionHandler
     public ResponseEntity<AppError> catchFieldIncorrectException(FieldIncorrectException e) {
         log.error(e.getMessage(), e);
         return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);

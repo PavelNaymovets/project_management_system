@@ -3,6 +3,7 @@ package com.digdes.pms.service.task.service;
 import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.dto.task.TaskFilterDto;
+import com.digdes.pms.exception.EmailSendException;
 import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.exception.FieldIncorrectException;
 import com.digdes.pms.model.employee.Employee;
@@ -69,10 +70,10 @@ public class TaskServiceImpl implements TaskService {
                         messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + taskDto.getId()));
         checkUpdatableFields(taskDto, task);
         String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Employee employee = employeeRepository.findByLogin(login)
+        Employee author = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
-        task.setAuthor(employee);
+        task.setAuthor(author);
         Task updatedTask = taskRepository.save(task);
 
         return taskConverter.convertToDto(updatedTask);
@@ -106,10 +107,10 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + id));
         String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Employee employee = employeeRepository.findByLogin(login)
+        Employee author = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
-        task.setAuthor(employee);
+        task.setAuthor(author);
         task.setStatus(status);
     }
 
@@ -124,9 +125,22 @@ public class TaskServiceImpl implements TaskService {
                         messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + employeeId));
 
         if (ObjectUtils.isEmpty(task.getEmployee()) || !Objects.equals(task.getEmployee().getId(), employeeId)) {
+            String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Employee author = employeeRepository.findByLogin(login)
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
             task.setEmployee(employee);
+            task.setAuthor(author);
             taskRepository.save(task);
-            emailService.sendHtmlMessage(employee,task);
+            EmployeeDto employeeDto = employeeConverter.convertToDto(employee);
+            TaskDto taskDto = taskConverter.convertToDto(task);
+
+            if (!emailService.sendHtmlMessage(employeeDto, taskDto)) { //повторная попытка отправки, если что-то пошло не так.
+                if (!emailService.sendHtmlMessage(employeeDto, taskDto)) {
+                    throw new EmailSendException(
+                            messageSource.getMessage("email.send.fail", null, Locale.ENGLISH));
+                }
+            }
         }
         
         return taskConverter.convertToDto(task);
