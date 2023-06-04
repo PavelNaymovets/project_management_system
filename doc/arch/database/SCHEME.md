@@ -13,7 +13,7 @@
 
 #### employee
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/png/employee%20table%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/employee%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
@@ -30,7 +30,7 @@
 
 #### project
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/png/project%20table%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/project%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
@@ -43,7 +43,7 @@
 
 #### task
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/png/task%20table%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/task%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
@@ -60,7 +60,7 @@
 
 #### team
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/png/team%20table%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/team%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
@@ -70,7 +70,7 @@
 
 #### team_member
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/png/team%20member%20table%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/team%20member%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
@@ -82,7 +82,7 @@
 
 #### role
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/role%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
@@ -90,7 +90,7 @@
 
 #### employee_role
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/employee%20role%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
