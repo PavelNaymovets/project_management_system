@@ -12,7 +12,7 @@ import com.digdes.pms.model.task.TaskStatus;
 import com.digdes.pms.repository.employee.EmployeeRepository;
 import com.digdes.pms.repository.task.TaskRepository;
 import com.digdes.pms.repository.task.specification.TaskSpecification;
-import com.digdes.pms.service.email.EmailService;
+import com.digdes.pms.service.task.email.service.TaskServiceEmail;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
 import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.task.converter.TaskConverter;
@@ -43,7 +43,7 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final TaskConverter taskConverter;
     private final TaskValidator taskValidator;
-    private final EmailService emailService;
+    private final TaskServiceEmail taskServiceEmail;
     private final MessageSource messageSource;
 
     @Override
@@ -135,8 +135,8 @@ public class TaskServiceImpl implements TaskService {
             EmployeeDto employeeDto = employeeConverter.convertToDto(employee);
             TaskDto taskDto = taskConverter.convertToDto(task);
 
-            if (!emailService.sendHtmlMessage(employeeDto, taskDto)) { //повторная попытка отправки, если что-то пошло не так.
-                if (!emailService.sendHtmlMessage(employeeDto, taskDto)) {
+            if (!taskServiceEmail.sendHtmlMessage(employeeDto, taskDto)) { //повторная попытка отправки, если что-то пошло не так.
+                if (!taskServiceEmail.sendHtmlMessage(employeeDto, taskDto)) {
                     throw new EmailSendException(
                             messageSource.getMessage("email.send.fail", null, Locale.ENGLISH));
                 }
