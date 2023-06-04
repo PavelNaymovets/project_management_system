@@ -14,12 +14,14 @@ create table employee
     updated_at      timestamp default current_timestamp
 );
 
-create table role (
+create table role
+(
   id                bigserial   primary key,
   name              varchar(50) not null unique
 );
 
-CREATE TABLE employee_role (
+CREATE TABLE employee_role
+(
   employee_id           bigint not null references employee (id),
   role_id               bigint not null references role (id),
   primary key (employee_id, role_id)
