@@ -3,8 +3,7 @@ package com.digdes.pms.service.task.email.collector.thymeleaf;
 import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.service.task.email.collector.TaskHtmlLetterCollector;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.context.Context;
@@ -17,25 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@RequiredArgsConstructor
 public class TaskThymeleafLetterCollector implements TaskHtmlLetterCollector {
-    @Value("${email.send.from}")
-    private String fromEmail;
-    @Value("${email.reply.to}")
-    private String replyToEmail;
-    @Value("${email.subject}")
-    private String subject;
-    @Value("${email.template}")
-    private String thymeleafTemplate;
-    @Value("${email.th.param.employee.name}")
-    private String employeeName;
-    @Value("${email.th.param.project.name}")
-    private String projectName;
-    @Value("${email.th.param.subscription.date}")
-    private String subscriptionDate;
-    @Value("${email.th.param.task}")
-    private String task;
-
-    private SpringTemplateEngine templateEngine;
+    private final EmailFieldNameProperties emailFields;
+    private final SpringTemplateEngine templateEngine;
 
     @Override
     public void collect(MimeMessage message,
@@ -44,23 +28,18 @@ public class TaskThymeleafLetterCollector implements TaskHtmlLetterCollector {
                         EmployeeDto employeeDto,
                         TaskDto taskDto) throws MessagingException {
         Map<String, Object> properties = new HashMap<>();
-        properties.put(employeeName, employeeDto.getFirstName());
-        properties.put(projectName, taskDto.getProject().getName());
-        properties.put(subscriptionDate, LocalDate.now().toString());
-        properties.put(task, taskDto);
+        properties.put(emailFields.getEmployeeName(), employeeDto.getFirstName());
+        properties.put(emailFields.getProjectName(), taskDto.getProject().getName());
+        properties.put(emailFields.getSubscriptionDate(), LocalDate.now().toString());
+        properties.put(emailFields.getTask(), taskDto);
 
         context.setVariables(properties);
 
-        String[] sendToEmails = new String[]{employeeDto.getEmail(), replyToEmail};
-        helper.setFrom(fromEmail);
+        String[] sendToEmails = new String[]{employeeDto.getEmail(), emailFields.getReplyToEmail()};
+        helper.setFrom(emailFields.getFromEmail());
         helper.setTo(sendToEmails);
-        helper.setSubject(subject);
-        String html = templateEngine.process(thymeleafTemplate, context);
+        helper.setSubject(emailFields.getSubject());
+        String html = templateEngine.process(emailFields.getThymeleafTemplate(), context);
         helper.setText(html, true);
-    }
-
-    @Autowired
-    public void setSpringTemplateEngine(SpringTemplateEngine templateEngine) {
-        this.templateEngine = templateEngine;
     }
 }
