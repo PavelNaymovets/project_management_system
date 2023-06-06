@@ -1,7 +1,9 @@
 package com.digdes.pms.service.task.service;
 
+import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.dto.task.TaskFilterDto;
+import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.service.util.service.ServiceCRUD;
 import com.digdes.pms.service.util.service.ServiceUpdateStatus;
 
@@ -25,4 +27,6 @@ public interface TaskService extends ServiceCRUD<TaskDto, TaskFilterDto>, Servic
 
     @Override
     void updateStatus(Long id, String status);
+
+    TaskDto appointAnEmployee(Long taskId, Long employeeId);
 }

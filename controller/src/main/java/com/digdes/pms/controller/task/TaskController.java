@@ -110,4 +110,15 @@ public class TaskController {
                              String status) {
         taskService.updateStatus(id, status);
     }
+
+    @Operation(summary = "Назначение исполнителя задачи по id")
+    @PutMapping(value = "/employee", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TaskDto appointAnEmployee(@RequestParam(name = "taskId", required = true)
+                                  @Parameter(description = "Идентификатор задачи.", required = true)
+                                  Long taskId,
+                                  @RequestParam(name = "employeeId", required = true)
+                                  @Parameter(description = "Идентификатор исполнителя.", required = true)
+                                  Long employeeId) {
+        return taskService.appointAnEmployee(taskId, employeeId);
+    }
 }

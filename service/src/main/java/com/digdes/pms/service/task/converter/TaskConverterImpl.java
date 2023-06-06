@@ -6,6 +6,7 @@ import com.digdes.pms.service.employee.converter.EmployeeConverter;
 import com.digdes.pms.service.project.converter.ProjectConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 @Component
 @RequiredArgsConstructor
@@ -19,12 +20,12 @@ public class TaskConverterImpl implements TaskConverter {
                 .id(taskDto.getId())
                 .name(taskDto.getName())
                 .description(taskDto.getDescription())
-                .project(projectConverter.convertToEntity(taskDto.getProject()))
-                .employee(employeeConverter.convertToEntity(taskDto.getEmployee()))
+                .project(ObjectUtils.isEmpty(taskDto.getProject()) ? null : projectConverter.convertToEntity(taskDto.getProject()))
+                .employee(ObjectUtils.isEmpty(taskDto.getEmployee()) ? null : employeeConverter.convertToEntity(taskDto.getEmployee()))
                 .laborCosts(taskDto.getLaborCosts())
                 .deadline(taskDto.getDeadline())
                 .status(taskDto.getStatus())
-                .author(employeeConverter.convertToEntity(taskDto.getAuthor()))
+                .author(ObjectUtils.isEmpty(taskDto.getAuthor()) ? null : employeeConverter.convertToEntity(taskDto.getAuthor()))
                 .build();
     }
 
@@ -34,12 +35,13 @@ public class TaskConverterImpl implements TaskConverter {
                 .id(task.getId())
                 .name(task.getName())
                 .description(task.getDescription())
-                .project(projectConverter.convertToDto(task.getProject()))
-                .employee(employeeConverter.convertToDto(task.getEmployee()))
+                .project(ObjectUtils.isEmpty(task.getProject()) ? null : projectConverter.convertToDto(task.getProject()))
+                .employee(ObjectUtils.isEmpty(task.getEmployee()) ? null : employeeConverter.convertToDto(task.getEmployee()))
                 .laborCosts(task.getLaborCosts())
                 .deadline(task.getDeadline())
                 .status(task.getStatus())
-                .author(employeeConverter.convertToDto(task.getAuthor()))
+                .author(ObjectUtils.isEmpty(task.getAuthor()) ? null : employeeConverter.convertToDto(task.getAuthor()))
                 .build();
     }
+
 }

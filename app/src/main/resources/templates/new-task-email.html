@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Новая задача</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <style>
+            *{ font-family: 'Quicksand', sans-serif;}
+
+	        .content-table{
+	          border-collapse: collapse;
+	          margin: 25px 0;
+	          font-size: 0.9em;
+	          min-width: 400px;
+	          border-radius: 5px 5px 0 0;
+	          overflow: hidden;
+	          box-shadow: 0 0 20px rgba(0, 0, 0, 0.15)
+	        }
+
+	        .content-table thead tr{
+	          background-color: #009879;
+	          color: white;
+	          text-align: left;
+	          font-weight: bold;
+	        }
+	        .content-table th, .content-table td{
+	          padding: 12px 15px;
+	        }
+	        .content-table tbody tr{
+	          border-bottom: 1px solid #dddddd;
+	        }
+	        .content-table tbody tr:nth-of-type(even){
+	          background-color: #f3f3f3;
+	        }
+	        .content-table tbody tr:last-of-type{
+	          border-bottom: 2px solid #009879;
+	        }
+        </style>
+    </head>
+    <body>
+        <p>
+            Добрый день, <span th:text="${name}">Иван Иванов</span>!
+        </p>
+        <p>
+            У вас появилась новая задача по проекту "<b th:text="${project}">Project</b>" на
+            <span th:text="${subscriptionDate}">28-12-2012</span>
+        </p>
+        <p>Смотрите информацию о задаче ниже:</p>
+        <table class="content-table">
+            <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Имя задачи</th>
+                <th>Код проекта</th>
+                <th>Проект</th>
+                <th>Трудозатраты</th>
+                <th>Крайний срок</th>
+                <th>Автор</th>
+                <th>Должность</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="t : ${task}">
+                <td th:text="${t.id}">id</td>
+                <td th:text="${t.name}">name</td>
+                <td th:text="${t.project.code}">code</td>
+                <td th:text="${t.project.name}">project</td>
+                <td th:text="${t.laborCosts}">labor costs</td>
+                <td th:text="${t.deadline}">deadline</td>
+                <td th:text="${t.author.firstName}">author</td>
+                <td th:text="${t.author.position}">position</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>
+            С уважением, <br/>
+            <em>Команда Системы Управления Проектами</em>
+        </p>
+    </body>
+</html>

@@ -2,16 +2,18 @@
 ## Структура базы данных
 #### СУБД: PostgreSQL
 ### Описание структуры
-Данные хранятся в 5 таблицах:
+Данные хранятся в 7 таблицах:
 * _employee_ - данные сотрудников
 * _project_ - данные о проекте
 * _task_ - задачи для проекта
 * _team_ - команда проекта
 * _team_member_ - участники команды проекта
+* _role_ - права сотрудника в программе
+* _employee_role_ - назначение сотрдунику прав в программе
 
 #### employee
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/png/employee%20table%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/employee%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
@@ -23,12 +25,13 @@
 * login - учетная запись;
 * email - электронная почта;
 * status - статус сотрудника (1 - активный, 0 - удаленный);
+* password - пароль;
 * created_at - дата создания записи;
 * updated_at - дата обновления записи;
 
 #### project
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/png/project%20table%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/project%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
@@ -41,7 +44,7 @@
 
 #### task
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/png/task%20table%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/task%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
@@ -58,7 +61,7 @@
 
 #### team
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/png/team%20table%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/team%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
@@ -68,7 +71,7 @@
 
 #### team_member
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop_additional_2/doc/arch/database/png/team%20member%20table%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/team%20member%20table%20diagram.png)
 
 Атрибуты:
 * id - уникальный идентификатор в таблице;
@@ -77,3 +80,20 @@
 * role - роль сотрудника в проекте (руководитель проекта, аналитик, разработчик, тестировщик);
 * created_at - дата создания записи;
 * updated_at - дата обновления записи;
+
+#### role
+
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/role%20table%20diagram.png)
+
+Атрибуты:
+* id - уникальный идентификатор в таблице;
+* name - название;
+
+#### employee_role
+
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/png/employee%20role%20table%20diagram.png)
+
+Атрибуты:
+* id - уникальный идентификатор в таблице;
+* employee_id - ссылка на сотрудника;
+* role_id - ссылка на роль;

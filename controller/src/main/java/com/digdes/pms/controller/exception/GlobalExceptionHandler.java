@@ -1,43 +1,53 @@
 package com.digdes.pms.controller.exception;
 
 import com.digdes.pms.exception.*;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-@Slf4j
 public class GlobalExceptionHandler {
+    private static final Logger exceptionLog = LoggerFactory.getLogger("exception-log");
+    private static final Logger authenticationLog = LoggerFactory.getLogger("auth-log");
+    private static final Logger emailLog = LoggerFactory.getLogger("email-log");
+
+    @ExceptionHandler
+    public ResponseEntity<AppError> catchEmailSendException(EmailSendException e) {
+        emailLog.debug(e.getMessage(), e);
+        return new ResponseEntity<>(new AppError(HttpStatus.EXPECTATION_FAILED.value(), e.getMessage()), HttpStatus.EXPECTATION_FAILED);
+    }
+
     @ExceptionHandler
     public ResponseEntity<AppError> catchFieldIncorrectException(FieldIncorrectException e) {
-        log.error(e.getMessage(), e);
+        exceptionLog.debug(e.getMessage(), e);
         return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
     public ResponseEntity<AppError> catchHasDeletedStatusException(HasDeletedStatusException e) {
-        log.error(e.getMessage(), e);
+        exceptionLog.debug(e.getMessage(), e);
         return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getErrorMessage()),
                 HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
     public ResponseEntity<AppError> catchResourceNotFoundException(ResourceNotFoundException e) {
-        log.error(e.getMessage(), e);
+        exceptionLog.debug(e.getMessage(), e);
         return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
     public ResponseEntity<AppError> catchTokenExpiredException(TokenExpiredException e) {
-        log.error(e.getMessage(), e);
+        authenticationLog.debug(e.getMessage(), e);
         return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
     public ResponseEntity<AppError> catchValidationException(ValidationException e) {
-        log.error(e.getMessage(), e);
+        exceptionLog.debug(e.getMessage(), e);
         return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), String.join(",", e.getErrorMessage())),
                 HttpStatus.BAD_REQUEST);
     }

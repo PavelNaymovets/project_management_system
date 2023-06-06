@@ -11,6 +11,8 @@ import com.digdes.pms.repository.project.specification.ProjectSpecification;
 import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.project.validator.ProjectValidator;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ import static com.digdes.pms.model.project.ProjectStatus.DRAFT;
 @Service
 @RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
+    private static final Logger serviceLog = LoggerFactory.getLogger("service-log");
     private final ProjectValidator projectValidator;
     private final ProjectConverter projectConverter;
     private final ProjectRepository projectRepository;
@@ -36,6 +39,9 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = projectConverter.convertToEntity(projectDto);
         project.setStatus(DRAFT.getStatus());
         Project createdProject = projectRepository.save(project);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("project.created", null, Locale.ENGLISH), createdProject.getId(), createdProject.getName()));
 
         return projectConverter.convertToDto(createdProject);
     }
@@ -47,6 +53,9 @@ public class ProjectServiceImpl implements ProjectService {
                         messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + projectDto.getId()));
         checkUpdatableFields(projectDto, project);
         Project updatedProject = projectRepository.save(project);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("project.updated", null, Locale.ENGLISH), updatedProject.getId(), updatedProject.getName()));
 
         return projectConverter.convertToDto(updatedProject);
     }
@@ -56,6 +65,9 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + id));
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("project.find", null, Locale.ENGLISH), id, project.getName()));
 
         return projectConverter.convertToDto(project);
     }
@@ -68,6 +80,9 @@ public class ProjectServiceImpl implements ProjectService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + id));
         project.setStatus(status);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("project.update.status", null, Locale.ENGLISH), id, project.getName(), status));
     }
 
     @Override
@@ -91,6 +106,8 @@ public class ProjectServiceImpl implements ProjectService {
             spec = spec.and(ProjectSpecification.descriptionLike(filter.getDescription()));
         }
 
+        serviceLog.debug(messageSource.getMessage("project.find.by.filter", null, Locale.ENGLISH));
+
         return projectRepository.findAll(spec).stream()
                 .map(projectConverter::convertToDto)
                 .toList();
@@ -102,6 +119,9 @@ public class ProjectServiceImpl implements ProjectService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + id));
         projectRepository.delete(deletedProject);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("project.deleted", null, Locale.ENGLISH), id, deletedProject.getName()));
 
         return projectConverter.convertToDto(deletedProject);
     }

@@ -5,6 +5,7 @@ import com.digdes.pms.model.team.TeamMember;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 @Component
 @RequiredArgsConstructor
@@ -16,8 +17,8 @@ public class TeamMemberConverterImpl implements TeamMemberConverter {
     public TeamMember convertToEntity(TeamMemberDto teamMemberDto) {
         return TeamMember.builder()
                 .id(teamMemberDto.getId())
-                .team(teamConverter.convertToEntity(teamMemberDto.getTeam()))
-                .employee(employeeConverter.convertToEntity(teamMemberDto.getEmployee()))
+                .team(ObjectUtils.isEmpty(teamMemberDto.getTeam()) ? null : teamConverter.convertToEntity(teamMemberDto.getTeam()))
+                .employee(ObjectUtils.isEmpty(teamMemberDto.getEmployee()) ? null : employeeConverter.convertToEntity(teamMemberDto.getEmployee()))
                 .role(teamMemberDto.getRole())
                 .build();
     }
@@ -26,8 +27,8 @@ public class TeamMemberConverterImpl implements TeamMemberConverter {
     public TeamMemberDto convertToDto(TeamMember teamMember) {
         return TeamMemberDto.builder()
                 .id(teamMember.getId())
-                .team(teamConverter.convertToDto(teamMember.getTeam()))
-                .employee(employeeConverter.convertToDto(teamMember.getEmployee()))
+                .team(ObjectUtils.isEmpty(teamMember.getTeam()) ? null : teamConverter.convertToDto(teamMember.getTeam()))
+                .employee(ObjectUtils.isEmpty(teamMember.getEmployee()) ? null : employeeConverter.convertToDto(teamMember.getEmployee()))
                 .role(teamMember.getRole())
                 .build();
     }
