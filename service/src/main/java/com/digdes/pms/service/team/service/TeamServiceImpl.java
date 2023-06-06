@@ -11,6 +11,8 @@ import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.team.converter.TeamConverter;
 import com.digdes.pms.service.team.validator.TeamValidator;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import java.util.Locale;
 @Service
 @RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService {
+    private static final Logger serviceLog = LoggerFactory.getLogger("service-log");
     private final TeamRepository teamRepository;
     private final TeamValidator teamValidator;
     private final TeamConverter teamConverter;
@@ -33,6 +36,9 @@ public class TeamServiceImpl implements TeamService {
         teamValidator.validate(teamDto);
         Team team = teamConverter.convertToEntity(teamDto);
         Team createdTeam = teamRepository.save(team);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("team.created", null, Locale.ENGLISH), createdTeam.getId()));
 
         return teamConverter.convertToDto(createdTeam);
     }
@@ -44,6 +50,9 @@ public class TeamServiceImpl implements TeamService {
                         messageSource.getMessage("team.not.found.id", null, Locale.ENGLISH) + teamDto.getId()));
         checkUpdatableFields(teamDto, team);
         Team updatedTeam = teamRepository.save(team);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("team.updated", null, Locale.ENGLISH), updatedTeam.getId()));
 
         return teamConverter.convertToDto(updatedTeam);
     }
@@ -54,6 +63,9 @@ public class TeamServiceImpl implements TeamService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("team.not.found.id", null, Locale.ENGLISH) + id));
         teamRepository.delete(deletedTeam);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("team.deleted", null, Locale.ENGLISH), id));
 
         return teamConverter.convertToDto(deletedTeam);
     }
@@ -63,6 +75,9 @@ public class TeamServiceImpl implements TeamService {
         Team team = teamRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("team.not.found.id", null, Locale.ENGLISH) + id));
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("team.find", null, Locale.ENGLISH), id));
 
         return teamConverter.convertToDto(team);
     }
@@ -75,6 +90,8 @@ public class TeamServiceImpl implements TeamService {
             Long id = filter.getProject().getId();
             spec = spec.and(TeamSpecification.projectIdEqual(id));
         }
+
+        serviceLog.debug(messageSource.getMessage("team.find.by.filter", null, Locale.ENGLISH));
 
         return teamRepository.findAll(spec).stream()
                 .map(teamConverter::convertToDto)

@@ -28,6 +28,12 @@ public class TaskValidatorImpl implements TaskValidator {
         if (ObjectUtils.isEmpty(taskDto.getDeadline())) {
             errorMessage.add(messageSource.getMessage("task.field.deadline.not.filled", null, Locale.ENGLISH));
         }
+        if (ObjectUtils.isEmpty(taskDto.getProject())) {
+            errorMessage.add(messageSource.getMessage("task.field.project.not.filled", null, Locale.ENGLISH));
+        }
+        if (!ObjectUtils.isEmpty(taskDto.getEmployee())) {
+            errorMessage.add(messageSource.getMessage("task.field.employee.not.assign", null, Locale.ENGLISH));
+        }
         if (!errorMessage.isEmpty()) {
             throw new ValidationException(errorMessage);
         }

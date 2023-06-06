@@ -1,0 +1,16 @@
+<mxfile host="app.diagrams.net" modified="2023-06-04T17:00:05.719Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="y-pt6ZvS0K-CGJ7R832J" version="21.3.7" type="device">
+  <diagram name="Страница 1" id="g1F1A2mIn5JW16d6NepJ">
+    <mxGraphModel dx="1985" dy="1095" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cgACN7PhrMGPtADFGZUV-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="14" y="10" width="800" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="cgACN7PhrMGPtADFGZUV-18" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;role&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;name: varchar(50)&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; id: bigint&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="331" y="30" width="165" height="98" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

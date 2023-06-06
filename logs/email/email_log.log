@@ -1,0 +1,5 @@
+2023-06-06 17:52:03 [http-nio-8080-exec-5] DEBUG email-log - Email was collected successfully for user with login:null
+2023-06-06 17:52:58 [http-nio-8080-exec-8] DEBUG email-log - Email was collected successfully for user with login:null
+2023-06-06 17:53:00 [http-nio-8080-exec-8] DEBUG email-log - Email was sent successfully for user with login: null
+2023-06-06 17:59:53 [http-nio-8080-exec-3] DEBUG email-log - Email was collected successfully for user with email: zlata.rybakov69@example.com
+2023-06-06 17:59:54 [http-nio-8080-exec-3] DEBUG email-log - Email was sent successfully for user with email: zlata.rybakov69@example.com

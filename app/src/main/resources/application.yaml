@@ -13,3 +13,24 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL9Dialect
         ddl-auto: none
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: naumovets.p@gmail.com
+    password: mutbejczbmudiseu
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
+    protocol: smtp
+    test-connection: false
+  thymeleaf:
+    cache: false
+    prefix:
+      classpath: /templates/
+    suffix: .html
+    encoding: UTF-8

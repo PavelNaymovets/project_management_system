@@ -2,14 +2,13 @@ package com.digdes.pms.service.team.service;
 
 import com.digdes.pms.dto.team.TeamMemberDto;
 import com.digdes.pms.dto.team.TeamMemberFilterDto;
-import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.exception.FieldIncorrectException;
+import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.team.Team;
 import com.digdes.pms.model.team.TeamMember;
 import com.digdes.pms.model.team.TeamMemberRole;
 import com.digdes.pms.repository.employee.EmployeeRepository;
-import com.digdes.pms.repository.project.ProjectRepository;
 import com.digdes.pms.repository.team.TeamMemberRepository;
 import com.digdes.pms.repository.team.TeamRepository;
 import com.digdes.pms.repository.team.specification.TeamMemberSpecification;
@@ -19,6 +18,8 @@ import com.digdes.pms.service.team.converter.TeamConverter;
 import com.digdes.pms.service.team.converter.TeamMemberConverter;
 import com.digdes.pms.service.team.validator.TeamMemberValidator;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ import java.util.Locale;
 @Service
 @RequiredArgsConstructor
 public class TeamMemberServiceImpl implements TeamMemberService {
+    private static final Logger serviceLog = LoggerFactory.getLogger("service-log");
     private final TeamMemberValidator teamMemberValidator;
     private final TeamMemberConverter teamMemberConverter;
     private final TeamMemberRepository teamMemberRepository;
@@ -55,6 +57,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         teamMemberDto.setEmployee(employeeConverter.convertToDto(employee));
         TeamMember teamMember = teamMemberConverter.convertToEntity(teamMemberDto);
         TeamMember createdTeamMember = teamMemberRepository.save(teamMember);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("teamMember.created", null, Locale.ENGLISH), team.getId(), employee.getLogin()));
 
         return teamMemberConverter.convertToDto(createdTeamMember);
     }
@@ -74,6 +79,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         teamMemberDto.setEmployee(employeeConverter.convertToDto(employee));
         checkUpdatableFields(teamMemberDto, teamMember);
         TeamMember updatedTeamMember = teamMemberRepository.save(teamMember);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("teamMember.updated", null, Locale.ENGLISH), team.getId(), employee.getLogin()));
 
         return teamMemberConverter.convertToDto(updatedTeamMember);
     }
@@ -84,6 +92,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("teamMember.not.found.id", null, Locale.ENGLISH) + id));
         teamMemberRepository.delete(teamMember);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("teamMember.deleted", null, Locale.ENGLISH), id, teamMember.getTeam().getId()));
 
         return teamMemberConverter.convertToDto(teamMember);
     }
@@ -93,6 +104,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         TeamMember teamMember = teamMemberRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("teamMember.not.found.id", null, Locale.ENGLISH) + id));
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("teamMember.find", null, Locale.ENGLISH), id, teamMember.getTeam().getId()));
 
         return teamMemberConverter.convertToDto(teamMember);
     }
@@ -116,6 +130,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             spec = spec.and(TeamMemberSpecification.roleLike(filter.getRole()));
         }
 
+        serviceLog.debug(messageSource.getMessage("teamMember.find.by.filter", null, Locale.ENGLISH));
+
         return teamMemberRepository.findAll(spec).stream()
                 .map(teamMemberConverter::convertToDto)
                 .toList();
@@ -129,6 +145,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("teamMember.not.found.id", null, Locale.ENGLISH) + id));
         teamMember.setRole(role);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("teamMember.update.role", null, Locale.ENGLISH), id, role));
     }
 
     private void checkRole(String role) {

@@ -14,7 +14,8 @@ import com.digdes.pms.repository.employee.specification.EmployeeSpecification;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
 import com.digdes.pms.service.employee.validator.EmployeeValidator;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,10 +28,10 @@ import java.util.Locale;
 import static com.digdes.pms.model.employee.EmployeeStatus.ACTIVE;
 import static com.digdes.pms.model.employee.EmployeeStatus.REMOTE;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
+    private static final Logger serviceLog = LoggerFactory.getLogger("service-log");
     private final EmployeeValidator employeeValidator;
     private final EmployeeRepository employeeRepository;
     private final EmployeeConverter employeeConverter;
@@ -48,6 +49,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         Role role = roleRepository.findById(1L).get();
         employee.setRoles(List.of(role));
         Employee createdEmployee = employeeRepository.save(employee);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("employee.created", null, Locale.ENGLISH), createdEmployee.getId(), createdEmployee.getLogin()));
 
         return employeeConverter.convertToDto(createdEmployee);
     }
@@ -65,6 +69,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         checkUpdatableFields(employeeDto, employee);
         Employee updatedEmployee = employeeRepository.save(employee);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("employee.updated", null, Locale.ENGLISH), updatedEmployee.getId(), updatedEmployee.getLogin()));
 
         return employeeConverter.convertToDto(updatedEmployee);
     }
@@ -74,6 +81,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + id));
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("employee.find", null, Locale.ENGLISH), id, employee.getLogin()));
 
         return employeeConverter.convertToDto(employee);
     }
@@ -83,6 +93,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("employee.find.by.login", null, Locale.ENGLISH), employee.getId(), login));
 
         return employeeConverter.convertToDto(employee);
     }
@@ -118,6 +131,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             spec = spec.and(EmployeeSpecification.statusLike(ACTIVE.getStatus()));
         }
 
+        serviceLog.debug(messageSource.getMessage("employee.find.by.filter", null, Locale.ENGLISH));
+
         return employeeRepository.findAll(spec).stream()
                 .map(employeeConverter::convertToDto)
                 .toList();
@@ -136,6 +151,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employeeRepository.delete(deletedEmployee);
         deletedEmployee.setStatus(REMOTE.getStatus());
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("employee.deleted", null, Locale.ENGLISH), id, deletedEmployee.getLogin()));
 
         return employeeConverter.convertToDto(deletedEmployee);
     }
