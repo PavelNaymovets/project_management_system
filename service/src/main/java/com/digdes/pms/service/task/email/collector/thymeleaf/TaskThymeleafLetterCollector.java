@@ -4,6 +4,9 @@ import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.service.task.email.collector.TaskHtmlLetterCollector;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.context.Context;
@@ -13,11 +16,14 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class TaskThymeleafLetterCollector implements TaskHtmlLetterCollector {
+    private static final Logger emailLog = LoggerFactory.getLogger("email-log");
+    private final MessageSource messageSource;
     private final EmailFieldNameProperties emailFields;
     private final SpringTemplateEngine templateEngine;
 
@@ -41,5 +47,7 @@ public class TaskThymeleafLetterCollector implements TaskHtmlLetterCollector {
         helper.setSubject(emailFields.getSubject());
         String html = templateEngine.process(emailFields.getThymeleafTemplate(), context);
         helper.setText(html, true);
+        emailLog.debug(messageSource.getMessage(
+                "email.collect.successfully", null, Locale.ENGLISH) + employeeDto.getEmail());
     }
 }

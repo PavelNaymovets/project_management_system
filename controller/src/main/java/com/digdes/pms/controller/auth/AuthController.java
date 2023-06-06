@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,7 @@ import java.util.Locale;
 @RequiredArgsConstructor
 @Tag(name = "Контроллер аутентификации", description = "Содержит endpoint для получения токена")
 public class AuthController {
+    private static final Logger authenticationLog = LoggerFactory.getLogger("auth-log");
     private final AuthEmployeeService authEmployeeService;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
@@ -54,16 +57,23 @@ public class AuthController {
                                              @Parameter(description = "Объект JwtRequestDto - содержит параметрами аутентификации", required = true)
                                              JwtRequestDto authRequest) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getLogin(), authRequest.getPassword()));
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authRequest.getLogin(), authRequest.getPassword()));
         } catch (BadCredentialsException e) {
+            authenticationLog.debug(e.getMessage(), e);
+
             return new ResponseEntity<>(
                     new AppError(HttpStatus.UNAUTHORIZED.value(),
-                            messageSource.getMessage("authentication.login.password.incorrect", null, Locale.ENGLISH)),
+                            messageSource.getMessage(
+                                    "authentication.login.password.incorrect", null, Locale.ENGLISH)),
                     HttpStatus.UNAUTHORIZED);
         }
 
         UserDetails userDetails = authEmployeeService.loadUserByUsername(authRequest.getLogin());
         String token = jwtTokenUtil.generateToken(userDetails);
+        authenticationLog.debug(
+                messageSource.getMessage(
+                        "authentication.token.created", null, Locale.ENGLISH) + authRequest.getLogin());
 
         return ResponseEntity.ok(new JwtResponseDto(token));
     }

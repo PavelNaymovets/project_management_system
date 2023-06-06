@@ -91,3 +91,22 @@
 Посмотреть краткое описание таблиц и их атрибутов можно _[тут](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/SCHEME.md)_.
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/physical%20diagram.png)
+
+### Features
+
+#### Log
+
+Программа пишет логи в консоль и в файлы. Файлы расположены в папке _[./logs]()_. Структура файлов:
+* _auth-log_ - логи аутентификации, включая исключения
+* _email-log_ - логи сборки и отправки сообщения, включая исключения
+* _exception-log_ - логи исключений обрабатываемые в _GlobalExceptionHandler_, кроме исключений auth и email
+* _service-log_ - логи работы всех сервисов
+
+#### Email
+
+При назначении исполнителя на задачу, программа шлет email уведомление сотруднику которому была поставлена задача. Пример
+уведомления:
+
+![Image alt]()
+
+

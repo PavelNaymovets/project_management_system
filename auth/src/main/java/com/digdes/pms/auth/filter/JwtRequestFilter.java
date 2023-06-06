@@ -1,10 +1,10 @@
 package com.digdes.pms.auth.filter;
 
 import com.digdes.pms.auth.util.JwtTokenUtil;
-import com.digdes.pms.exception.TokenExpiredException;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
+    private static final Logger authenticationLog = LoggerFactory.getLogger("auth-log");
     private final JwtTokenUtil jwtTokenUtil;
     private final MessageSource messageSource;
 
@@ -42,10 +42,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 login = jwtTokenUtil.getLoginFromToken(jwt);
             } catch (ExpiredJwtException e) {
-                log.info(messageSource.getMessage("authentication.token.expired", null, Locale.ENGLISH));
-
-//                throw new TokenExpiredException(
-//                        messageSource.getMessage("authentication.token.expired", null, Locale.ENGLISH));
+                authenticationLog.debug(e.getMessage(), e);
             }
         }
 
@@ -55,6 +52,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     null,
                     jwtTokenUtil.getRoles(jwt).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
             SecurityContextHolder.getContext().setAuthentication(token);
+            authenticationLog.debug(
+                    messageSource.getMessage(
+                            "authentication.token.is.validated", null, Locale.ENGLISH) + login);
         }
 
         filterChain.doFilter(request,response);

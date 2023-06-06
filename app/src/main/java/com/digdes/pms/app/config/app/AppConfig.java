@@ -17,10 +17,11 @@ public class AppConfig {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasenames("classpath:/message/exception/authentication",
-                "classpath:/message/exception/has_deleted_status",
-                "classpath:/message/exception/resource_not_found",
-                "classpath:/message/exception/validation");
+        messageSource.setBasenames("classpath:/message/exception/ex_authentication",
+                "classpath:/message/exception/ex_has_deleted_status",
+                "classpath:/message/exception/ex_resource_not_found",
+                "classpath:/message/exception/ex_validation",
+                "classpath:/message/log/log");
         messageSource.setDefaultEncoding("UTF-8");
 
         return messageSource;

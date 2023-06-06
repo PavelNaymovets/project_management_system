@@ -4,21 +4,22 @@ import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.dto.task.TaskFilterDto;
 import com.digdes.pms.exception.EmailSendException;
-import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.exception.FieldIncorrectException;
+import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.task.Task;
 import com.digdes.pms.model.task.TaskStatus;
 import com.digdes.pms.repository.employee.EmployeeRepository;
 import com.digdes.pms.repository.task.TaskRepository;
 import com.digdes.pms.repository.task.specification.TaskSpecification;
-import com.digdes.pms.service.task.email.service.TaskServiceEmail;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
 import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.task.converter.TaskConverter;
+import com.digdes.pms.service.task.email.service.TaskServiceEmail;
 import com.digdes.pms.service.task.validator.TaskValidator;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -35,8 +36,8 @@ import static com.digdes.pms.model.task.TaskStatus.NEW;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class TaskServiceImpl implements TaskService {
+    private static final Logger serviceLog = LoggerFactory.getLogger("service-log");
     private final EmployeeRepository employeeRepository;
     private final EmployeeConverter employeeConverter;
     private final ProjectConverter projectConverter;
@@ -58,6 +59,9 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskConverter.convertToEntity(taskDto);
         task.setStatus(NEW.getStatus());
         Task createdTask = taskRepository.save(task);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("task.created", null, Locale.ENGLISH), createdTask.getId(), login));
 
         return taskConverter.convertToDto(createdTask);
     }
@@ -75,6 +79,9 @@ public class TaskServiceImpl implements TaskService {
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
         task.setAuthor(author);
         Task updatedTask = taskRepository.save(task);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("task.updated", null, Locale.ENGLISH), updatedTask.getId(), login));
 
         return taskConverter.convertToDto(updatedTask);
     }
@@ -84,6 +91,7 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + id));
+        serviceLog.debug(messageSource.getMessage("task.find", null, Locale.ENGLISH) + id);
 
         return taskConverter.convertToDto(task);
     }
@@ -94,6 +102,7 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + id));
         taskRepository.delete(deletedTask);
+        serviceLog.debug(messageSource.getMessage("task.delete", null, Locale.ENGLISH) + id);
 
         return taskConverter.convertToDto(deletedTask);
     }
@@ -112,6 +121,9 @@ public class TaskServiceImpl implements TaskService {
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
         task.setAuthor(author);
         task.setStatus(status);
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("task.update.status", null, Locale.ENGLISH), id, status, login));
     }
 
     @Override
@@ -134,6 +146,9 @@ public class TaskServiceImpl implements TaskService {
             taskRepository.save(task);
             EmployeeDto employeeDto = employeeConverter.convertToDto(employee);
             TaskDto taskDto = taskConverter.convertToDto(task);
+            serviceLog.debug(
+                    String.format(
+                            messageSource.getMessage("task.employee.appoint", null, Locale.ENGLISH), taskId, employee.getLogin(), login));
 
             if (!taskServiceEmail.sendHtmlMessage(employeeDto, taskDto)) { //повторная попытка отправки, если что-то пошло не так.
                 if (!taskServiceEmail.sendHtmlMessage(employeeDto, taskDto)) {
@@ -141,8 +156,14 @@ public class TaskServiceImpl implements TaskService {
                             messageSource.getMessage("email.send.fail", null, Locale.ENGLISH));
                 }
             }
+
+            return taskConverter.convertToDto(task);
         }
-        
+
+        serviceLog.debug(
+                String.format(
+                        messageSource.getMessage("task.employee.appoint.same", null, Locale.ENGLISH), taskId, employee.getLogin()));
+
         return taskConverter.convertToDto(task);
     }
 
@@ -185,6 +206,8 @@ public class TaskServiceImpl implements TaskService {
         if (!ObjectUtils.isEmpty(filter.getCreatedAtMax())) {
             spec = spec.and(TaskSpecification.createdAtMax(filter.getCreatedAtMax()));
         }
+
+        serviceLog.debug(messageSource.getMessage("task.find.by.filter", null, Locale.ENGLISH) + sortParam);
 
         return taskRepository.findAll(spec, Sort.by(sortParam).descending()).stream()
                 .map(taskConverter::convertToDto)
