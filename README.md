@@ -96,7 +96,7 @@
 
 #### Log
 
-Программа пишет логи в консоль и в файлы. Файлы расположены в папке _[./logs]()_. Структура файлов:
+Программа пишет логи в консоль и в файлы. Файлы расположены в папке _[./logs](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs)_. Структура файлов:
 * _auth-log_ - логи аутентификации, включая исключения
 * _email-log_ - логи сборки и отправки сообщения, включая исключения
 * _exception-log_ - логи исключений обрабатываемые в _GlobalExceptionHandler_, кроме исключений auth и email
@@ -107,6 +107,6 @@
 При назначении исполнителя на задачу, программа шлет email уведомление сотруднику которому была поставлена задача. Пример
 уведомления:
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/email/email_example.png)
 
 
