@@ -27,11 +27,11 @@
 
 Пользователя программы с атрибутами:
 
-* personal_number - 384fqwe208c-a116-3bf1-9334-werfwefwerr2
-* last_name - Иванов
-* first_name - Глеб
-* login - ivan.ov
-* password - 700
+* personal_number - `384fqwe208c-a116-3bf1-9334-werfwefwerr2`
+* last_name - `Иванов`
+* first_name - `Глеб`
+* login - `ivan.ov`
+* password - `700`
 
 ,нет в базе данных. Администратор авторизован в системе.
 
