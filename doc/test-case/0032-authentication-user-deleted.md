@@ -17,8 +17,8 @@
 ## Шаги в postman
 
 * Зайти в коллекцию `projectMenegementSystem`
-* Перейти в папку `Employee`
-* Выбрать запрос `GetAll`
+* Перейти в папку `Auth`
+* Выбрать запрос `Auth`
 * Нажать `Send`
 
 Выполнится HTTP запрос с методом `POST` на endpoint `http://localhost:8080/pms/api/v1/auth`. Тело запроса:

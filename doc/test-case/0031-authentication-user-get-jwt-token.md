@@ -17,7 +17,7 @@
 ## Шаги в postman
 
 * Зайти в коллекцию `projectMenegementSystem`
-* Перейти в папку `Employee`
+* Перейти в папку `Auth`
 * Выбрать запрос `Auth`
 * Нажать `Send`
 

@@ -29,8 +29,10 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/auth", "/swagger-ui/**").permitAll()
-                .antMatchers("/api/v1/**").authenticated()
+                .antMatchers("/api/v1/employee/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/project/**", "/api/v1/team/**").hasRole("MANAGER")
+                .antMatchers("/api/v1/task/**").hasRole("USER")
+                .antMatchers("/api/v1/auth/**", "/swagger-ui/**").anonymous()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
