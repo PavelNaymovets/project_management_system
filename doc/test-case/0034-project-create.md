@@ -52,7 +52,7 @@ dto созданного проекта.
 
 Проект добавлен:
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/test-case/screenshot/project/project_create.PNG)
 
 dto:
 
