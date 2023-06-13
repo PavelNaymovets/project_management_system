@@ -20,6 +20,12 @@ public class EmployeeValidatorImpl implements EmployeeValidator {
     public void validate(EmployeeDto employeeDto) {
         List<String> errorMessage = new ArrayList<>();
 
+        if (!ObjectUtils.isEmpty(employeeDto.getId())) {
+            errorMessage.add(messageSource.getMessage("employee.field.id.autofill", null, Locale.ENGLISH));
+        }
+        if (!ObjectUtils.isEmpty(employeeDto.getStatus())) {
+            errorMessage.add(messageSource.getMessage("employee.field.status.autofill", null, Locale.ENGLISH));
+        }
         if (ObjectUtils.isEmpty(employeeDto.getPersonalNumber()) || employeeDto.getPersonalNumber().isBlank()) {
             errorMessage.add(messageSource.getMessage("employee.field.personalNumber.not.filled", null, Locale.ENGLISH));
         }

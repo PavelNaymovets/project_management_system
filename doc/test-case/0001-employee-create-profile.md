@@ -21,7 +21,7 @@
 * created_at - дата создания записи
 * updated_at - дата обновления записи
 
-, также статус сотрудника становится Активный.
+, также статус сотрудника становится `активный`.
 
 ## Предусловия
 
@@ -56,10 +56,28 @@
 
 ## Ожидаемый результат
 
-В базе данных, в таблице `employee`, появилась строка с данными нового пользователя.
+В базе данных, в таблице `employee`, появилась строка с данными нового пользователя. Вернется ответ со статус кодом 200
+и dto созданного сотрудника. Поля `login` и `password` должны вернуться со значением null.
 
 ## Фактический результат
 
 Пользователь добавлен:
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/test-case/screenshot/employee/employee_create_profile.png)
+
+dto:
+
+```
+{
+    "id": 7,
+    "personalNumber": "384fqwe208c-a116-3bf1-9334-werfwefwerr2",
+    "lastName": "Иванов",
+    "firstName": "Глеб",
+    "middleName": null,
+    "position": null,
+    "login": null,
+    "email": null,
+    "password": null,
+    "status": "активный"
+}
+```
