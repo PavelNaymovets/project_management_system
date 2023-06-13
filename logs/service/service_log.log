@@ -5,3 +5,6 @@
 2023-06-13 11:50:18 [http-nio-8080-exec-9] DEBUG service-log - Employee was found successfully. Id: 9, login: ivan.ov
 2023-06-13 11:53:10 [http-nio-8080-exec-1] DEBUG service-log - Employee was found successfully. Id: 9, login: ivan.ov
 2023-06-13 11:55:16 [http-nio-8080-exec-7] DEBUG service-log - Employee was updated successfully. Id: 9, login: iGleb
+2023-06-13 12:10:37 [http-nio-8080-exec-2] DEBUG service-log - Employee was updated successfully. Id: 9, login: iGleb
+2023-06-13 12:24:56 [http-nio-8080-exec-1] DEBUG service-log - Employee was updated successfully. Id: 9, login: iGleb
+2023-06-13 12:25:00 [http-nio-8080-exec-3] DEBUG service-log - Employee was updated successfully. Id: 9, login: iGleb

@@ -8,14 +8,14 @@
 
 При редактировании сотрудника должны редактировать поля профиля сотрудника:
 
-* personal_number - уникальный идентификатор во всей программе `обязательное поле`
-* last_name - фамилия `обязательное поле`
-* first_name - имя `обязательное поле`
+* personal_number - уникальный идентификатор во всей программе
+* last_name - фамилия
+* first_name - имя
 * middle_name - отчество
 * position - должность
-* login - учетная запись `обязательное поле`
+* login - учетная запись
 * email - электронная почта
-* password - пароль `обязательное поле`
+* password - пароль
 
 Примеров запросов с `created_at` и `updated_at` не будет, так как в dto эти поля отсутствуют.
 
@@ -62,3 +62,19 @@
 ## Фактический результат
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/test-case/screenshot/employee/employee_update_profile.png)
+
+dto:
+```
+{
+    "id": 9,
+    "personalNumber": "555f508c-ak06-3bf1-9334-6ccc1ca21c36",
+    "lastName": "Петров",
+    "firstName": "Иван",
+    "middleName": null,
+    "position": null,
+    "login": null,
+    "email": null,
+    "password": null,
+    "status": "активный"
+}
+```

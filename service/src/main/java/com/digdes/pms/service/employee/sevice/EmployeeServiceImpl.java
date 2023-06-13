@@ -4,6 +4,7 @@ import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.employee.EmployeeFilterDto;
 import com.digdes.pms.exception.FieldIncorrectException;
 import com.digdes.pms.exception.HasDeletedStatusException;
+import com.digdes.pms.exception.NotSpecifiedIdException;
 import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.employee.EmployeeStatus;
@@ -58,6 +59,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto update(EmployeeDto employeeDto) {
+        if (ObjectUtils.isEmpty(employeeDto.getId())) {
+            throw new NotSpecifiedIdException(
+                    messageSource.getMessage("employee.field.id.null", null, Locale.ENGLISH));
+        }
+
         Employee employee = employeeRepository.findById(employeeDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + employeeDto.getId()));
