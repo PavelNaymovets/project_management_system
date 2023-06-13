@@ -76,3 +76,6 @@
 2023-06-13 19:02:23 [http-nio-8080-exec-2] DEBUG service-log - Project was found successfully. Id: 1, name: система управления проектами
 2023-06-13 19:03:21 [http-nio-8080-exec-10] DEBUG service-log - Project was found successfully. Id: 1, name: система управления проектами
 2023-06-13 19:16:50 [http-nio-8080-exec-4] DEBUG service-log - Project was created successfully. Id: 5, name: новый проект
+2023-06-13 19:56:58 [http-nio-8080-exec-4] DEBUG service-log - Project was found successfully. Id: 5, name: новый проект
+2023-06-13 19:57:04 [http-nio-8080-exec-6] DEBUG service-log - Project was found successfully. Id: 5, name: новый проект
+2023-06-13 21:58:01 [http-nio-8080-exec-2] DEBUG service-log - Project was updated successfully. Id: 5, name: еще один проект

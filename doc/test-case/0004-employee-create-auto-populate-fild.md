@@ -39,6 +39,7 @@
 запроса:
 
 * С `id`:
+
 ```
 {
     "id": 1,
@@ -49,7 +50,9 @@
     "password": "700"
 }
 ```
+
 * С `status`:
+
 ```
 {
     "status": "активный",
@@ -68,13 +71,16 @@
 ## Фактический результат
 
 * С `id`:
+
 ```
 {
     "statusCode": 400,
     "message": "Can`t create employee with field id because id is an autofill."
 }
 ```
+
 * С `status`:
+
 ```
 {
     "statusCode": 400,
