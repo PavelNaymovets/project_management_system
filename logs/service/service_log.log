@@ -12,3 +12,9 @@
 2023-06-13 12:37:19 [http-nio-8080-exec-2] DEBUG service-log - Employee was deleted. Id: 9, login: iGleb
 2023-06-13 12:44:30 [http-nio-8080-exec-4] DEBUG service-log - Employee was created successfully. Id: 7, login: ivan.ov
 2023-06-13 12:52:01 [http-nio-8080-exec-8] DEBUG service-log - Employee was deleted. Id: 7, login: ivan.ov
+2023-06-13 13:56:27 [http-nio-8080-exec-5] DEBUG service-log - Employee was found successfully. Id: 7, login: ivan.ov
+2023-06-13 13:57:56 [http-nio-8080-exec-8] DEBUG service-log - Employee was found successfully. Id: 7, login: ivan.ov
+2023-06-13 14:09:21 [http-nio-8080-exec-7] DEBUG service-log - Employee was found successfully. Id: 7, login: ivan.ov
+2023-06-13 14:12:00 [http-nio-8080-exec-7] DEBUG service-log - Employee was created successfully. Id: 11, login: van.ov
+2023-06-13 14:14:10 [http-nio-8080-exec-10] DEBUG service-log - Employee was updated successfully. Id: 11, login: iGleb
+2023-06-13 14:28:09 [http-nio-8080-exec-5] DEBUG service-log - Employee was found successfully. Id: 7, login: ivan.ov
