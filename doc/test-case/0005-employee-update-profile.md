@@ -47,10 +47,7 @@
     "personalNumber": "555f508c-ak06-3bf1-9334-6ccc1ca21c36",
     "lastName": "Петров",
     "firstName": "Иван",
-    "middleName": "",
-    "position": "",
     "login": "iGleb",
-    "email": "",
     "password": "800"
 }
 ```
