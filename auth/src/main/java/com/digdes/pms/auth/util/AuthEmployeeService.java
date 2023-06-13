@@ -1,7 +1,7 @@
 package com.digdes.pms.auth.util;
 
+import com.digdes.pms.exception.AuthException;
 import com.digdes.pms.exception.HasDeletedStatusException;
-import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.employee.Role;
 import com.digdes.pms.repository.employee.EmployeeRepository;
@@ -34,8 +34,8 @@ public class AuthEmployeeService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         Employee employee = employeeRepository.findByLogin(login)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
+                .orElseThrow(() -> new AuthException(
+                        messageSource.getMessage("authentication.login.password.incorrect", null, Locale.ENGLISH)));
 
         if (employee.getStatus().equals(REMOTE.getStatus())) {
             throw new HasDeletedStatusException(

@@ -23,3 +23,17 @@
 2023-06-13 14:37:34 [http-nio-8080-exec-7] DEBUG service-log - Employee was found by login successfully. Id: 2, login: zlata.rybakov
 2023-06-13 14:37:54 [http-nio-8080-exec-8] DEBUG service-log - Employee was found by login successfully. Id: 11, login: iGleb
 2023-06-13 14:39:18 [http-nio-8080-exec-2] DEBUG service-log - Employee was found by login successfully. Id: 11, login: iGleb
+2023-06-13 15:00:50 [http-nio-8080-exec-10] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:00:57 [http-nio-8080-exec-2] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:01:48 [http-nio-8080-exec-1] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:17:00 [http-nio-8080-exec-4] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:17:43 [http-nio-8080-exec-5] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:17:48 [http-nio-8080-exec-6] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:18:43 [http-nio-8080-exec-7] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:18:58 [http-nio-8080-exec-8] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:24:53 [http-nio-8080-exec-2] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:25:21 [http-nio-8080-exec-1] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:26:16 [http-nio-8080-exec-4] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:26:36 [http-nio-8080-exec-6] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:31:34 [http-nio-8080-exec-9] DEBUG service-log - List employees was found by filter successfully
+2023-06-13 15:33:22 [http-nio-8080-exec-1] DEBUG service-log - List employees was found by filter successfully
