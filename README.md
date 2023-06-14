@@ -42,10 +42,11 @@ OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquiba
 * _[./doc/arch](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/arch)_ - содержит скрины диаграмм общей архитектуры проекта
 * _[./docker-compose](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/docker-compose.yml)_ - содержит файл, чтобы создать окружение для разработки, демонстрации и тестирования
 * _[./docker-compose/app](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/app/Dockerfile)_ - содержит файл, для создания образа программы
-* _[./liquibase](https://github.com/PavelNaymovets/project_management_system/tree/develop/liquibase)_ - содержит файлы инициализации структуры базы данных
+* _[./liquibase](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/liquibase)_ - содержит файлы инициализации структуры базы данных
 
 ### Архитектура:
-Для описания архитектуры программы применены 5 диаграмм: 2 UML, 2 C4, 1 Physical model. 
+Для описания архитектуры программы применены 5 диаграмм: 2 UML, 2 C4, 1 Physical model.
+
 _[(первый вариант архитектуры)](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/superseded/README.md)_
 
 #### UML:
