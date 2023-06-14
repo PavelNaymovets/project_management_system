@@ -59,7 +59,7 @@ OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquiba
 Применено для отображения структуру таблиц и связей между таблицами в базе данных.
 
 #### Use case diagram
-Отображены функциональные возможности программы для пользователя согласно основным _[требованиям](https://github.com/PavelNaymovets/project_management_system/tree/develop#%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5-%D1%82%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F)_.
+Отображены функциональные возможности программы для пользователей в зависимости от их роли согласно основным _[требованиям](https://github.com/PavelNaymovets/project_management_system/tree/develop#%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5-%D1%82%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F)_.
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/use-case/use%20case%20diagram.png)
 
@@ -89,8 +89,7 @@ OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquiba
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/physical%20diagram.png)
 
-### Дополнительный функционал
-#### Права доступа
+### Права доступа пользователей
 Доступ к ресурсам программы зависит от роли пользователя:
 * `/api/v1/employee/**` - роль `ADMIN`
 * `/api/v1/project/**` - роль `MANAGER`
@@ -106,6 +105,8 @@ OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquiba
 * `/api/v1/task/**`
 
 Удалить данные можно только через панель администратора.
+
+### Дополнительный функционал
 
 #### OpenApi
 Для просмотра документации по проекту необходимо:
@@ -125,7 +126,7 @@ OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquiba
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/image/email/email_example.png)
 
-### Тесты:
+### Тесты
 Произведено функциональное тестирование программы согласно концепциям черного и белого ящика на соответсвие требованиям из ТЗ.
 
 #### Черный ящик
@@ -135,3 +136,5 @@ OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquiba
 #### Белый ящик
 Написаны _[модульные и интеграционные тесты](https://github.com/PavelNaymovets/project_management_system/tree/develop/service/src/test/java)_ для автоматизированной проверки функционала каждой из сущностей. 
 Для выполнения интеграционных тестов создается отдельный докер контейнер с базой данных из образа `postgres`.
+
+### Запуск приложения
