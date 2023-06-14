@@ -35,7 +35,7 @@
 * Выбрать запрос `UpdateTeamMember`
 * Нажать `Send`
 
-Выполнится HTTP запрос с методом `POST` на endpoint `http://localhost:8080/pms/api/v1/team/member`. Тело запроса:
+Выполнится HTTP запрос с методом `PUT` на endpoint `http://localhost:8080/pms/api/v1/team/member`. Тело запроса:
 
 ```
 {

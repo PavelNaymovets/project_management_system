@@ -30,7 +30,7 @@
 * Выбрать запрос `GetById`
 * Нажать `Send`
 
-Выполнится HTTP запрос с методом `DELETE` на endpoint `http://localhost:8080/pms/api/v1/team/member/2`.
+Выполнится HTTP запрос с методом `GET` на endpoint `http://localhost:8080/pms/api/v1/team/member/2`.
 
 ## Ожидаемый результат
 

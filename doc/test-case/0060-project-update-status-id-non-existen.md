@@ -26,8 +26,8 @@
 * Выбрать запрос `UpdateProjectStatus`
 * Нажать `Send`
 
-* Выполнится HTTP запрос с методом `GET` на endpoint `http://localhost:8080/pms/api/v1/project/status?id=10&status=черновик`. 
-* Выполнится HTTP запрос с методом `GET` на endpoint `http://localhost:8080/pms/api/v1/project/status?id=1&status=sfdf`.
+* Выполнится HTTP запрос с методом `PUT` на endpoint `http://localhost:8080/pms/api/v1/project/status?id=10&status=черновик`. 
+* Выполнится HTTP запрос с методом `PUT` на endpoint `http://localhost:8080/pms/api/v1/project/status?id=1&status=sfdf`.
 
 ## Ожидаемый результат
 

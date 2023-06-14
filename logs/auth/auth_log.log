@@ -1321,3 +1321,11 @@ io.jsonwebtoken.ExpiredJwtException: JWT expired at 2023-06-01T20:16:44Z. Curren
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:833)
 2023-06-14 21:52:42 [http-nio-8080-exec-10] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 22:03:06 [http-nio-8080-exec-1] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 22:03:23 [http-nio-8080-exec-3] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 22:04:49 [http-nio-8080-exec-5] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 22:05:42 [http-nio-8080-exec-7] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 22:06:24 [http-nio-8080-exec-9] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 22:07:33 [http-nio-8080-exec-2] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 22:08:29 [http-nio-8080-exec-3] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 22:08:40 [http-nio-8080-exec-5] DEBUG auth-log - Token is validated for user with login: romanova.dina

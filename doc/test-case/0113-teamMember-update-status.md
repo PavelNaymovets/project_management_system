@@ -30,7 +30,7 @@
 * Выбрать запрос `UpdateTeamMemberRole`
 * Нажать `Send`
 
-Выполнится HTTP запрос с методом `GET` на endpoint `http://localhost:8080/pms/api/v1/team/member/role?id=3&status=тестировщик`. 
+Выполнится HTTP запрос с методом `PUT` на endpoint `http://localhost:8080/pms/api/v1/team/member/role?id=3&status=тестировщик`. 
 
 ## Ожидаемый результат
 
@@ -38,4 +38,4 @@
 
 ## Фактический результат
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/test-case/screenshot/team%20member/teamMember_update_status.PNG)
