@@ -46,7 +46,7 @@
 
 ## Фактический результат
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/test-case/screenshot/team/team_update.PNG)
 
 dto:
 

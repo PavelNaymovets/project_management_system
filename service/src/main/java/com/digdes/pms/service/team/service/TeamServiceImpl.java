@@ -2,9 +2,13 @@ package com.digdes.pms.service.team.service;
 
 import com.digdes.pms.dto.team.TeamDto;
 import com.digdes.pms.dto.team.TeamFilterDto;
+import com.digdes.pms.exception.NotSpecifiedIdException;
 import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.exception.FieldIncorrectException;
+import com.digdes.pms.exception.ValidationException;
+import com.digdes.pms.model.project.Project;
 import com.digdes.pms.model.team.Team;
+import com.digdes.pms.repository.project.ProjectRepository;
 import com.digdes.pms.repository.team.TeamRepository;
 import com.digdes.pms.repository.team.specification.TeamSpecification;
 import com.digdes.pms.service.project.converter.ProjectConverter;
@@ -28,7 +32,7 @@ public class TeamServiceImpl implements TeamService {
     private final TeamRepository teamRepository;
     private final TeamValidator teamValidator;
     private final TeamConverter teamConverter;
-    private final ProjectConverter projectConverter;
+    private final ProjectRepository projectRepository;
     private final MessageSource messageSource;
 
     @Override
@@ -45,6 +49,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public TeamDto update(TeamDto teamDto) {
+        if (ObjectUtils.isEmpty(teamDto.getId())) {
+            throw new NotSpecifiedIdException(
+                    messageSource.getMessage("team.field.id.null", null, Locale.ENGLISH));
+        }
+
         Team team = teamRepository.findById(teamDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("team.not.found.id", null, Locale.ENGLISH) + teamDto.getId()));
@@ -100,7 +109,20 @@ public class TeamServiceImpl implements TeamService {
 
     private void checkUpdatableFields(TeamDto teamDto, Team team) {
         if (!ObjectUtils.isEmpty(teamDto.getProject()) && teamDto.getProject().getId() != null) {
-            team.setProject(projectConverter.convertToEntity(teamDto.getProject()));
+            Long projectId = teamDto.getProject().getId();
+            Project project = projectRepository.findById(projectId)
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + projectId));
+
+            if (!ObjectUtils.isEmpty(teamDto.getProject().getCode()) ||
+                !ObjectUtils.isEmpty(teamDto.getProject().getName()) ||
+                !ObjectUtils.isEmpty(teamDto.getProject().getDescription()) ||
+                !ObjectUtils.isEmpty(teamDto.getProject().getStatus())) {
+                throw new FieldIncorrectException(
+                        messageSource.getMessage("project.not.updatable.here", null, Locale.ENGLISH));
+            }
+
+            team.setProject(project);
         }
     }
 }
