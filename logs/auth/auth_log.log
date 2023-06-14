@@ -115,3 +115,22 @@ io.jsonwebtoken.ExpiredJwtException: JWT expired at 2023-06-01T18:13:40Z. Curren
 2023-06-14 11:56:47 [http-nio-8080-exec-4] DEBUG auth-log - User was loaded successfully from database with login: romanova.dina
 2023-06-14 11:56:47 [http-nio-8080-exec-4] DEBUG auth-log - Token was created successfully for user with login: romanova.dina
 2023-06-14 11:56:53 [http-nio-8080-exec-5] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 12:07:45 [http-nio-8080-exec-1] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 12:07:50 [http-nio-8080-exec-3] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 12:10:50 [http-nio-8080-exec-2] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 12:12:34 [http-nio-8080-exec-1] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 12:27:00 [http-nio-8080-exec-2] DEBUG auth-log - User was loaded successfully from database with login: popova.oleg
+2023-06-14 12:27:01 [http-nio-8080-exec-2] DEBUG auth-log - User was loaded successfully from database with login: popova.oleg
+2023-06-14 12:27:01 [http-nio-8080-exec-2] DEBUG auth-log - Token was created successfully for user with login: popova.oleg
+2023-06-14 12:27:07 [http-nio-8080-exec-3] DEBUG auth-log - Token is validated for user with login: popova.oleg
+2023-06-14 12:27:38 [http-nio-8080-exec-4] DEBUG auth-log - User was loaded successfully from database with login: romanova.dina
+2023-06-14 12:27:38 [http-nio-8080-exec-4] DEBUG auth-log - User was loaded successfully from database with login: romanova.dina
+2023-06-14 12:27:38 [http-nio-8080-exec-4] DEBUG auth-log - Token was created successfully for user with login: romanova.dina
+2023-06-14 12:27:56 [http-nio-8080-exec-5] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 12:28:01 [http-nio-8080-exec-6] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 12:28:05 [http-nio-8080-exec-8] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 12:32:35 [http-nio-8080-exec-2] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 12:55:10 [http-nio-8080-exec-4] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 12:58:05 [http-nio-8080-exec-6] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 13:00:13 [http-nio-8080-exec-9] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 13:01:46 [http-nio-8080-exec-2] DEBUG auth-log - Token is validated for user with login: romanova.dina
