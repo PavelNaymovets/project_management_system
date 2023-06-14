@@ -45,7 +45,8 @@ OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquiba
 * _[./liquibase](https://github.com/PavelNaymovets/project_management_system/tree/develop/liquibase)_ - содержит файлы инициализации структуры базы данных
 
 ### Архитектура:
-Для описания архитектуры программы применены 5 диаграмм (2 UML, 2 C4, 1 Physical model).
+Для описания архитектуры программы применены 5 диаграмм: 2 UML, 2 C4, 1 Physical model. 
+_[(первый вариант архитектуры)](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/superseded/README.md)_
 
 #### UML:
 * _use case diagram_ - применено для отображения функциональных возможностей программы для пользователя
