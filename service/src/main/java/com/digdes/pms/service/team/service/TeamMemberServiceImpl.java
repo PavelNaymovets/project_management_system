@@ -158,6 +158,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     private void checkUpdatableFields(TeamMemberDto teamMemberDto, TeamMember teamMember) {
+        if (!ObjectUtils.isEmpty(teamMemberDto.getRole())) {
+            throw new FieldIncorrectException(
+                    messageSource.getMessage("teamMember.field.status.not.updatable", null, Locale.ENGLISH));
+        }
+
         if (!ObjectUtils.isEmpty(teamMemberDto.getTeam()) && !ObjectUtils.isEmpty(teamMemberDto.getTeam().getId())) {
             Long id = teamMemberDto.getTeam().getId();
             Team team = teamRepository.findById(id)
