@@ -288,3 +288,13 @@ io.jsonwebtoken.ExpiredJwtException: JWT expired at 2023-06-01T18:13:40Z. Curren
 2023-06-14 14:07:07 [http-nio-8080-exec-5] DEBUG auth-log - Token is validated for user with login: popova.oleg
 2023-06-14 14:07:24 [http-nio-8080-exec-6] DEBUG auth-log - Token is validated for user with login: popova.oleg
 2023-06-14 14:08:09 [http-nio-8080-exec-8] DEBUG auth-log - Token is validated for user with login: popova.oleg
+2023-06-14 14:10:33 [http-nio-8080-exec-2] DEBUG auth-log - Token is validated for user with login: popova.oleg
+2023-06-14 14:10:58 [http-nio-8080-exec-4] DEBUG auth-log - User was loaded successfully from database with login: popova.oleg
+2023-06-14 14:10:58 [http-nio-8080-exec-4] DEBUG auth-log - User was loaded successfully from database with login: popova.oleg
+2023-06-14 14:10:58 [http-nio-8080-exec-4] DEBUG auth-log - Token was created successfully for user with login: popova.oleg
+2023-06-14 14:11:13 [http-nio-8080-exec-3] DEBUG auth-log - Token is validated for user with login: popova.oleg
+2023-06-14 14:11:42 [http-nio-8080-exec-7] DEBUG auth-log - Token is validated for user with login: popova.oleg
+2023-06-14 14:11:45 [http-nio-8080-exec-6] DEBUG auth-log - Token is validated for user with login: popova.oleg
+2023-06-14 14:11:49 [http-nio-8080-exec-8] DEBUG auth-log - Token is validated for user with login: popova.oleg
+2023-06-14 14:11:58 [http-nio-8080-exec-1] DEBUG auth-log - Token is validated for user with login: popova.oleg
+2023-06-14 14:16:43 [http-nio-8080-exec-3] DEBUG auth-log - Token is validated for user with login: popova.oleg

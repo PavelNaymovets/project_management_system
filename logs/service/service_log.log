@@ -24,3 +24,7 @@
 2023-06-14 14:06:15 [http-nio-8080-exec-7] DEBUG service-log - List projects was found by filter successfully
 2023-06-14 14:07:07 [http-nio-8080-exec-5] DEBUG service-log - List projects was found by filter successfully
 2023-06-14 14:08:09 [http-nio-8080-exec-8] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:10:33 [http-nio-8080-exec-2] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:11:13 [http-nio-8080-exec-3] DEBUG service-log - Project status was updated successfully. Id: 3, name: плагин для jira, status: черновик
+2023-06-14 14:11:58 [http-nio-8080-exec-1] DEBUG service-log - Project status was updated successfully. Id: 3, name: плагин для jira, status: черновик
+2023-06-14 14:16:43 [http-nio-8080-exec-3] DEBUG service-log - Project status was updated successfully. Id: 1, name: система управления проектами, status: черновик
