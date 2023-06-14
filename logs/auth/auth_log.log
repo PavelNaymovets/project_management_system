@@ -1075,3 +1075,121 @@ io.jsonwebtoken.ExpiredJwtException: JWT expired at 2023-06-01T19:14:41Z. Curren
 2023-06-14 20:10:19 [http-nio-8080-exec-10] DEBUG auth-log - Token is validated for user with login: romanova.dina
 2023-06-14 20:10:23 [http-nio-8080-exec-2] DEBUG auth-log - Token is validated for user with login: romanova.dina
 2023-06-14 20:11:08 [http-nio-8080-exec-1] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:18:47 [http-nio-8080-exec-1] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:20:22 [http-nio-8080-exec-2] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:27:25 [http-nio-8080-exec-4] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:27:49 [http-nio-8080-exec-5] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:28:16 [http-nio-8080-exec-6] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:28:29 [http-nio-8080-exec-7] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:28:31 [http-nio-8080-exec-8] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:28:32 [http-nio-8080-exec-9] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:28:33 [http-nio-8080-exec-10] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:56:06 [http-nio-8080-exec-2] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:57:44 [http-nio-8080-exec-4] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:57:59 [http-nio-8080-exec-6] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:59:11 [http-nio-8080-exec-8] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 20:59:20 [http-nio-8080-exec-9] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:00:39 [http-nio-8080-exec-1] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:06:10 [http-nio-8080-exec-2] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:08:03 [http-nio-8080-exec-1] DEBUG auth-log - User was loaded successfully from database with login: popova.oleg
+2023-06-14 21:08:04 [http-nio-8080-exec-1] DEBUG auth-log - User was loaded successfully from database with login: popova.oleg
+2023-06-14 21:08:04 [http-nio-8080-exec-1] DEBUG auth-log - Token was created successfully for user with login: popova.oleg
+2023-06-14 21:08:13 [http-nio-8080-exec-3] DEBUG auth-log - Token is validated for user with login: popova.oleg
+2023-06-14 21:08:25 [http-nio-8080-exec-4] DEBUG auth-log - User was loaded successfully from database with login: romanova.dina
+2023-06-14 21:08:26 [http-nio-8080-exec-4] DEBUG auth-log - User was loaded successfully from database with login: romanova.dina
+2023-06-14 21:08:26 [http-nio-8080-exec-4] DEBUG auth-log - Token was created successfully for user with login: romanova.dina
+2023-06-14 21:08:35 [http-nio-8080-exec-5] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:08:41 [http-nio-8080-exec-6] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:11:50 [http-nio-8080-exec-9] DEBUG auth-log - User was loaded successfully from database with login: popova.oleg
+2023-06-14 21:11:51 [http-nio-8080-exec-9] DEBUG auth-log - User was loaded successfully from database with login: popova.oleg
+2023-06-14 21:11:51 [http-nio-8080-exec-9] DEBUG auth-log - Token was created successfully for user with login: popova.oleg
+2023-06-14 21:12:00 [http-nio-8080-exec-10] DEBUG auth-log - Token is validated for user with login: popova.oleg
+2023-06-14 21:12:25 [http-nio-8080-exec-2] DEBUG auth-log - User was loaded successfully from database with login: romanova.dina
+2023-06-14 21:12:25 [http-nio-8080-exec-2] DEBUG auth-log - User was loaded successfully from database with login: romanova.dina
+2023-06-14 21:12:25 [http-nio-8080-exec-2] DEBUG auth-log - Token was created successfully for user with login: romanova.dina
+2023-06-14 21:12:33 [http-nio-8080-exec-1] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:14:25 [http-nio-8080-exec-5] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:15:15 [http-nio-8080-exec-6] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:16:01 [http-nio-8080-exec-8] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:16:59 [http-nio-8080-exec-9] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:17:37 [http-nio-8080-exec-1] DEBUG auth-log - JWT expired at 2023-06-14T21:08:07Z. Current time: 2023-06-14T21:17:37Z, a difference of 570743 milliseconds.  Allowed clock skew: 0 milliseconds.
+io.jsonwebtoken.ExpiredJwtException: JWT expired at 2023-06-14T21:08:07Z. Current time: 2023-06-14T21:17:37Z, a difference of 570743 milliseconds.  Allowed clock skew: 0 milliseconds.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:385)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:481)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:541)
+	at com.digdes.pms.auth.util.JwtTokenUtil.getAllClaimsFromToken(JwtTokenUtil.java:62)
+	at com.digdes.pms.auth.util.JwtTokenUtil.getClaimFromToken(JwtTokenUtil.java:55)
+	at com.digdes.pms.auth.util.JwtTokenUtil.getLoginFromToken(JwtTokenUtil.java:47)
+	at com.digdes.pms.auth.filter.JwtRequestFilter.doFilterInternal(JwtRequestFilter.java:43)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-06-14 21:17:40 [http-nio-8080-exec-3] DEBUG auth-log - User was loaded successfully from database with login: romanova.dina
+2023-06-14 21:17:40 [http-nio-8080-exec-3] DEBUG auth-log - User was loaded successfully from database with login: romanova.dina
+2023-06-14 21:17:40 [http-nio-8080-exec-3] DEBUG auth-log - Token was created successfully for user with login: romanova.dina
+2023-06-14 21:17:49 [http-nio-8080-exec-4] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:19:33 [http-nio-8080-exec-7] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:19:37 [http-nio-8080-exec-8] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:20:54 [http-nio-8080-exec-2] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:21:53 [http-nio-8080-exec-3] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:22:37 [http-nio-8080-exec-5] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:24:42 [http-nio-8080-exec-7] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:30:17 [http-nio-8080-exec-9] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:30:56 [http-nio-8080-exec-2] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:32:06 [http-nio-8080-exec-4] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:33:08 [http-nio-8080-exec-7] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:33:50 [http-nio-8080-exec-8] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:34:09 [http-nio-8080-exec-10] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:40:51 [http-nio-8080-exec-1] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:41:09 [http-nio-8080-exec-3] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:41:30 [http-nio-8080-exec-5] DEBUG auth-log - Token is validated for user with login: romanova.dina
+2023-06-14 21:41:58 [http-nio-8080-exec-6] DEBUG auth-log - Token is validated for user with login: romanova.dina

@@ -108,11 +108,11 @@ public class TeamServiceImpl implements TeamService {
     }
 
     private void checkUpdatableFields(TeamDto teamDto, Team team) {
-        if (!ObjectUtils.isEmpty(teamDto.getProject()) && teamDto.getProject().getId() != null) {
-            Long projectId = teamDto.getProject().getId();
-            Project project = projectRepository.findById(projectId)
+        if (!ObjectUtils.isEmpty(teamDto.getProject()) && !ObjectUtils.isEmpty(teamDto.getProject().getId())) {
+            Long id = teamDto.getProject().getId();
+            Project project = projectRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException(
-                            messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + projectId));
+                            messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + id));
 
             if (!ObjectUtils.isEmpty(teamDto.getProject().getCode()) ||
                 !ObjectUtils.isEmpty(teamDto.getProject().getName()) ||
