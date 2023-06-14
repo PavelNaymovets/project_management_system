@@ -39,12 +39,16 @@
 
 Выполнится HTTP запрос с методом `POST` на endpoint `http://localhost:8080/pms/api/v1/employee`. В теле запроса могут отсутствовать 
 обязательные поля. Пример вариантов тела запроса:
-* Данные отсутствуют;
+
+* Данные отсутствуют:
+
 ```
 {
 }
 ```
+
 * Не указано поле `personalNumber`:
+
 ```
 {
     "lastName": "Иванов",
@@ -53,7 +57,9 @@
     "password": "700"
 }
 ```
+
 * Не указано поле `lastName`:
+
 ```
 {
     "personalNumber": "384fqwe208c-a116-3bf1-9334-werfwefwerr2",
@@ -62,7 +68,9 @@
     "password": "700"
 }
 ```
+
 * Не указано поле `firstName`:
+
 ```
 {
     "personalNumber": "384fqwe208c-a116-3bf1-9334-werfwefwerr2",
@@ -71,7 +79,9 @@
     "password": "700"
 }
 ```
+
 * Не указано поле `login`:
+
 ```
 {
     "personalNumber": "384fqwe208c-a116-3bf1-9334-werfwefwerr2",
@@ -80,7 +90,9 @@
     "password": "700"
 }
 ```
+
 * Не указано поле `password`:
+
 ```
 {
     "personalNumber": "384fqwe208c-a116-3bf1-9334-werfwefwerr2",

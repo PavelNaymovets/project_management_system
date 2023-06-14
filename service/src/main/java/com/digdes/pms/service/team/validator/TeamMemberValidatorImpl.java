@@ -20,6 +20,10 @@ public class TeamMemberValidatorImpl implements TeamMemberValidator {
     public void validate(TeamMemberDto teamMemberDto) {
         List<String> errorMessage = new ArrayList<>();
 
+        if (!ObjectUtils.isEmpty(teamMemberDto.getId())) {
+            errorMessage.add(messageSource.getMessage("teamMember.field.id.autofill", null, Locale.ENGLISH));
+        }
+
         if (ObjectUtils.isEmpty(teamMemberDto.getTeam()) || teamMemberDto.getTeam().getId() == null) {
             errorMessage.add(messageSource.getMessage("teamMember.field.team.not.filled", null, Locale.ENGLISH));
         }
