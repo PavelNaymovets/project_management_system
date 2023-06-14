@@ -30,3 +30,15 @@
 2023-06-14 14:16:43 [http-nio-8080-exec-3] DEBUG service-log - Project status was updated successfully. Id: 1, name: система управления проектами, status: черновик
 2023-06-14 14:28:40 [http-nio-8080-exec-2] DEBUG service-log - Project status was updated successfully. Id: 1, name: система управления проектами, status: черновик
 2023-06-14 14:41:05 [http-nio-8080-exec-1] DEBUG service-log - Project status was updated successfully. Id: 1, name: система управления проектами, status: черновик
+2023-06-14 16:05:01 [http-nio-8080-exec-1] DEBUG service-log - Team was created successfully. Team id: 4
+2023-06-14 16:28:53 [http-nio-8080-exec-9] DEBUG service-log - Team was deleted successfully. Team id: 4
+2023-06-14 16:31:54 [http-nio-8080-exec-2] DEBUG service-log - Team was created successfully. Team id: 7
+2023-06-14 16:32:22 [http-nio-8080-exec-3] DEBUG service-log - Team was found successfully. Team id: 7
+2023-06-14 16:34:57 [http-nio-8080-exec-4] DEBUG service-log - Team was deleted successfully. Team id: 7
+2023-06-14 16:35:02 [http-nio-8080-exec-5] DEBUG service-log - Team was created successfully. Team id: 9
+2023-06-14 16:37:25 [http-nio-8080-exec-2] DEBUG service-log - Team was deleted successfully. Team id: 9
+2023-06-14 16:37:30 [http-nio-8080-exec-3] DEBUG service-log - Team was created successfully. Team id: 10
+2023-06-14 16:38:32 [http-nio-8080-exec-2] DEBUG service-log - Team was deleted successfully. Team id: 10
+2023-06-14 16:38:35 [http-nio-8080-exec-3] DEBUG service-log - Team was created successfully. Team id: 11
+2023-06-14 16:39:33 [http-nio-8080-exec-2] DEBUG service-log - Team was deleted successfully. Team id: 11
+2023-06-14 16:39:35 [http-nio-8080-exec-3] DEBUG service-log - Team was created successfully. Team id: 12
