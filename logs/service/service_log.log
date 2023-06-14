@@ -56,3 +56,17 @@
 2023-06-14 17:35:50 [http-nio-8080-exec-7] DEBUG service-log - Team was updated successfully. Team id: 3
 2023-06-14 17:36:51 [http-nio-8080-exec-3] DEBUG service-log - Team was updated successfully. Team id: 3
 2023-06-14 17:44:05 [http-nio-8080-exec-4] DEBUG service-log - Team was updated successfully. Team id: 3
+2023-06-14 17:56:03 [http-nio-8080-exec-3] DEBUG service-log - Team was created successfully. Team id: 4
+2023-06-14 17:58:16 [http-nio-8080-exec-6] DEBUG service-log - Team was deleted successfully. Team id: 4
+2023-06-14 18:04:12 [http-nio-8080-exec-8] DEBUG service-log - Team was found successfully. Team id: 1
+2023-06-14 18:10:53 [http-nio-8080-exec-2] DEBUG service-log - Team was found successfully. Team id: 1
+2023-06-14 18:15:41 [http-nio-8080-exec-2] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:21:55 [http-nio-8080-exec-4] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:22:10 [http-nio-8080-exec-5] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:23:22 [http-nio-8080-exec-1] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:25:44 [http-nio-8080-exec-1] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:28:54 [http-nio-8080-exec-5] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:28:58 [http-nio-8080-exec-6] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:29:04 [http-nio-8080-exec-7] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:30:41 [http-nio-8080-exec-10] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:31:17 [http-nio-8080-exec-2] DEBUG service-log - List teams was found by filter successfully

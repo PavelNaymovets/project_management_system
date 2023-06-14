@@ -21,8 +21,8 @@
 ## Шаги в postman
 
 * Зайти в коллекцию `projectMenegementSystem`
-* Перейти в папку `Project`
-* Выбрать запрос `UpdateProject`
+* Перейти в папку `Team`
+* Выбрать запрос `UpdateTeam`
 * Нажать `Send`
 
 Выполнится HTTP запрос с методом `PUT` на endpoint `http://localhost:8080/pms/api/v1/project`. Тело запроса:
