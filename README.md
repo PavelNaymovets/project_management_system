@@ -22,11 +22,7 @@
 
 ## Реализация
 #### ВАЖНО: читайте *.md файлы на gitHub. Иначе не будут видны вставленные изображения.
-#### Стэк: OpenJDK 18, lombok
-#### OpenApi
-Для просмотра документации по проекту необходимо:
-* Запустить программу через _docker-compose.yaml_ файл с помощью команды: `docker-compose-up`
-* В браузере перейти по ссылке: `http://localhost:8080/pms/swagger-ui/index.html`
+#### Стэк: OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquibase, Lombok, Logback, Slf4j, PostgreSQL, Docker, Swagger
 
 ### Структура проекта
 Проект состоит из 5 логических модулей:
@@ -94,6 +90,29 @@
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/physical%20diagram.png)
 
 ### Дополнительный функционал
+
+#### Права доступа
+
+Доступ к ресурсам программы зависит от роли пользователя:
+* `/api/v1/employee/**` - роль `ADMIN`
+* `/api/v1/project/**` - роль `MANAGER`
+* `/api/v1/team/**` - роль `MANAGER`
+* `/api/v1/task/**` - роль `USER`
+* `/api/v1/auth/**` - доступно всем пользователям
+* `/swagger-ui/**` - доступно всем пользователям
+
+Метод `deleteById()` требует наличие роли `ADMIN` среди эндпоинтов:
+* `/api/v1/employee/**`
+* `/api/v1/project/**`
+* `/api/v1/team/**`
+* `/api/v1/task/**`
+
+Удалить данные можно только через панель администратора.
+
+#### OpenApi
+Для просмотра документации по проекту необходимо:
+* Запустить программу через _docker-compose.yaml_ файл с помощью команды: `docker-compose-up`
+* В браузере перейти по ссылке: `http://localhost:8080/pms/swagger-ui/index.html`
 
 #### Log
 
