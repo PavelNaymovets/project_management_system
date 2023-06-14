@@ -99,3 +99,5 @@
 2023-06-14 21:40:51 [http-nio-8080-exec-1] DEBUG service-log - List team members was found by filter successfully
 2023-06-14 21:41:30 [http-nio-8080-exec-5] DEBUG service-log - List team members was found by filter successfully
 2023-06-14 21:41:58 [http-nio-8080-exec-6] DEBUG service-log - List team members was found by filter successfully
+2023-06-14 21:51:12 [http-nio-8080-exec-6] DEBUG service-log - Team member was found successfully. Id: 3 ,team id: 1
+2023-06-14 21:52:43 [http-nio-8080-exec-10] DEBUG service-log - Team member role was updated successfully. Id: 3, role: тестировщик
