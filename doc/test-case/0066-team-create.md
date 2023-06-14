@@ -47,7 +47,7 @@ dto созданной команды.
 
 Команда добавлена:
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/test-case/screenshot/team/team_create.PNG)
 
 dto:
 
