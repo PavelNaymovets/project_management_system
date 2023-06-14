@@ -57,7 +57,7 @@
 
 Участник команды добавлен:
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/test-case/screenshot/team%20member/teamMember_create.PNG)
 
 dto:
 
