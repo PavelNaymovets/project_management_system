@@ -6,3 +6,21 @@
 2023-06-14 11:46:43 [http-nio-8080-exec-5] DEBUG service-log - Project was deleted successfully. Id: 4, name: вычисление квадратных уравнений
 2023-06-14 11:56:53 [http-nio-8080-exec-5] DEBUG service-log - Project was deleted successfully. Id: 4, name: вычисление квадратных уравнений
 2023-06-14 12:12:34 [http-nio-8080-exec-1] DEBUG service-log - Project was deleted successfully. Id: 1, name: система управления проектами
+2023-06-14 13:10:54 [http-nio-8080-exec-8] DEBUG service-log - Project was found successfully. Id: 1, name: система управления проектами
+2023-06-14 13:20:58 [http-nio-8080-exec-10] DEBUG service-log - Project was found successfully. Id: 1, name: система управления проектами
+2023-06-14 13:45:36 [http-nio-8080-exec-2] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 13:47:56 [http-nio-8080-exec-7] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 13:48:04 [http-nio-8080-exec-5] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 13:54:36 [http-nio-8080-exec-8] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:00:11 [http-nio-8080-exec-2] DEBUG service-log - Project was found successfully. Id: 1, name: система управления проектами
+2023-06-14 14:00:25 [http-nio-8080-exec-4] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:03:39 [http-nio-8080-exec-5] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:04:20 [http-nio-8080-exec-6] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:04:35 [http-nio-8080-exec-10] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:04:38 [http-nio-8080-exec-8] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:04:44 [http-nio-8080-exec-9] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:05:40 [http-nio-8080-exec-1] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:05:52 [http-nio-8080-exec-2] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:06:15 [http-nio-8080-exec-7] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:07:07 [http-nio-8080-exec-5] DEBUG service-log - List projects was found by filter successfully
+2023-06-14 14:08:09 [http-nio-8080-exec-8] DEBUG service-log - List projects was found by filter successfully

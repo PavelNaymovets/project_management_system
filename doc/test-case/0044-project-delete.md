@@ -33,7 +33,7 @@
 * Выбрать запрос `DeleteById`
 * Нажать `Send`
 
-Выполнится HTTP запрос с методом `DELETE` на endpoint `http://localhost:8080/pms/api/v1/project/1`.
+Выполнится HTTP запрос с методом `DELETE` на endpoint `http://localhost:8080/pms/api/v1/project/4`.
 
 ## Ожидаемый результат
 
