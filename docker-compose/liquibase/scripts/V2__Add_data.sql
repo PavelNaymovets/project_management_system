@@ -44,7 +44,9 @@ insert into employee_role (employee_id, role_id)
 values (1, 1),
        (2, 1),
        (3, 1),
+       (3, 3),
        (4, 1),
+       (4, 2),
        (4, 3),
        (5, 1),
        (5, 2);

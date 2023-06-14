@@ -1,5 +1,6 @@
 package com.digdes.pms.controller.project;
 
+import com.digdes.pms.auth.util.IsAdmin;
 import com.digdes.pms.dto.project.ProjectDto;
 import com.digdes.pms.dto.project.ProjectFilterDto;
 import com.digdes.pms.service.project.service.ProjectService;
@@ -90,6 +91,7 @@ public class ProjectController {
                     )
             }
     )
+    @IsAdmin
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ProjectDto deleteById(@PathVariable
                               @Parameter(description = "Идентификатор проекта.", required = true)
