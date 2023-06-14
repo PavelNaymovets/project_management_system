@@ -70,3 +70,11 @@
 2023-06-14 18:29:04 [http-nio-8080-exec-7] DEBUG service-log - List teams was found by filter successfully
 2023-06-14 18:30:41 [http-nio-8080-exec-10] DEBUG service-log - List teams was found by filter successfully
 2023-06-14 18:31:17 [http-nio-8080-exec-2] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:45:16 [http-nio-8080-exec-4] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:45:39 [http-nio-8080-exec-9] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:45:44 [http-nio-8080-exec-10] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:45:48 [http-nio-8080-exec-2] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 18:45:57 [http-nio-8080-exec-1] DEBUG service-log - List teams was found by filter successfully
+2023-06-14 19:34:55 [http-nio-8080-exec-4] DEBUG service-log - Team member was created successfully. Team id: 3, login: romanova.dina
+2023-06-14 19:39:54 [http-nio-8080-exec-2] DEBUG service-log - Team member was created successfully. Team id: 3, login: akov.efremov
+2023-06-14 19:40:42 [http-nio-8080-exec-5] DEBUG service-log - Team member was created successfully. Team id: 2, login: akov.efremov

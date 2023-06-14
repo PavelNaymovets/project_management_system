@@ -50,7 +50,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         Team team = teamRepository.findById(teamMemberDto.getTeam().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("team.not.found.id", null, Locale.ENGLISH) + teamMemberDto.getTeam().getId()));
-        teamMemberDto.getTeam().setProject(projectConverter.convertToDto(team.getProject()));
+        teamMemberDto.setTeam(teamConverter.convertToDto(team));
         Employee employee = employeeRepository.findById(teamMemberDto.getEmployee().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + teamMemberDto.getEmployee().getId()));
