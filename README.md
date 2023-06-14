@@ -21,8 +21,12 @@
 * Аутентификация в системе
 
 ## Реализация
-#### ВАЖНО: читайте *.md файлы на gitHub. Иначе не будут видны вставленные изображения.
-#### Стэк: OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquibase, Lombok, Logback, Slf4j, PostgreSQL, Docker, Swagger
+
+#### ВАЖНО
+Читайте *.md файлы на gitHub. Иначе не будут видны вставленные изображения.
+
+#### Стэк
+OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquibase, Lombok, Logback, Slf4j, PostgreSQL, Docker, Swagger.
 
 ### Структура проекта
 Проект состоит из 5 логических модулей:
@@ -55,13 +59,11 @@
 Применено для отображения структуру таблиц и связей между таблицами в базе данных.
 
 #### Use case diagram
-
 Отображены функциональные возможности программы для пользователя согласно основным _[требованиям](https://github.com/PavelNaymovets/project_management_system/tree/develop#%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5-%D1%82%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F)_.
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/use-case/use%20case%20diagram.png)
 
 #### Container diagram
-
 Отображены основные модули программы и их взаимодействие между собой. Отображена легенда в левом верхнем углу схемы.
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/container/container%20diagram.png)
@@ -77,22 +79,18 @@
 * _team_ - управление командами внутри проекта
 
 #### Deployment diagram
-
 Отображено развертывание программы на сервере. В качестве сервера выступает мой рабочий компьютер. Пояснение по диаграмме: `х1` значит 1 докер контейнер.
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/deployment/deployment%20diagram.png)
 
 #### Physical model
-
 Отображена структура основных таблицы в которых хранятся данные из программы и связи между этими таблицами.
 Посмотреть краткое описание таблиц и их атрибутов можно _[тут](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/SCHEME.md)_.
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/database/physical%20diagram.png)
 
 ### Дополнительный функционал
-
 #### Права доступа
-
 Доступ к ресурсам программы зависит от роли пользователя:
 * `/api/v1/employee/**` - роль `ADMIN`
 * `/api/v1/project/**` - роль `MANAGER`
@@ -115,7 +113,6 @@
 * В браузере перейти по ссылке: `http://localhost:8080/pms/swagger-ui/index.html`
 
 #### Log
-
 Программа пишет логи в консоль и в файлы. Файлы расположены в папке _[./logs](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs)_. Структура файлов:
 * _auth-log_ - логи аутентификации, включая исключения
 * _email-log_ - логи сборки и отправки сообщения, включая исключения
@@ -123,22 +120,18 @@
 * _service-log_ - логи работы всех сервисов
 
 #### Email
-
 При назначении исполнителя на задачу, программа шлет email уведомление сотруднику которому была поставлена задача. Пример
 уведомления:
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/email/email_example.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/image/email/email_example.png)
 
 ### Тесты:
-
 Произведено функциональное тестирование программы согласно концепциям черного и белого ящика на соответсвие требованиям из ТЗ.
 
 #### Черный ящик
-
 Составлены _[тест-кейсы](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/test-case)_ для ручного тестирования API с помощью программы `postman`. Тест-кейсы имеют определенную 
 структуру и скриншоты ожидаемого результата.
 
 #### Белый ящик
-
 Написаны _[модульные и интеграционные тесты](https://github.com/PavelNaymovets/project_management_system/tree/develop/service/src/test/java)_ для автоматизированной проверки функционала каждой из сущностей. 
 Для выполнения интеграционных тестов создается отдельный докер контейнер с базой данных из образа `postgres`.
