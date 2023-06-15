@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 
@@ -310,6 +311,20 @@ public class TaskServiceImpl implements TaskService {
         }
 
         if (!ObjectUtils.isEmpty(taskDto.getDeadline())) {
+            Long laborCost = task.getLaborCosts();
+
+            if (!ObjectUtils.isEmpty(taskDto.getLaborCosts())) {
+                laborCost = taskDto.getLaborCosts();
+            }
+
+            long days = laborCost/24;
+            LocalDate minDeadLine = task.getCreatedAt().toLocalDate().plusDays(days);
+
+            if (taskDto.getDeadline().isBefore(minDeadLine)) {
+                throw new FieldIncorrectException(
+                        messageSource.getMessage("task.field.deadline.lessThan.laborCost", null, Locale.ENGLISH));
+            }
+
             task.setDeadline(taskDto.getDeadline());
         }
     }

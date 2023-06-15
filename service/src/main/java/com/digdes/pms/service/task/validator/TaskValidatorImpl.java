@@ -7,6 +7,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -37,6 +38,14 @@ public class TaskValidatorImpl implements TaskValidator {
         }
         if (ObjectUtils.isEmpty(taskDto.getDeadline())) {
             errorMessage.add(messageSource.getMessage("task.field.deadline.not.filled", null, Locale.ENGLISH));
+        }
+        if (!ObjectUtils.isEmpty(taskDto.getDeadline())) {
+            long days = taskDto.getLaborCosts()/24;
+            LocalDate minDeadLine = LocalDate.now().plusDays(days);
+
+            if(taskDto.getDeadline().isBefore(minDeadLine)) {
+                errorMessage.add(messageSource.getMessage("task.field.deadline.lessThan.laborCost", null, Locale.ENGLISH));
+            }
         }
         if (ObjectUtils.isEmpty(taskDto.getProject())) {
             errorMessage.add(messageSource.getMessage("task.field.project.not.filled", null, Locale.ENGLISH));
