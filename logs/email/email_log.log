@@ -1,5 +1,11 @@
-2023-06-06 17:52:03 [http-nio-8080-exec-5] DEBUG email-log - Email was collected successfully for user with login:null
-2023-06-06 17:52:58 [http-nio-8080-exec-8] DEBUG email-log - Email was collected successfully for user with login:null
-2023-06-06 17:53:00 [http-nio-8080-exec-8] DEBUG email-log - Email was sent successfully for user with login: null
-2023-06-06 17:59:53 [http-nio-8080-exec-3] DEBUG email-log - Email was collected successfully for user with email: zlata.rybakov69@example.com
-2023-06-06 17:59:54 [http-nio-8080-exec-3] DEBUG email-log - Email was sent successfully for user with email: zlata.rybakov69@example.com
+2023-06-15 18:20:23 [http-nio-8080-exec-2] DEBUG email-log - Email was collected successfully for user with email: zlata.rybakov69@example.com
+2023-06-15 18:22:37 [http-nio-8080-exec-3] DEBUG email-log - Email was collected successfully for user with email: vil534@example.com
+2023-06-15 18:22:40 [http-nio-8080-exec-3] DEBUG email-log - Email was sent successfully for user with email: vil534@example.com
+2023-06-15 18:24:25 [http-nio-8080-exec-7] DEBUG email-log - Email was collected successfully for user with email: romanova.dina56@example.com
+2023-06-15 18:24:26 [http-nio-8080-exec-7] DEBUG email-log - Email was sent successfully for user with email: romanova.dina56@example.com
+2023-06-15 18:25:47 [http-nio-8080-exec-10] DEBUG email-log - Email was collected successfully for user with email: vil534@example.com
+2023-06-15 18:25:48 [http-nio-8080-exec-10] DEBUG email-log - Email was sent successfully for user with email: vil534@example.com
+2023-06-15 18:41:23 [http-nio-8080-exec-5] DEBUG email-log - Email was collected successfully for user with email: vil534@example.com
+2023-06-15 18:41:24 [http-nio-8080-exec-5] DEBUG email-log - Email was sent successfully for user with email: vil534@example.com
+2023-06-15 18:41:55 [http-nio-8080-exec-1] DEBUG email-log - Email was collected successfully for user with email: zlata.rybakov69@example.com
+2023-06-15 18:41:55 [http-nio-8080-exec-1] DEBUG email-log - Email was sent successfully for user with email: zlata.rybakov69@example.com

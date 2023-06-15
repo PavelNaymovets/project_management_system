@@ -13,7 +13,6 @@ import com.digdes.pms.repository.project.ProjectRepository;
 import com.digdes.pms.repository.task.TaskRepository;
 import com.digdes.pms.repository.task.specification.TaskSpecification;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
-import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.task.converter.TaskConverter;
 import com.digdes.pms.service.task.email.service.TaskServiceEmail;
 import com.digdes.pms.service.task.validator.TaskValidator;
@@ -33,6 +32,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Locale;
 
+import static com.digdes.pms.model.employee.EmployeeStatus.REMOTE;
 import static com.digdes.pms.model.task.TaskStatus.NEW;
 
 @Slf4j
@@ -43,7 +43,6 @@ public class TaskServiceImpl implements TaskService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeConverter employeeConverter;
     private final ProjectRepository projectRepository;
-    private final ProjectConverter projectConverter;
     private final TaskRepository taskRepository;
     private final TaskConverter taskConverter;
     private final TaskValidator taskValidator;
@@ -66,7 +65,7 @@ public class TaskServiceImpl implements TaskService {
 
         if (!teamMemberService.isEmployeeProjectMember(projectId, authorId)) {
             throw new NotProjectMemberException(
-                    messageSource.getMessage("task.employee.not.project.member", null, Locale.ENGLISH) + login);
+                    messageSource.getMessage("task.author.not.project.member", null, Locale.ENGLISH) + login);
         }
 
         taskDto.setAuthor(employeeConverter.convertToDto(author));
@@ -100,7 +99,7 @@ public class TaskServiceImpl implements TaskService {
 
         if (!teamMemberService.isEmployeeProjectMember(projectId, authorId)) {
             throw new NotProjectMemberException(
-                    messageSource.getMessage("task.employee.not.project.member", null, Locale.ENGLISH) + login);
+                    messageSource.getMessage("task.author.not.project.member", null, Locale.ENGLISH) + login);
         }
 
         checkUpdatableFields(taskDto, task);
@@ -151,7 +150,7 @@ public class TaskServiceImpl implements TaskService {
 
         if (!teamMemberService.isEmployeeProjectMember(projectId, authorId)) {
             throw new NotProjectMemberException(
-                    messageSource.getMessage("task.employee.not.project.member", null, Locale.ENGLISH) + login);
+                    messageSource.getMessage("task.author.not.project.member", null, Locale.ENGLISH) + login);
         }
 
         task.setAuthor(author);
@@ -163,44 +162,59 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto appointAnEmployee(Long taskId, Long employeeId) {
-        //TODO добавить логику с проверкой автора на то, что он является участником проекта. Если не автор, то задачу обновить не может.
-        //TODO добавить возможность переназначить исполнителя. Пересмотреть блок if.
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + taskId));
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + employeeId));
 
         if (ObjectUtils.isEmpty(task.getEmployee()) || !ObjectUtils.nullSafeEquals(task.getEmployee().getId(), employeeId)) {
+            Employee employee = employeeRepository.findById(employeeId)
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + employeeId));
+
+            if (employee.getStatus().equals(REMOTE.getStatus())) {
+                throw new HasDeletedStatusException(
+                        messageSource.getMessage("employee.has.deleted.status", null, Locale.ENGLISH));
+            }
+
+            Long projectId = task.getProject().getId();
+
+            if (!teamMemberService.isEmployeeProjectMember(projectId, employeeId)) {
+                throw new NotProjectMemberException(
+                        messageSource.getMessage("task.employee.not.project.member", null, Locale.ENGLISH) + employee.getLogin());
+            }
+
             String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Employee author = employeeRepository.findByLogin(login)
                     .orElseThrow(() -> new ResourceNotFoundException(
                             messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
+            Long authorId = author.getId();
+
+            if (!teamMemberService.isEmployeeProjectMember(projectId, authorId)) {
+                throw new NotProjectMemberException(
+                        messageSource.getMessage("task.author.not.project.member", null, Locale.ENGLISH) + login);
+            }
+
             task.setEmployee(employee);
             task.setAuthor(author);
+
+            if (!taskServiceEmail.sendHtmlMessage(employeeConverter.convertToDto(employee), taskConverter.convertToDto(task))) {
+                throw new EmailSendException(
+                        messageSource.getMessage("email.send.fail", null, Locale.ENGLISH));
+            }
+
             taskRepository.save(task);
-            EmployeeDto employeeDto = employeeConverter.convertToDto(employee);
-            TaskDto taskDto = taskConverter.convertToDto(task);
             serviceLog.debug(
                     String.format(
                             messageSource.getMessage("task.employee.appoint", null, Locale.ENGLISH), taskId, employee.getLogin(), login));
 
-            if (!taskServiceEmail.sendHtmlMessage(employeeDto, taskDto)) { //повторная попытка отправки, если что-то пошло не так.
-                if (!taskServiceEmail.sendHtmlMessage(employeeDto, taskDto)) {
-                    throw new EmailSendException(
-                            messageSource.getMessage("email.send.fail", null, Locale.ENGLISH));
-                }
-            }
+            return taskConverter.convertToDto(task);
+        } else {
+            serviceLog.debug(
+                    String.format(
+                            messageSource.getMessage("task.employee.appoint.same", null, Locale.ENGLISH), taskId, task.getEmployee().getLogin()));
 
             return taskConverter.convertToDto(task);
         }
-
-        serviceLog.debug(
-                String.format(
-                        messageSource.getMessage("task.employee.appoint.same", null, Locale.ENGLISH), taskId, employee.getLogin()));
-
-        return taskConverter.convertToDto(task);
     }
 
     @Override
