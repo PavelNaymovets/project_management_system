@@ -38,7 +38,7 @@
 
 * Автор является участником проекта:
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/test-case/screenshot/task/task_update_status.PNG)
 
 * Автор не является участником проекта:
 
