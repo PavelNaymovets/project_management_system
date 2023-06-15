@@ -50,7 +50,8 @@ create table task
     status      text      not null,
     author_id   bigint    not null references employee (id),
     created_at  timestamp default current_timestamp,
-    updated_at  timestamp default current_timestamp
+    updated_at  timestamp default current_timestamp,
+    unique (name, project_id)
 );
 
 create table team

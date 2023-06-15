@@ -11,3 +11,8 @@
 2023-06-15 13:05:46 [http-nio-8080-exec-10] DEBUG service-log - Task was created successfully. Id: 8, author login: romanova.dina
 2023-06-15 13:06:03 [http-nio-8080-exec-4] DEBUG service-log - Task was created successfully. Id: 9, author login: romanova.dina
 2023-06-15 13:06:14 [http-nio-8080-exec-7] DEBUG service-log - Task was created successfully. Id: 10, author login: romanova.dina
+2023-06-15 13:30:21 [http-nio-8080-exec-1] DEBUG service-log - Task was created successfully. Id: 6, author login: romanova.dina
+2023-06-15 13:36:23 [http-nio-8080-exec-1] DEBUG service-log - Task was created successfully. Id: 6, author login: romanova.dina
+2023-06-15 13:36:35 [http-nio-8080-exec-7] DEBUG service-log - Task was created successfully. Id: 8, author login: romanova.dina
+2023-06-15 13:56:55 [http-nio-8080-exec-6] DEBUG service-log - Task was found successfully with id: 6
+2023-06-15 14:38:20 [http-nio-8080-exec-2] DEBUG service-log - Task was updated successfully. Id: 6, author login: romanova.dina

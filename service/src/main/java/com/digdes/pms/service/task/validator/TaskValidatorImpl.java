@@ -19,6 +19,16 @@ public class TaskValidatorImpl implements TaskValidator {
     @Override
     public void validate(TaskDto taskDto) {
         List<String> errorMessage = new ArrayList<>();
+
+        if (!ObjectUtils.isEmpty(taskDto.getId())) {
+            errorMessage.add(messageSource.getMessage("task.field.id.autofill", null, Locale.ENGLISH));
+        }
+        if (!ObjectUtils.isEmpty(taskDto.getStatus())) {
+            errorMessage.add(messageSource.getMessage("task.field.status.autofill", null, Locale.ENGLISH));
+        }
+        if (!ObjectUtils.isEmpty(taskDto.getAuthor())) {
+            errorMessage.add(messageSource.getMessage("task.field.author.autofill", null, Locale.ENGLISH));
+        }
         if (ObjectUtils.isEmpty(taskDto.getName()) || taskDto.getName().isBlank()) {
             errorMessage.add(messageSource.getMessage("task.field.name.not.filled", null, Locale.ENGLISH));
         }
