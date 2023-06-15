@@ -16,6 +16,12 @@ public class GlobalExceptionHandler {
     private static final Logger emailLog = LoggerFactory.getLogger("email-log");
 
     @ExceptionHandler
+    public ResponseEntity<AppError> catchNotProjectMemberException(NotProjectMemberException e) {
+        exceptionLog.debug(e.getMessage(), e);
+        return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
     public ResponseEntity<AppError> catchNotSpecifiedIdException(NotSpecifiedIdException e) {
         exceptionLog.debug(e.getMessage(), e);
         return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);

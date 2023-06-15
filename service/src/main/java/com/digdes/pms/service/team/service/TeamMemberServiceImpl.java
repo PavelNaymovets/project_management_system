@@ -14,7 +14,6 @@ import com.digdes.pms.repository.team.TeamMemberRepository;
 import com.digdes.pms.repository.team.TeamRepository;
 import com.digdes.pms.repository.team.specification.TeamMemberSpecification;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
-import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.team.converter.TeamConverter;
 import com.digdes.pms.service.team.converter.TeamMemberConverter;
 import com.digdes.pms.service.team.validator.TeamMemberValidator;
@@ -41,7 +40,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     private final TeamRepository teamRepository;
     private final EmployeeConverter employeeConverter;
     private final EmployeeRepository employeeRepository;
-    private final ProjectConverter projectConverter;
     private final MessageSource messageSource;
 
     @Override
@@ -148,6 +146,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         serviceLog.debug(
                 String.format(
                         messageSource.getMessage("teamMember.update.role", null, Locale.ENGLISH), id, role));
+    }
+
+    @Override
+    public boolean isEmployeeProjectMember(Long projectId, Long employeeId) {
+        return teamMemberRepository.getByProjectIdAndEmployeeId(projectId, employeeId).isPresent();
     }
 
     private void checkRole(String role) {
