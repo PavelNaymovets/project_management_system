@@ -95,7 +95,7 @@
 
 Задача добавлена:
 
-![Image alt]()
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/test-case/screenshot/task/task_create.PNG)
 
 * Автор является участником проекта и проект существует:
 
