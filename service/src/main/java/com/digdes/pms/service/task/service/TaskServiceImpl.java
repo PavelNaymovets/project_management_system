@@ -33,7 +33,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Locale;
 
-import static com.digdes.pms.model.employee.EmployeeStatus.REMOTE;
 import static com.digdes.pms.model.task.TaskStatus.NEW;
 
 @Slf4j
@@ -59,14 +58,14 @@ public class TaskServiceImpl implements TaskService {
         Employee author = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
-        Long employeeId = author.getId();
-        Long projectId = taskDto.getProject().getId();
-        Project project = projectRepository.findById(projectId)
+        Project project = projectRepository.findById(taskDto.getProject().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + projectId));
+                        messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + taskDto.getProject().getId()));
+        Long projectId = project.getId();
+        Long authorId = author.getId();
 
-        if (!teamMemberService.isEmployeeProjectMember(projectId, employeeId)) {
-            throw new NotProjectMemberException (
+        if (!teamMemberService.isEmployeeProjectMember(projectId, authorId)) {
+            throw new NotProjectMemberException(
                     messageSource.getMessage("task.employee.not.project.member", null, Locale.ENGLISH) + login);
         }
 
@@ -83,15 +82,28 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto update(TaskDto taskDto) {
-        //TODO добавить логику с проверкой автора на то, что он является участником проекта. Если не автор, то задачу обновить не может.
-        Task task = taskRepository.findById(taskDto.getId())
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + taskDto.getId()));
-        checkUpdatableFields(taskDto, task);
+        if (ObjectUtils.isEmpty(taskDto.getId())) {
+            throw new NotSpecifiedIdException(
+                    messageSource.getMessage("task.field.id.null", null, Locale.ENGLISH));
+        }
+
         String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Employee author = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
+        Task task = taskRepository.findById(taskDto.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + taskDto.getId()));
+
+        Long projectId = task.getProject().getId();
+        Long authorId = author.getId();
+
+        if (!teamMemberService.isEmployeeProjectMember(projectId, authorId)) {
+            throw new NotProjectMemberException(
+                    messageSource.getMessage("task.employee.not.project.member", null, Locale.ENGLISH) + login);
+        }
+
+        checkUpdatableFields(taskDto, task);
         task.setAuthor(author);
         Task updatedTask = taskRepository.save(task);
         serviceLog.debug(
@@ -125,7 +137,6 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Override
     public void updateStatus(Long id, String status) {
-        //TODO добавить логику с проверкой автора на то, что он является участником проекта. Если не автор, то задачу обновить не может.
         checkStatus(status);
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -134,6 +145,15 @@ public class TaskServiceImpl implements TaskService {
         Employee author = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
+
+        Long projectId = task.getProject().getId();
+        Long authorId = author.getId();
+
+        if (!teamMemberService.isEmployeeProjectMember(projectId, authorId)) {
+            throw new NotProjectMemberException(
+                    messageSource.getMessage("task.employee.not.project.member", null, Locale.ENGLISH) + login);
+        }
+
         task.setAuthor(author);
         task.setStatus(status);
         serviceLog.debug(
@@ -241,6 +261,11 @@ public class TaskServiceImpl implements TaskService {
                     messageSource.getMessage("task.field.employee.not.updatable", null, Locale.ENGLISH));
         }
 
+        if (!ObjectUtils.isEmpty(taskDto.getAuthor())) {
+            throw new FieldIncorrectException(
+                    messageSource.getMessage("task.field.author.not.updatable", null, Locale.ENGLISH));
+        }
+
         if (!ObjectUtils.isEmpty(taskDto.getName()) && !taskDto.getName().isBlank()) {
             task.setName(taskDto.getName());
         }
@@ -250,7 +275,20 @@ public class TaskServiceImpl implements TaskService {
         }
 
         if (!ObjectUtils.isEmpty(taskDto.getProject())) {
-            task.setProject(projectConverter.convertToEntity(taskDto.getProject()));
+            Long id = taskDto.getProject().getId();
+            Project project = projectRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + id));
+
+            if (!ObjectUtils.isEmpty(taskDto.getProject().getCode()) ||
+                !ObjectUtils.isEmpty(taskDto.getProject().getName()) ||
+                !ObjectUtils.isEmpty(taskDto.getProject().getDescription()) ||
+                !ObjectUtils.isEmpty(taskDto.getProject().getStatus())) {
+                throw new FieldIncorrectException(
+                        messageSource.getMessage("project.not.updatable.here", null, Locale.ENGLISH));
+            }
+
+            task.setProject(project);
         }
 
         if (!ObjectUtils.isEmpty(taskDto.getLaborCosts())) {
