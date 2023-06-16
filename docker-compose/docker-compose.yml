@@ -30,5 +30,15 @@ services:
     depends_on:
       - psvm-postgres
 
+  psvm-pms-app:
+    container_name: pms-app
+    image: pms-app
+    ports:
+      - '8080:8080'
+    networks:
+      - psvm-net
+    depends_on:
+      - psvm-postgres
+
 networks:
   psvm-net:
