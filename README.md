@@ -114,7 +114,7 @@ _[(первый вариант архитектуры)](https://github.com/Pavel
 * _service-log_ - логи работы всех сервисов
 
 #### Email
-При назначении исполнителя на задачу, программа шлет email уведомление сотруднику которому была поставлена задача. Пример
+При назначении исполнителя на задачу, программа отправит email уведомление сотруднику которому была поставлена задача. Пример
 уведомления:
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/image/email/email_example.png)
