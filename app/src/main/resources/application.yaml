@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5433/project
+    url: jdbc:postgresql://psvm-postgres:5432/project
     username: postgres
     password: postgres
   jpa:
@@ -37,8 +37,8 @@ spring:
   rabbitmq:
     username: guest
     password: guest
-    host: localhost
-    port: 5673
+    host: psvm-rabbitmq
+    port: 5672
     listener:
       simple:
         retry:

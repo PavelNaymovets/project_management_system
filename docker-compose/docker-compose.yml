@@ -2,6 +2,15 @@ version: '3.9'
 
 services:
 
+  psvm-rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:management
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    networks:
+      - psvm-net
+
   psvm-postgres:
     container_name: postgres
     image: postgres
@@ -30,25 +39,16 @@ services:
     depends_on:
       - psvm-postgres
 
-#  psvm-pms-app:
-#    container_name: pms-app
-#    image: pms-app
-#    ports:
-#      - '8080:8080'
-#    networks:
-#      - psvm-net
-#    depends_on:
-#      - psvm-postgres
-#      - psvm-rabbitmq
-#
-#  psvm-rabbitmq:
-#    container_name: rabbitmq
-#    image: rabbitmq:management
-#    ports:
-#      - "5673:5672"
-#      - "15673:15672"
-#    networks:
-#      - psvm-net
+  psvm-pms-app:
+    container_name: pms-app
+    image: pms-app
+    ports:
+      - "8080:8080"
+    networks:
+      - psvm-net
+    depends_on:
+      - psvm-postgres
+      - psvm-rabbitmq
 
 networks:
   psvm-net:
