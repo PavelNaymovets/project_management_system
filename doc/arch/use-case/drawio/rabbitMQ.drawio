@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-06-16T22:55:27.953Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="58K853tk-tPlNXfHgJOD" version="21.4.0" type="device">
+<mxfile host="app.diagrams.net" modified="2023-06-16T22:57:06.001Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="oDxuEpZzS3706Blf1afV" version="21.4.0" type="device">
   <diagram name="Страница 1" id="dtEbb6S60lbUY80SnZxG">
     <mxGraphModel dx="1222" dy="674" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -49,7 +49,7 @@
         <mxCell id="gmxdBEyx530X5syrSnmb-14" value="Send:&lt;br&gt;EmployeeID&lt;br&gt;TaskID" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" parent="gmxdBEyx530X5syrSnmb-13" connectable="0" vertex="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="gmxdBEyx530X5syrSnmb-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="gmxdBEyx530X5syrSnmb-16" target="gmxdBEyx530X5syrSnmb-17" edge="1">
+        <mxCell id="gmxdBEyx530X5syrSnmb-18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="gmxdBEyx530X5syrSnmb-16" target="gmxdBEyx530X5syrSnmb-17" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="648" y="182" />
