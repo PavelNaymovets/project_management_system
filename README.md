@@ -117,7 +117,7 @@ _[(первый вариант архитектуры)](https://github.com/Pavel
 При назначении исполнителя на задачу, программа асинхронно (с помощью `rabbitMQ`) отправит email уведомление сотруднику 
 которому была поставлена задача:
 
-
+[Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/use-case/rabbitMQ.png)
 
 Пример уведомления:
 
