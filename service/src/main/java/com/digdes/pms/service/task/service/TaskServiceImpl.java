@@ -1,6 +1,5 @@
 package com.digdes.pms.service.task.service;
 
-import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.dto.task.TaskFilterDto;
 import com.digdes.pms.exception.*;
@@ -15,6 +14,7 @@ import com.digdes.pms.repository.task.specification.TaskSpecification;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
 import com.digdes.pms.service.task.converter.TaskConverter;
 import com.digdes.pms.service.task.email.service.TaskServiceEmail;
+import com.digdes.pms.service.task.queue.TaskEmailQueueSupplier;
 import com.digdes.pms.service.task.validator.TaskValidator;
 import com.digdes.pms.service.team.service.TeamMemberService;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +48,7 @@ public class TaskServiceImpl implements TaskService {
     private final TaskConverter taskConverter;
     private final TaskValidator taskValidator;
     private final TeamMemberService teamMemberService;
-    private final TaskServiceEmail taskServiceEmail;
+    private final TaskEmailQueueSupplier taskEmailQueueSupplier;
     private final MessageSource messageSource;
 
     @Override
@@ -197,12 +197,7 @@ public class TaskServiceImpl implements TaskService {
 
             task.setEmployee(employee);
             task.setAuthor(author);
-
-            if (!taskServiceEmail.sendHtmlMessage(employeeConverter.convertToDto(employee), taskConverter.convertToDto(task))) {
-                throw new EmailSendException(
-                        messageSource.getMessage("email.send.fail", null, Locale.ENGLISH));
-            }
-
+            taskEmailQueueSupplier.send(employee.getId() + "_" + task.getId());
             taskRepository.save(task);
             serviceLog.debug(
                     String.format(

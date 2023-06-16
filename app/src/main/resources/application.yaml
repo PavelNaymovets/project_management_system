@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://psvm-postgres:5432/project
+    url: jdbc:postgresql://localhost:5433/project
     username: postgres
     password: postgres
   jpa:
@@ -34,3 +34,16 @@ spring:
       classpath: /templates/
     suffix: .html
     encoding: UTF-8
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5673
+    listener:
+      simple:
+        retry:
+          max-interval: 30000
+          multiplier: 3.0
+          max-attempts: 10
+          enabled: true
+          initial-interval: 5000
