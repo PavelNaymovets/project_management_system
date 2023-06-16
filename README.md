@@ -132,8 +132,10 @@ _[(первый вариант архитектуры)](https://github.com/Pavel
 
 ### Запуск приложения
 
-Файл запуска программы _[run-app.sh](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/app)_ расположен в папке _./docker-compose/app_. Команда запуска из командной строки:
-`bash run-app.sh `. Во время запуска:
+Файл запуска программы _[run-app.sh](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/app)_ расположен в папке _[./docker-compose/app](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/app)_. 
+Команда запуска из командной строки: `bash run-app.sh `. 
+
+Во время запуска:
 * Выполняться модульные и интеграционные тесты
 * Создасться архив приложения `pms-instance-exec.jar`
 * Создасться docker образ приложения `pms-app:latest`
