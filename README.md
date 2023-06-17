@@ -125,12 +125,11 @@ _[(первый вариант архитектуры)](https://github.com/Pavel
 #### OpenApi
 Для просмотра документации по проекту необходимо:
 * Запустить программу с помощью CI-CD скрипта _[run-app.sh](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/app/run-app.sh)_.
-Команда запуска из командной строки: `bash run-app.sh `
+Команда запуска из командной строки: `bash run-app.sh `. При запуске из командной строки необходимо находиться в папке расположения файла `run-app.sh`.
 * В браузере перейти по ссылке: `http://localhost:8080/pms/swagger-ui/index.html`
 
 #### Log
 Программа пишет логи в консоль и в файлы. Файлы расположены в папке _[./logs](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs)_.
-Струткура папки логов описана _[тут](https://github.com/PavelNaymovets/project_management_system/tree/develop#logs).
 
 #### Email
 При назначении исполнителя на задачу, программа асинхронно (с помощью `rabbitMQ`) отправит email уведомление сотруднику 
@@ -155,8 +154,8 @@ _[(первый вариант архитектуры)](https://github.com/Pavel
 
 ### Запуск приложения
 
-Файл запуска программы _[run-app.sh](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/app/run-app.sh)_ расположен в папке _[./docker-compose/app](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/app)_. 
-Команда запуска из командной строки: `bash run-app.sh `. 
+Файл CI-CD программы _[run-app.sh](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/app/run-app.sh)_ расположен в папке _[./docker-compose/app](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/app)_. 
+Команда запуска из командной строки: `bash run-app.sh `. При запуске из командной строки необходимо находиться в папке расположения файла `run-app.sh`.
 
 Во время запуска:
 * Выполняться модульные и интеграционные тесты
@@ -169,4 +168,4 @@ _[(первый вариант архитектуры)](https://github.com/Pavel
 Параметры запуска:
 * На локальной машине должен быть установлен `docker`, `maven`, `git bash`
 * Версия `java`, которую использует `maven`, должна быть `18.0.2.1`. Убедитесь, что в переменной среды `JAVA_HOME` указана
-именно эта версия. Иначе проект не скомпилируется, так как `maven` берет значение из с этой переменной.
+именно эта версия. Иначе проект не скомпилируется, так как `maven` берет значение из этой переменной.
