@@ -50,7 +50,11 @@ Docker, Swagger, RabbitMQ.
 * _[./docker-compose/liquibase](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/liquibase)_ - файлы миграции базы данных
 * _[./docker-compose/docker-compose.yml](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/docker-compose.yml)_ - развертывание программы в `docker`
 
-#### _[logs](https://github.com/PavelNaymovets/project_management_system/tree/develop#log)_
+#### logs:
+* _[./logs/auth](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs/auth)_ - логи аутентификации, включая исключения
+* _[./logs/email](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs/email)_ - логи сборки и отправки email уведомления на почту, включая исключения
+* _[./logs/exception](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs/exception)_ - логи исключений обрабатываемые в _[GlobalExceptionHandler](https://github.com/PavelNaymovets/project_management_system/blob/develop/controller/src/main/java/com/digdes/pms/controller/exception/GlobalExceptionHandler.java)_, кроме исключений auth и email
+* _[./logs/service](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs/service)_ - логи работы всех сервисов
 
 ### Архитектура:
 Для описания архитектуры программы применены 5 диаграмм: 2 UML, 2 C4, 1 Physical model.
@@ -120,15 +124,13 @@ _[(первый вариант архитектуры)](https://github.com/Pavel
 
 #### OpenApi
 Для просмотра документации по проекту необходимо:
-* Запустить программу через _docker-compose.yaml_ файл с помощью команды: `docker-compose-up`
+* Запустить программу с помощью CI-CD скрипта _[run-app.sh](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/app/run-app.sh)_.
+Команда запуска из командной строки: `bash run-app.sh `
 * В браузере перейти по ссылке: `http://localhost:8080/pms/swagger-ui/index.html`
 
 #### Log
-Программа пишет логи в консоль и в файлы. Файлы расположены в папке _[./logs](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs)_. Структура файлов:
-* _auth-log_ - логи аутентификации, включая исключения
-* _email-log_ - логи сборки и отправки сообщения, включая исключения
-* _exception-log_ - логи исключений обрабатываемые в _GlobalExceptionHandler_, кроме исключений auth и email
-* _service-log_ - логи работы всех сервисов
+Программа пишет логи в консоль и в файлы. Файлы расположены в папке _[./logs](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs)_.
+Струткура папки логов описана _[тут](https://github.com/PavelNaymovets/project_management_system/tree/develop#logs).
 
 #### Email
 При назначении исполнителя на задачу, программа асинхронно (с помощью `rabbitMQ`) отправит email уведомление сотруднику 
@@ -162,7 +164,7 @@ _[(первый вариант архитектуры)](https://github.com/Pavel
 * Создасться docker образ приложения `pms-app:latest`
 * Запуститься `docker-compose` файл
 * Создасться контейнер базы данных `postgres`, контейнер системы миграции `liqubase` (выполнит миграцию базы данных
-в контейнер с базой данных `postgres`), контейнер приложения `pms-app`.
+в контейнер с базой данных `postgres`), контейнер очереди `RabbitMQ`, контейнер приложения `pms-app`,
 
 Параметры запуска:
 * На локальной машине должен быть установлен `docker`, `maven`, `git bash`
