@@ -21,20 +21,35 @@ OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquiba
 Docker, Swagger, RabbitMQ.
 
 ### Структура проекта
-Проект состоит из 5 логических модулей:
+Проект состоит из 7 логических модулей:
+* _./app_ - конфигурация и запуск приложения
+* _./auth_ - аутентификация, валидация, авторизация пользователей программы, работа с jwt токеном
+* _./controller_ - обработка JSON/HTTP запросов пользователя
 * _./dto_ - dto и исключения
 * _./model_ - сущности
-* _./controller_ - обработка запросов пользователя
-* _./service_ - бизнес логика
 * _./repository_ - работа с базой данных
+* _./service_ - бизнес логика
 
 И 3 папок:
-* _[./dock/adr](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/adr)_ - содержит файлы с краткими записями решениий задач, а также архитектурных решений, принятых в проекте. 
-Файлы имеют последовательную нумерацию и определенную структуру
-* _[./doc/arch](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/arch)_ - содержит скрины диаграмм общей архитектуры проекта
-* _[./docker-compose](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/docker-compose.yml)_ - содержит файл, чтобы создать окружение для разработки, демонстрации и тестирования
-* _[./docker-compose/app](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/app/Dockerfile)_ - содержит файл, для создания образа программы
-* _[./liquibase](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/liquibase)_ - содержит файлы инициализации структуры базы данных
+* _[./dock](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc)_ - документация по проекту
+* _[./docker-compose](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose)_ - непрерывная сборка и развертывание программы в `docker`
+* _[./logs](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs)_ - логи
+
+#### dock:
+* _[./dock/adr](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/adr)_ - архитектурные решения принятые в проекте
+* _[./doc/arch](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/arch)_ - диаграммы архитектуры проекта (*.drawio, *.png)
+* _[./doc/image](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/image/email)_ - скриншоты
+* _[./doc/questions](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/questions)_ - вопросы куратору
+* _[./doc/remarks](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/remarks/remark%60s%20list.md)_ - замечания от куратора и идеи по улучшению проекта
+* _[./doc/test-case](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/test-case)_ - функциональные текст-кейсы. Составлены и реализованы (*.md)
+
+#### docker-compose:
+* _[./docker-compose/app](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/app)_ - создание образа (`Dockerfile`), запуск `CI-CD` (`run-app.sh`)
+* _[./docker-compose/imports](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/imports/db)_ - создание базы данных `project` в `PostgreSQL` (`init.sh`), при развертывании контейнера базы данных
+* _[./docker-compose/liquibase](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/liquibase)_ - файлы миграции базы данных
+* _[./docker-compose/docker-compose.yml](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/docker-compose.yml)_ - развертывание программы в `docker`
+
+#### _[logs](https://github.com/PavelNaymovets/project_management_system/tree/develop#log)_
 
 ### Архитектура:
 Для описания архитектуры программы применены 5 диаграмм: 2 UML, 2 C4, 1 Physical model.
