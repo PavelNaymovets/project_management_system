@@ -35,6 +35,7 @@ Docker, Swagger, RabbitMQ.
 * _[./docker-compose](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose)_ - непрерывная сборка и развертывание программы в `docker`
 * _[./logs](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs)_ - логи
 
+### Содержание папок:
 #### dock:
 * _[./dock/adr](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/adr)_ - архитектурные решения принятые в проекте
 * _[./doc/arch](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/arch)_ - диаграммы архитектуры проекта (*.drawio, *.png)
