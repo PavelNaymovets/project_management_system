@@ -1,5 +1,6 @@
 package com.digdes.pms.controller.team;
 
+import com.digdes.pms.auth.util.IsAdmin;
 import com.digdes.pms.dto.team.TeamMemberDto;
 import com.digdes.pms.dto.team.TeamMemberFilterDto;
 import com.digdes.pms.service.team.service.TeamMemberService;
@@ -90,6 +91,7 @@ public class TeamMemberController {
                     )
             }
     )
+    @IsAdmin
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public TeamMemberDto deleteById(@PathVariable
                               @Parameter(description = "Идентификатор участника команды.", required = true)

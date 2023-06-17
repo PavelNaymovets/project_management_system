@@ -25,4 +25,6 @@ public interface TeamMemberService extends ServiceCRUD<TeamMemberDto,TeamMemberF
 
     @Override
     void updateStatus(Long id, String status);
+
+    boolean isEmployeeProjectMember(Long projectId, Long employeeId);
 }

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class TaskServiceEmailImpl implements TaskServiceEmail {
                     "email.send.successfully", null, Locale.ENGLISH) + employeeDto.getEmail());
 
             return true;
-        } catch (MessagingException e) {
+        } catch (MessagingException | MailException e) {
             emailLog.debug(e.getMessage(), e);
 
             return false;

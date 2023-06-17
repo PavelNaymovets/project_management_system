@@ -1,6 +1,7 @@
 package com.digdes.pms.controller.exception;
 
 import com.digdes.pms.exception.*;
+import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,27 @@ public class GlobalExceptionHandler {
     private static final Logger emailLog = LoggerFactory.getLogger("email-log");
 
     @ExceptionHandler
+    public ResponseEntity<AppError> catchNotProjectMemberException(NotProjectMemberException e) {
+        exceptionLog.debug(e.getMessage(), e);
+        return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<AppError> catchNotSpecifiedIdException(NotSpecifiedIdException e) {
+        exceptionLog.debug(e.getMessage(), e);
+        return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<AppError> catchPSQLException(PSQLException e) {
+        exceptionLog.debug(e.getMessage(), e);
+        return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
     public ResponseEntity<AppError> catchEmailSendException(EmailSendException e) {
         emailLog.debug(e.getMessage(), e);
-        return new ResponseEntity<>(new AppError(HttpStatus.EXPECTATION_FAILED.value(), e.getMessage()), HttpStatus.EXPECTATION_FAILED);
+        return new ResponseEntity<>(new AppError(HttpStatus.CONFLICT.value(), e.getMessage()), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler
@@ -40,9 +59,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
+    public ResponseEntity<AppError> catchAuthException(AuthException e) {
+        authenticationLog.debug(e.getMessage(), e);
+        return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), e.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler
     public ResponseEntity<AppError> catchTokenExpiredException(TokenExpiredException e) {
         authenticationLog.debug(e.getMessage(), e);
-        return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), e.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler

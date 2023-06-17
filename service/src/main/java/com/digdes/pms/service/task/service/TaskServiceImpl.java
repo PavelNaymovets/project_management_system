@@ -1,23 +1,24 @@
 package com.digdes.pms.service.task.service;
 
-import com.digdes.pms.dto.employee.EmployeeDto;
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.dto.task.TaskFilterDto;
-import com.digdes.pms.exception.EmailSendException;
-import com.digdes.pms.exception.FieldIncorrectException;
-import com.digdes.pms.exception.ResourceNotFoundException;
+import com.digdes.pms.exception.*;
 import com.digdes.pms.model.employee.Employee;
+import com.digdes.pms.model.project.Project;
 import com.digdes.pms.model.task.Task;
 import com.digdes.pms.model.task.TaskStatus;
 import com.digdes.pms.repository.employee.EmployeeRepository;
+import com.digdes.pms.repository.project.ProjectRepository;
 import com.digdes.pms.repository.task.TaskRepository;
 import com.digdes.pms.repository.task.specification.TaskSpecification;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
-import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.task.converter.TaskConverter;
 import com.digdes.pms.service.task.email.service.TaskServiceEmail;
+import com.digdes.pms.service.task.queue.TaskEmailQueueSupplier;
 import com.digdes.pms.service.task.validator.TaskValidator;
+import com.digdes.pms.service.team.service.TeamMemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -28,33 +29,46 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
+import static com.digdes.pms.model.employee.EmployeeStatus.REMOTE;
 import static com.digdes.pms.model.task.TaskStatus.NEW;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
     private static final Logger serviceLog = LoggerFactory.getLogger("service-log");
     private final EmployeeRepository employeeRepository;
     private final EmployeeConverter employeeConverter;
-    private final ProjectConverter projectConverter;
+    private final ProjectRepository projectRepository;
     private final TaskRepository taskRepository;
     private final TaskConverter taskConverter;
     private final TaskValidator taskValidator;
-    private final TaskServiceEmail taskServiceEmail;
+    private final TeamMemberService teamMemberService;
+    private final TaskEmailQueueSupplier taskEmailQueueSupplier;
     private final MessageSource messageSource;
 
     @Override
     public TaskDto create(TaskDto taskDto) {
-        //TODO добавить логику с проверкой автора на то, что он является участником проекта. Если не автор, то задачу создать не может.
         taskValidator.validate(taskDto);
         String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Employee author = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
+        Project project = projectRepository.findById(taskDto.getProject().getId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + taskDto.getProject().getId()));
+        Long projectId = project.getId();
+        Long authorId = author.getId();
+
+        if (!teamMemberService.isEmployeeProjectMember(projectId, authorId)) {
+            throw new NotProjectMemberException(
+                    messageSource.getMessage("task.author.not.project.member", null, Locale.ENGLISH) + login);
+        }
+
         taskDto.setAuthor(employeeConverter.convertToDto(author));
         Task task = taskConverter.convertToEntity(taskDto);
         task.setStatus(NEW.getStatus());
@@ -68,15 +82,28 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto update(TaskDto taskDto) {
-        //TODO добавить логику с проверкой автора на то, что он является участником проекта. Если не автор, то задачу обновить не может.
-        Task task = taskRepository.findById(taskDto.getId())
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + taskDto.getId()));
-        checkUpdatableFields(taskDto, task);
+        if (ObjectUtils.isEmpty(taskDto.getId())) {
+            throw new NotSpecifiedIdException(
+                    messageSource.getMessage("task.field.id.null", null, Locale.ENGLISH));
+        }
+
         String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Employee author = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
+        Task task = taskRepository.findById(taskDto.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + taskDto.getId()));
+
+        Long projectId = task.getProject().getId();
+        Long authorId = author.getId();
+
+        if (!teamMemberService.isEmployeeProjectMember(projectId, authorId)) {
+            throw new NotProjectMemberException(
+                    messageSource.getMessage("task.author.not.project.member", null, Locale.ENGLISH) + login);
+        }
+
+        checkUpdatableFields(taskDto, task);
         task.setAuthor(author);
         Task updatedTask = taskRepository.save(task);
         serviceLog.debug(
@@ -110,7 +137,6 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Override
     public void updateStatus(Long id, String status) {
-        //TODO добавить логику с проверкой автора на то, что он является участником проекта. Если не автор, то задачу обновить не может.
         checkStatus(status);
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -119,6 +145,15 @@ public class TaskServiceImpl implements TaskService {
         Employee author = employeeRepository.findByLogin(login)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
+
+        Long projectId = task.getProject().getId();
+        Long authorId = author.getId();
+
+        if (!teamMemberService.isEmployeeProjectMember(projectId, authorId)) {
+            throw new NotProjectMemberException(
+                    messageSource.getMessage("task.author.not.project.member", null, Locale.ENGLISH) + login);
+        }
+
         task.setAuthor(author);
         task.setStatus(status);
         serviceLog.debug(
@@ -128,43 +163,54 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto appointAnEmployee(Long taskId, Long employeeId) {
-        //TODO добавить логику с проверкой автора на то, что он является участником проекта. Если не автор, то задачу обновить не может.
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("task.not.found.id", null, Locale.ENGLISH) + taskId));
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + employeeId));
 
-        if (ObjectUtils.isEmpty(task.getEmployee()) || !Objects.equals(task.getEmployee().getId(), employeeId)) {
+        if (ObjectUtils.isEmpty(task.getEmployee()) || !ObjectUtils.nullSafeEquals(task.getEmployee().getId(), employeeId)) {
+            Employee employee = employeeRepository.findById(employeeId)
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + employeeId));
+
+            if (employee.getStatus().equals(REMOTE.getStatus())) {
+                throw new HasDeletedStatusException(
+                        messageSource.getMessage("employee.has.deleted.status", null, Locale.ENGLISH));
+            }
+
+            Long projectId = task.getProject().getId();
+
+            if (!teamMemberService.isEmployeeProjectMember(projectId, employeeId)) {
+                throw new NotProjectMemberException(
+                        messageSource.getMessage("task.employee.not.project.member", null, Locale.ENGLISH) + employee.getLogin());
+            }
+
             String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Employee author = employeeRepository.findByLogin(login)
                     .orElseThrow(() -> new ResourceNotFoundException(
                             messageSource.getMessage("employee.not.found.login", null, Locale.ENGLISH) + login));
+            Long authorId = author.getId();
+
+            if (!teamMemberService.isEmployeeProjectMember(projectId, authorId)) {
+                throw new NotProjectMemberException(
+                        messageSource.getMessage("task.author.not.project.member", null, Locale.ENGLISH) + login);
+            }
+
             task.setEmployee(employee);
             task.setAuthor(author);
+            taskEmailQueueSupplier.send(employee.getId() + "_" + task.getId());
             taskRepository.save(task);
-            EmployeeDto employeeDto = employeeConverter.convertToDto(employee);
-            TaskDto taskDto = taskConverter.convertToDto(task);
             serviceLog.debug(
                     String.format(
                             messageSource.getMessage("task.employee.appoint", null, Locale.ENGLISH), taskId, employee.getLogin(), login));
 
-            if (!taskServiceEmail.sendHtmlMessage(employeeDto, taskDto)) { //повторная попытка отправки, если что-то пошло не так.
-                if (!taskServiceEmail.sendHtmlMessage(employeeDto, taskDto)) {
-                    throw new EmailSendException(
-                            messageSource.getMessage("email.send.fail", null, Locale.ENGLISH));
-                }
-            }
+            return taskConverter.convertToDto(task);
+        } else {
+            serviceLog.debug(
+                    String.format(
+                            messageSource.getMessage("task.employee.appoint.same", null, Locale.ENGLISH), taskId, task.getEmployee().getLogin()));
 
             return taskConverter.convertToDto(task);
         }
-
-        serviceLog.debug(
-                String.format(
-                        messageSource.getMessage("task.employee.appoint.same", null, Locale.ENGLISH), taskId, employee.getLogin()));
-
-        return taskConverter.convertToDto(task);
     }
 
     @Override
@@ -225,6 +271,11 @@ public class TaskServiceImpl implements TaskService {
                     messageSource.getMessage("task.field.employee.not.updatable", null, Locale.ENGLISH));
         }
 
+        if (!ObjectUtils.isEmpty(taskDto.getAuthor())) {
+            throw new FieldIncorrectException(
+                    messageSource.getMessage("task.field.author.not.updatable", null, Locale.ENGLISH));
+        }
+
         if (!ObjectUtils.isEmpty(taskDto.getName()) && !taskDto.getName().isBlank()) {
             task.setName(taskDto.getName());
         }
@@ -234,7 +285,20 @@ public class TaskServiceImpl implements TaskService {
         }
 
         if (!ObjectUtils.isEmpty(taskDto.getProject())) {
-            task.setProject(projectConverter.convertToEntity(taskDto.getProject()));
+            Long id = taskDto.getProject().getId();
+            Project project = projectRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + id));
+
+            if (!ObjectUtils.isEmpty(taskDto.getProject().getCode()) ||
+                !ObjectUtils.isEmpty(taskDto.getProject().getName()) ||
+                !ObjectUtils.isEmpty(taskDto.getProject().getDescription()) ||
+                !ObjectUtils.isEmpty(taskDto.getProject().getStatus())) {
+                throw new FieldIncorrectException(
+                        messageSource.getMessage("project.not.updatable.here", null, Locale.ENGLISH));
+            }
+
+            task.setProject(project);
         }
 
         if (!ObjectUtils.isEmpty(taskDto.getLaborCosts())) {
@@ -242,6 +306,20 @@ public class TaskServiceImpl implements TaskService {
         }
 
         if (!ObjectUtils.isEmpty(taskDto.getDeadline())) {
+            Long laborCost = task.getLaborCosts();
+
+            if (!ObjectUtils.isEmpty(taskDto.getLaborCosts())) {
+                laborCost = taskDto.getLaborCosts();
+            }
+
+            long days = laborCost/24;
+            LocalDate minDeadLine = task.getCreatedAt().toLocalDate().plusDays(days);
+
+            if (taskDto.getDeadline().isBefore(minDeadLine)) {
+                throw new FieldIncorrectException(
+                        messageSource.getMessage("task.field.deadline.lessThan.laborCost", null, Locale.ENGLISH));
+            }
+
             task.setDeadline(taskDto.getDeadline());
         }
     }

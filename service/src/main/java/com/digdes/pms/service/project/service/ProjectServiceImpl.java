@@ -3,6 +3,7 @@ package com.digdes.pms.service.project.service;
 import com.digdes.pms.dto.project.ProjectDto;
 import com.digdes.pms.dto.project.ProjectFilterDto;
 import com.digdes.pms.exception.FieldIncorrectException;
+import com.digdes.pms.exception.NotSpecifiedIdException;
 import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.project.Project;
 import com.digdes.pms.model.project.ProjectStatus;
@@ -48,6 +49,11 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectDto update(ProjectDto projectDto) {
+        if (ObjectUtils.isEmpty(projectDto.getId())) {
+            throw new NotSpecifiedIdException(
+                    messageSource.getMessage("project.field.id.null", null, Locale.ENGLISH));
+        }
+
         Project project = projectRepository.findById(projectDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("project.not.found.id", null, Locale.ENGLISH) + projectDto.getId()));

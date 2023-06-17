@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @PropertySource("secret.properties")
 public class SecurityConfig {
     private final AuthEmployeeService authEmployeeService;
@@ -29,8 +32,10 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/auth", "/swagger-ui/**").permitAll()
-                .antMatchers("/api/v1/**").authenticated()
+                .antMatchers("/api/v1/employee/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/project/**", "/api/v1/team/**").hasRole("MANAGER")
+                .antMatchers("/api/v1/task/**").hasRole("USER")
+                .antMatchers("/api/v1/auth/**", "/swagger-ui/**").anonymous()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

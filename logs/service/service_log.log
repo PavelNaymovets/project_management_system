@@ -1,13 +1,12 @@
-2023-06-06 13:33:28 [http-nio-8080-exec-3] DEBUG service-log - New message
-2023-06-06 14:17:51 [http-nio-8080-exec-4] DEBUG service-log - New message
-2023-06-06 14:20:40 [http-nio-8080-exec-1] DEBUG service-log - New message
-2023-06-06 14:31:15 [http-nio-8080-exec-1] DEBUG service-log - New message
-2023-06-06 15:03:58 [http-nio-8080-exec-1] DEBUG service-log - New message
-2023-06-06 17:51:53 [http-nio-8080-exec-4] DEBUG service-log - Task was found successfully with id:1
-2023-06-06 17:52:02 [http-nio-8080-exec-5] DEBUG service-log - Task employee was appointed successfully. Id: 1, employee login: zlata.rybakov, author login: akov.efremov
-2023-06-06 17:52:36 [http-nio-8080-exec-7] DEBUG service-log - Task employee is the same. Id: 1, employee login: zlata.rybakov
-2023-06-06 17:52:58 [http-nio-8080-exec-8] DEBUG service-log - Task employee was appointed successfully. Id: 1, employee login: popova.oleg, author login: akov.efremov
-2023-06-06 17:53:00 [http-nio-8080-exec-8] DEBUG service-log - Task employee is the same. Id: 1, employee login: popova.oleg
-2023-06-06 17:59:40 [http-nio-8080-exec-2] DEBUG service-log - Task employee is the same. Id: 1, employee login: popova.oleg
-2023-06-06 17:59:52 [http-nio-8080-exec-3] DEBUG service-log - Task employee was appointed successfully. Id: 1, employee login: zlata.rybakov, author login: akov.efremov
-2023-06-06 18:00:39 [http-nio-8080-exec-4] DEBUG service-log - Task was found successfully with id: 1
+2023-06-17 00:18:43 [http-nio-8080-exec-1] DEBUG service-log - Task was found successfully with id: 1
+2023-06-17 00:19:07 [http-nio-8080-exec-4] DEBUG service-log - Task employee was appointed successfully. Id: 4, employee login: vil53, author login: romanova.dina
+2023-06-17 00:22:37 [http-nio-8080-exec-1] DEBUG service-log - Task employee is the same. Id: 4, employee login: vil53
+2023-06-17 00:22:45 [http-nio-8080-exec-3] DEBUG service-log - Task employee was appointed successfully. Id: 4, employee login: zlata.rybakov, author login: romanova.dina
+2023-06-17 00:27:55 [http-nio-8080-exec-2] DEBUG service-log - Task employee is the same. Id: 4, employee login: zlata.rybakov
+2023-06-17 00:28:02 [http-nio-8080-exec-3] DEBUG service-log - Task employee was appointed successfully. Id: 4, employee login: vil53, author login: romanova.dina
+2023-06-17 00:30:42 [http-nio-8080-exec-1] DEBUG service-log - Task employee is the same. Id: 4, employee login: vil53
+2023-06-17 00:30:53 [http-nio-8080-exec-3] DEBUG service-log - Task employee was appointed successfully. Id: 4, employee login: zlata.rybakov, author login: romanova.dina
+2023-06-17 00:33:26 [http-nio-8080-exec-1] DEBUG service-log - Task employee is the same. Id: 4, employee login: zlata.rybakov
+2023-06-17 00:33:34 [http-nio-8080-exec-3] DEBUG service-log - Task employee was appointed successfully. Id: 4, employee login: vil53, author login: romanova.dina
+2023-06-17 00:35:02 [http-nio-8080-exec-2] DEBUG service-log - Task employee is the same. Id: 4, employee login: vil53
+2023-06-17 00:35:07 [http-nio-8080-exec-3] DEBUG service-log - Task employee was appointed successfully. Id: 4, employee login: zlata.rybakov, author login: romanova.dina

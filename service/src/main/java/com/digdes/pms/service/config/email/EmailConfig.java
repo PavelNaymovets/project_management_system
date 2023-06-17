@@ -1,4 +1,4 @@
-package com.digdes.pms.service.config;
+package com.digdes.pms.service.config.email;
 
 import com.digdes.pms.service.task.email.collector.thymeleaf.EmailFieldNameProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;

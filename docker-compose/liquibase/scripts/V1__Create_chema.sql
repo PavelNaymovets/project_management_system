@@ -20,7 +20,7 @@ create table role
   name              varchar(50) not null unique
 );
 
-CREATE TABLE employee_role
+create table employee_role
 (
   employee_id           bigint not null references employee (id),
   role_id               bigint not null references role (id),
@@ -43,14 +43,15 @@ create table task
     id          bigserial primary key,
     name        text      not null,
     description text,
-    project_id  bigint    references project (id),
+    project_id  bigint    not null references project (id),
     employee_id bigint    references employee (id),
     labor_cost  bigint    not null,
     dead_line   date      not null,
     status      text      not null,
     author_id   bigint    not null references employee (id),
     created_at  timestamp default current_timestamp,
-    updated_at  timestamp default current_timestamp
+    updated_at  timestamp default current_timestamp,
+    unique (name, project_id)
 );
 
 create table team

@@ -20,6 +20,12 @@ public class ProjectValidatorImpl implements ProjectValidator {
     public void validate(ProjectDto projectDto) {
         List<String> errorMessage = new ArrayList<>();
 
+        if (!ObjectUtils.isEmpty(projectDto.getId())) {
+            errorMessage.add(messageSource.getMessage("project.field.id.autofill", null, Locale.ENGLISH));
+        }
+        if (!ObjectUtils.isEmpty(projectDto.getStatus())) {
+            errorMessage.add(messageSource.getMessage("project.field.status.autofill", null, Locale.ENGLISH));
+        }
         if (ObjectUtils.isEmpty(projectDto.getName()) || projectDto.getName().isBlank()) {
             errorMessage.add(messageSource.getMessage("project.field.name.not.filled", null, Locale.ENGLISH));
         }

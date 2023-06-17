@@ -1,5 +1,6 @@
 package com.digdes.pms.controller.task;
 
+import com.digdes.pms.auth.util.IsAdmin;
 import com.digdes.pms.dto.task.TaskDto;
 import com.digdes.pms.dto.task.TaskFilterDto;
 import com.digdes.pms.service.task.service.TaskService;
@@ -93,6 +94,7 @@ public class TaskController {
                     )
             }
     )
+    @IsAdmin
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public TaskDto deleteById(@PathVariable
                               @Parameter(description = "Идентификатор задачи.", required = true)

@@ -3,6 +3,7 @@ package com.digdes.pms.service.team.service;
 import com.digdes.pms.dto.team.TeamMemberDto;
 import com.digdes.pms.dto.team.TeamMemberFilterDto;
 import com.digdes.pms.exception.FieldIncorrectException;
+import com.digdes.pms.exception.NotSpecifiedIdException;
 import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.model.employee.Employee;
 import com.digdes.pms.model.team.Team;
@@ -13,7 +14,6 @@ import com.digdes.pms.repository.team.TeamMemberRepository;
 import com.digdes.pms.repository.team.TeamRepository;
 import com.digdes.pms.repository.team.specification.TeamMemberSpecification;
 import com.digdes.pms.service.employee.converter.EmployeeConverter;
-import com.digdes.pms.service.project.converter.ProjectConverter;
 import com.digdes.pms.service.team.converter.TeamConverter;
 import com.digdes.pms.service.team.converter.TeamMemberConverter;
 import com.digdes.pms.service.team.validator.TeamMemberValidator;
@@ -40,7 +40,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     private final TeamRepository teamRepository;
     private final EmployeeConverter employeeConverter;
     private final EmployeeRepository employeeRepository;
-    private final ProjectConverter projectConverter;
     private final MessageSource messageSource;
 
     @Override
@@ -50,7 +49,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         Team team = teamRepository.findById(teamMemberDto.getTeam().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("team.not.found.id", null, Locale.ENGLISH) + teamMemberDto.getTeam().getId()));
-        teamMemberDto.getTeam().setProject(projectConverter.convertToDto(team.getProject()));
+        teamMemberDto.setTeam(teamConverter.convertToDto(team));
         Employee employee = employeeRepository.findById(teamMemberDto.getEmployee().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + teamMemberDto.getEmployee().getId()));
@@ -66,22 +65,21 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Override
     public TeamMemberDto update(TeamMemberDto teamMemberDto) {
+        if (ObjectUtils.isEmpty(teamMemberDto.getId())) {
+            throw new NotSpecifiedIdException(
+                    messageSource.getMessage("teamMember.field.id.null", null, Locale.ENGLISH));
+        }
+
         TeamMember teamMember = teamMemberRepository.findById(teamMemberDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         messageSource.getMessage("teamMember.not.found.id", null, Locale.ENGLISH) + teamMemberDto.getId()));
-        Team team = teamRepository.findById(teamMemberDto.getTeam().getId())
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("team.not.found.id", null, Locale.ENGLISH) + teamMemberDto.getTeam().getId()));
-        teamMemberDto.getTeam().setProject(projectConverter.convertToDto(team.getProject()));
-        Employee employee = employeeRepository.findById(teamMemberDto.getEmployee().getId())
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + teamMemberDto.getEmployee().getId()));
-        teamMemberDto.setEmployee(employeeConverter.convertToDto(employee));
         checkUpdatableFields(teamMemberDto, teamMember);
         TeamMember updatedTeamMember = teamMemberRepository.save(teamMember);
+        Long teamId = updatedTeamMember.getTeam().getId();
+        String employeeLogin = updatedTeamMember.getEmployee().getLogin();
         serviceLog.debug(
                 String.format(
-                        messageSource.getMessage("teamMember.updated", null, Locale.ENGLISH), team.getId(), employee.getLogin()));
+                        messageSource.getMessage("teamMember.updated", null, Locale.ENGLISH), teamId, employeeLogin));
 
         return teamMemberConverter.convertToDto(updatedTeamMember);
     }
@@ -150,6 +148,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                         messageSource.getMessage("teamMember.update.role", null, Locale.ENGLISH), id, role));
     }
 
+    @Override
+    public boolean isEmployeeProjectMember(Long projectId, Long employeeId) {
+        return teamMemberRepository.getByProjectIdAndEmployeeId(projectId, employeeId).isPresent();
+    }
+
     private void checkRole(String role) {
         if (TeamMemberRole.check(role) == null) {
             throw new FieldIncorrectException(
@@ -158,12 +161,45 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     private void checkUpdatableFields(TeamMemberDto teamMemberDto, TeamMember teamMember) {
-        if (!ObjectUtils.isEmpty(teamMemberDto.getTeam()) && teamMemberDto.getTeam().getId() != null) {
-            teamMember.setTeam(teamConverter.convertToEntity(teamMemberDto.getTeam()));
+        if (!ObjectUtils.isEmpty(teamMemberDto.getRole())) {
+            throw new FieldIncorrectException(
+                    messageSource.getMessage("teamMember.field.status.not.updatable", null, Locale.ENGLISH));
         }
 
-        if (!ObjectUtils.isEmpty(teamMemberDto.getEmployee()) && teamMemberDto.getEmployee().getId() != null) {
-            teamMember.setEmployee(employeeConverter.convertToEntity(teamMemberDto.getEmployee()));
+        if (!ObjectUtils.isEmpty(teamMemberDto.getTeam()) && !ObjectUtils.isEmpty(teamMemberDto.getTeam().getId())) {
+            Long id = teamMemberDto.getTeam().getId();
+            Team team = teamRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            messageSource.getMessage("team.not.found.id", null, Locale.ENGLISH) + id));
+
+            if (!ObjectUtils.isEmpty(teamMemberDto.getTeam().getProject())) {
+                throw new FieldIncorrectException(
+                        messageSource.getMessage("team.not.updatable.here", null, Locale.ENGLISH));
+            }
+
+            teamMember.setTeam(team);
+        }
+
+        if (!ObjectUtils.isEmpty(teamMemberDto.getEmployee()) && !ObjectUtils.isEmpty(teamMemberDto.getEmployee().getId())) {
+            Long id = teamMemberDto.getEmployee().getId();
+            Employee employee = employeeRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            messageSource.getMessage("employee.not.found.id", null, Locale.ENGLISH) + id));
+
+            if (!ObjectUtils.isEmpty(teamMemberDto.getEmployee().getLastName()) ||
+                !ObjectUtils.isEmpty(teamMemberDto.getEmployee().getFirstName()) ||
+                !ObjectUtils.isEmpty(teamMemberDto.getEmployee().getMiddleName()) ||
+                !ObjectUtils.isEmpty(teamMemberDto.getEmployee().getPersonalNumber()) ||
+                !ObjectUtils.isEmpty(teamMemberDto.getEmployee().getPosition()) ||
+                !ObjectUtils.isEmpty(teamMemberDto.getEmployee().getEmail()) ||
+                !ObjectUtils.isEmpty(teamMemberDto.getEmployee().getLogin()) ||
+                !ObjectUtils.isEmpty(teamMemberDto.getEmployee().getPassword()) ||
+                !ObjectUtils.isEmpty(teamMemberDto.getEmployee().getStatus())) {
+                throw new FieldIncorrectException(
+                        messageSource.getMessage("employee.not.updatable.here", null, Locale.ENGLISH));
+            }
+
+            teamMember.setEmployee(employee);
         }
 
         if (!ObjectUtils.isEmpty(teamMemberDto.getRole())) {

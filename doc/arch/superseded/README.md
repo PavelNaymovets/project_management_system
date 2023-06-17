@@ -1,4 +1,4 @@
-# Система управления проектами
+# Первый вариант структуры и архитектуры проекта
 ### Структура проекта
 Проект состоит из 5 основных модулей:
 * _./auth-service_ - аутентификация пользователя в системе
@@ -34,17 +34,17 @@
 
 Отображены функциональные возможности программы для пользователя согласно основным _[требованиям](https://github.com/PavelNaymovets/project_management_system/tree/develop#%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5-%D1%82%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F)_.
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/use-case/use%20case%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/superseded/use-case/use%20case%20diagram.png)
 
 #### Container diagram
 
 Отображены основные элементы программы и их взаимодействие между собой. Отображена легенда в правом верхнем углу схемы.
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/container/container%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/superseded/container/container%20diagram.png)
 
 #### Deployment diagram
 
 Отображено развертывание основных элементов программы на сервере. В качестве сервера выступает мой рабочий компьютер.
 Пояснение по диаграмме: `х5` значит 5 контейнеров. Количество контейнеров = количество модулей в _[программе](https://github.com/PavelNaymovets/project_management_system/tree/develop#%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0)_.
 
-![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/deployment/deployment%20diagram.png)
+![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/superseded/deployment/deployment%20diagram.png)
