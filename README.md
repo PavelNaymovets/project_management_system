@@ -41,7 +41,7 @@ Docker, Swagger, RabbitMQ.
 * _[./doc/arch](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/arch)_ - диаграммы архитектуры проекта (*.drawio, *.png)
 * _[./doc/image](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/image/email)_ - скриншоты
 * _[./doc/questions](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/questions)_ - вопросы куратору
-* _[./doc/remarks](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/remarks/remark%60s%20list.md)_ - замечания от куратора и идеи по улучшению проекта
+* _[./doc/remarks](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/remarks)_ - замечания от куратора и идеи по улучшению проекта
 * _[./doc/test-case](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc/test-case)_ - функциональные текст-кейсы. Составлены и реализованы (*.md)
 
 #### docker-compose:
@@ -73,7 +73,7 @@ _[(первый вариант архитектуры)](https://github.com/Pavel
 Применено для отображения структуру таблиц и связей между таблицами в базе данных.
 
 #### Use case diagram
-Отображены функциональные возможности программы для пользователей согласно основным _[требованиям](https://github.com/PavelNaymovets/project_management_system/tree/develop#%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5-%D1%82%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F)_.
+Отображены функциональные возможности программы для пользователей согласно основным требованиям.
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/use-case/use%20case%20diagram.png)
 
