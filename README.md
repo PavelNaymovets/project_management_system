@@ -132,7 +132,7 @@ _[(первый вариант архитектуры)](https://github.com/Pavel
 Программа пишет логи в консоль и в файлы. Файлы расположены в папке _[./logs](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs)_.
 
 #### Email
-При назначении исполнителя на задачу, программа асинхронно (с помощью `rabbitMQ`) отправит email уведомление сотруднику 
+При назначении исполнителя на задачу, программа асинхронно, с помощью `rabbitMQ`, отправит email уведомление сотруднику 
 которому была поставлена задача:
 
 ![Image alt](https://github.com/PavelNaymovets/project_management_system/blob/develop/doc/arch/use-case/rabbitMQ.png)
