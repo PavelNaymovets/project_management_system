@@ -1,6 +1,7 @@
 package com.digdes.pms.service.employee.validator;
 
 import com.digdes.pms.dto.employee.EmployeeDto;
+import com.digdes.pms.exception.ResourceNotFoundException;
 import com.digdes.pms.exception.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -19,7 +20,9 @@ public class EmployeeValidatorImpl implements EmployeeValidator {
     @Override
     public void validate(EmployeeDto employeeDto) {
         List<String> errorMessage = new ArrayList<>();
-
+        if (ObjectUtils.isEmpty(employeeDto)) {
+            throw new ResourceNotFoundException(messageSource.getMessage("employee.null", null, Locale.ENGLISH));
+        }
         if (!ObjectUtils.isEmpty(employeeDto.getId())) {
             errorMessage.add(messageSource.getMessage("employee.field.id.autofill", null, Locale.ENGLISH));
         }
