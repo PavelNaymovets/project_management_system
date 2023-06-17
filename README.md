@@ -46,7 +46,7 @@ Docker, Swagger, RabbitMQ.
 
 #### docker-compose:
 * _[./docker-compose/app](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/app)_ - создание образа - `Dockerfile`. Запуск CI-CD - `run-app.sh`
-* _[./docker-compose/imports](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/imports/db)_ - создание базы данных `project` в `PostgreSQL`, при развертывании контейнера базы данных - `init.sh`
+* _[./docker-compose/imports](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/imports/db)_ - создание базы данных `project` в `PostgreSQL` - `init.sh`, при развертывании контейнера базы данных
 * _[./docker-compose/liquibase](https://github.com/PavelNaymovets/project_management_system/tree/develop/docker-compose/liquibase)_ - файлы миграции базы данных
 * _[./docker-compose/docker-compose.yml](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/docker-compose.yml)_ - развертывание программы в `docker`
 
