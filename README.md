@@ -17,7 +17,8 @@
 Читайте *.md файлы на gitHub. Иначе не будут видны вставленные изображения.
 
 #### Стэк
-OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquibase, Lombok, Logback, Slf4j, PostgreSQL, Docker, Swagger.
+OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquibase, Lombok, Logback, Slf4j, PostgreSQL, 
+Docker, Swagger, RabbitMQ.
 
 ### Структура проекта
 Проект состоит из 5 логических модулей:
