@@ -15,7 +15,7 @@
 
 #### ВАЖНО
 Читайте *.md файлы на gitHub. Иначе не будут видны вставленные изображения.
-Макет дизайн-проекта в figma можно посмотреть _[тут](https://www.figma.com/file/ha09hYWW7ear8SOakbmKqJ/Project-management-system?type=design&node-id=0-1&mode=design&t=tJ9Ytjxt1rbM8BSI-0)_. В настоящий момент дизайн дорабатывается
+Макет дизайн-проекта в figma можно посмотреть _[тут](https://www.figma.com/file/ha09hYWW7ear8SOakbmKqJ/Project-management-system?type=design&node-id=0-1&mode=design&t=tJ9Ytjxt1rbM8BSI-0)_(в настоящий момент дизайн-проект дорабатывается)
 
 #### Стэк
 OpenJDK 18, Spring framework (Boot, Web, Security, Data JPA), Hibernate, Liquibase, Lombok, Logback, Slf4j, PostgreSQL, 
