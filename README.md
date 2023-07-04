@@ -34,7 +34,7 @@ Docker, Swagger, RabbitMQ, Figma
 И 3 папок:
 * _[./dock](https://github.com/PavelNaymovets/project_management_system/tree/develop/doc)_ - документация по проекту
 * _[./docker-compose](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose)_ - непрерывная сборка и развертывание программы в `docker`
-* _[./logs](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs)_ - логи
+* _./logs_ - логи
 
 ### Структура папок:
 #### dock:
@@ -52,10 +52,10 @@ Docker, Swagger, RabbitMQ, Figma
 * _[./docker-compose/docker-compose.yml](https://github.com/PavelNaymovets/project_management_system/blob/develop/docker-compose/docker-compose.yml)_ - развертывание программы в `docker`
 
 #### logs:
-* _[./logs/auth](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs/auth)_ - логи аутентификации, включая исключения
-* _[./logs/email](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs/email)_ - логи сборки и отправки email уведомления на почту, включая исключения
-* _[./logs/exception](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs/exception)_ - логи исключений обрабатываемые в _[GlobalExceptionHandler](https://github.com/PavelNaymovets/project_management_system/blob/develop/controller/src/main/java/com/digdes/pms/controller/exception/GlobalExceptionHandler.java)_, кроме исключений auth и email
-* _[./logs/service](https://github.com/PavelNaymovets/project_management_system/tree/develop/logs/service)_ - логи работы всех сервисов
+* _./logs/auth_ - логи аутентификации, включая исключения
+* _./logs/email_ - логи сборки и отправки email уведомления на почту, включая исключения
+* _./logs/exception_ - логи исключений обрабатываемые в _[GlobalExceptionHandler](https://github.com/PavelNaymovets/project_management_system/blob/develop/controller/src/main/java/com/digdes/pms/controller/exception/GlobalExceptionHandler.java)_, кроме исключений auth и email
+* _./logs/service_ - логи работы всех сервисов
 
 ### Архитектура:
 Для описания архитектуры программы применены 5 диаграмм: 2 UML, 2 C4, 1 Physical model.
