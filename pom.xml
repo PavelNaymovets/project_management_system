@@ -29,6 +29,64 @@
     <properties>
         <revision>0.1</revision>
         <changelist>-SNAPSHOT</changelist>
+        <model.version>0.1${changelist}</model.version>
+        <service.version>0.1${changelist}</service.version>
+        <controller.version>0.1${changelist}</controller.version>
+        <repository.version>0.1${changelist}</repository.version>
+        <dto.version>0.1${changelist}</dto.version>
+        <app.version>0.1${changelist}</app.version>
+        <auth.version>0.1${changelist}</auth.version>
+        <springdoc.version>1.6.6</springdoc.version>
+        <jjwt.version>0.9.1</jjwt.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.digdes.pms</groupId>
+                <artifactId>model</artifactId>
+                <version>${model.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.digdes.pms</groupId>
+                <artifactId>service</artifactId>
+                <version>${service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.digdes.pms</groupId>
+                <artifactId>controller</artifactId>
+                <version>${controller.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.digdes.pms</groupId>
+                <artifactId>repository</artifactId>
+                <version>${repository.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.digdes.pms</groupId>
+                <artifactId>dto</artifactId>
+                <version>${dto.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.digdes.pms</groupId>
+                <artifactId>app</artifactId>
+                <version>${app.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.digdes.pms</groupId>
+                <artifactId>auth</artifactId>
+                <version>${auth.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

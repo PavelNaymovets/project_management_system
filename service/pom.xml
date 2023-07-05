@@ -2,39 +2,37 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>project_management_system</artifactId>
         <groupId>com.digdes.pms</groupId>
         <version>${revision}${changelist}</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
     <artifactId>service</artifactId>
+    <version>${revision}${changelist}</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>18</maven.compiler.target>
         <maven.compiler.source>18</maven.compiler.source>
+        <revision>0.1</revision>
+        <changelist>-SNAPSHOT</changelist>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.digdes.pms</groupId>
             <artifactId>model</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.digdes.pms</groupId>
             <artifactId>repository</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.digdes.pms</groupId>
             <artifactId>dto</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
