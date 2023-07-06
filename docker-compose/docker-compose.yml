@@ -6,49 +6,66 @@ services:
     container_name: rabbitmq
     image: rabbitmq:management
     ports:
-      - "5673:5672"
-      - "15673:15672"
+      - ${MSS_APP_PORT_EX}:${MSS_APP_PORT_IN}
+      - ${MSS_WEB_PORT_EX}:${MSS_WEB_PORT_IN}
     networks:
-      - psvm-net
+      - ${NETWORK}
 
   psvm-postgres:
     container_name: postgres
     image: postgres
     ports:
-      - "5433:5432"
+      - ${PSG_PORT_EX}:${PSG_PORT_IN}
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${PSG_USER}
+      POSTGRES_PASSWORD: ${PSG_PASSWORD}
     volumes:
       - ./imports/db/:/docker-entrypoint-initdb.d/
     networks:
-      - psvm-net
+      - ${NETWORK}
 
   psvm-liquibase:
     container_name: liquibase
     image: liquibase/liquibase
     command:
       - update
-      - --url=jdbc:postgresql://psvm-postgres:5432/project?user=postgres&password=postgres
+      - --url=${PSG_DRIVER_URL}:${PSG_HOST}/${PSG_DB_NAME}?user=${PSG_USER}&password=${PSG_PASSWORD}
       - --changeLogFile=changelog.xml
     volumes:
       - ./liquibase/config/changelog.xml:/liquibase/changelog.xml
       - ./liquibase/scripts:/liquibase/scripts
     networks:
-      - psvm-net
+      - ${NETWORK}
     depends_on:
-      - psvm-postgres
+      - ${PSG_SERVICE_NAME}
 
   psvm-pms-app:
     container_name: pms-app
     image: pms-app
+    environment:
+      APP_START_PORT: ${APP_PORT_IN}
+      APP_CONTEXT_PATH: ${CONTEXT_PATH}
+      DB_DRIVER: ${PSG_DRIVER}
+      DB_USER: ${PSG_USER}
+      DB_PASSWORD: ${PSG_PASSWORD}
+      DB_DRIVER_URL: ${PSG_DRIVER_URL}
+      DB_HOST: ${PSG_HOST}
+      DB_NAME: ${PSG_DB_NAME}
+      DB_DIALECT: ${PSG_DIALECT}
+      MAIL_USER: ${GMAIL_USER}
+      MAIL_PASSWORD: ${GMAIL_PASSWORD}
+      MAIL_PORT: ${GMAIL_PORT}
+      BROKER_USER: ${MSS_USER}
+      BROKER_PASSWORD: ${MSS_PASSWORD}
+      BROKER_HOST: ${MSS_SERVICE_NAME}
+      BROKER_PORT: ${MSS_APP_PORT_IN}
     ports:
-      - "8080:8080"
+      - "${APP_PORT_EX}:${APP_PORT_IN}"
     networks:
-      - psvm-net
+      - ${NETWORK}
     depends_on:
-      - psvm-postgres
-      - psvm-rabbitmq
+      - ${PSG_SERVICE_NAME}
+      - ${MSS_SERVICE_NAME}
 
 networks:
   psvm-net:

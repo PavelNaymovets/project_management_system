@@ -1,24 +1,24 @@
 server:
-  port: 8080
+  port: ${APP_START_PORT}
   servlet:
-    context-path: /pms
+    context-path: ${APP_CONTEXT_PATH}
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://psvm-postgres:5432/project
-    username: postgres
-    password: postgres
+    driver-class-name: ${DB_DRIVER}
+    url: ${DB_DRIVER_URL}:${DB_HOST}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        dialect: ${DB_DIALECT}
         ddl-auto: none
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
-    username:
-    password:
-    port: 587
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
+    port: ${MAIL_PORT}
     properties:
       mail:
         smtp:
@@ -35,10 +35,10 @@ spring:
     suffix: .html
     encoding: UTF-8
   rabbitmq:
-    username: guest
-    password: guest
-    host: psvm-rabbitmq
-    port: 5672
+    username: ${BROKER_USER}
+    password: ${BROKER_PASSWORD}
+    host: ${BROKER_HOST}
+    port: ${BROKER_PORT}
     listener:
       simple:
         retry:
